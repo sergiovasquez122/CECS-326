@@ -726,56 +726,22 @@ replace a process with another. they will have the same process
 id because we are replacing a process.
 
 
+---------------------------threading issues-------------
 
+duplicate all threads or duplicate thread taht invoked
+the fork() system call. If a thread invokes
+the exec() system call, the program specified in 
+the parameter to exec() will replace the entire
+process---including all the threads.
 
+which of the two version of fork() to use depends on
+the applications.
 
+if exec() is called immediately forking
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+then duplicating all threads is unnecessary,
+as the program specified in the parameters to exec()
+will replace the process. In this instance, duplicating
+only the calling thread is appropriate.
 
 
