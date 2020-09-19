@@ -1,7 +1,60 @@
 The operating system takes physical resources and virtualizes them. It handles issues related to concurrency.
 Stores files persistently.
 
+--------------------------------Process------------------
+A process is a running program. A program is just
+a bunch of instructions and some data sitting in disk.It
+is an operating system which brings it to life.
 
+Often we are running more than one program at once.
+examples code be listening to music while having
+your browser open and using your favorite IDE.
+
+In order to virtual the CPU to give the illusion
+of many CPU's the OS applies time-sharing of the CPU.
+We run one program then stop it and run another one and
+so on.
+
+mechanisms: low-level methods that implement a 
+needed piece of functionality.
+
+-----------------------------Process API-----------------
+
+must be included in the interface of any OS.
+
+Create: OS must have methods to create new processes.
+when you double click on a application icon the os
+is invoked to create a new process to run the program.
+Destroy: OS must have methods to terminate processes.
+Wait: OS must hav emthods to wait for process to stop running.
+Miscellaneous Control: Methods such as suspending
+a process and resuming it.
+Status: Methods to get the status information of 
+a process.
+
+
+--------------------------Process States------------------
+A process can in different states during its lifetime.
+A process can be in one of three states:
+
+- Running: In the running state, a process is running on  a processor. This means it is executing instructions.
+
+- Ready: In the ready state, a process is ready to run but the OS has not choosen to let it run at the given moment.
+
+- Blocked: Process has performed some operation that doesn't allow it continue until some event has taken place.
+
+
+Process state of two processes that only use the CPU
+
+time		Process0		Process1
+1		Running			Ready
+2		Running			Ready
+3		Running			Ready
+4		Running			Ready
+5		Done			Running
+6		Done			Running
+7		Done			Running
+8		Done			Running
 
 -------------------------------Operating System Interfaces -------------------
 1. User interface
