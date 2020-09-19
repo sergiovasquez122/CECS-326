@@ -1,0 +1,781 @@
+-------------------------------Operating System Interfaces -------------------
+1. User interface
+    1. command line interface
+    2. Graphical User Interface
+
+2. Program execution    
+
+3. I/O operations
+
+keyboard
+mouse
+monitor
+printer
+speaker
+other input
+other input
+other output
+
+4. File System Manipulation
+access restriction is controlled by operating systems
+
+5. Communications
+
+processes that communicate with each other so their execution
+can be done in an effective way.
+
+6. Error detection
+
+important service provided by the operating system
+
+7. Resource Allocation
+
+A process keeps waiting for a resource but never gets it
+Process gets resource but never releases it
+
+8. Accounting
+
+Which user uses and how much resources and of what type
+keeping usage statistics.
+
+9. Protection and Security
+
+Processes are executing at the same time, a process should
+not be able to interfere with other processes operations.
+
+
+----------------------------------User Operating System Interface-----------------------------------------------------
+
+There are two fundamental approaches for users to interface with
+the operating system.
+
+1. Provide a command-line interface or command interpreter that allows users to directly enter commands that are to be performed by the operating system.
+
+2. Allow the user to interface with the operating system via a graphical user interface or GUI.
+
+Some operating systems include the command interpreter in the kernel
+
+others such as windows XP and UNIX, treat the command interpreter as a special program.
+
+On systems with multiple interpreter to choose from the interpreters are know as shells
+
+bourne-shell
+c shell
+bourne again shell
+korn shell
+
+System Calls
+
+System Calls provide a interface to the services made available
+by an operating system. 
+
+User mode and kernel mode
+
+two modes in which a program can execute.
+
+user mode does not have direct access to memory or hardward
+or such resources
+
+kernel mode is privileged mode.
+
+kernel mode programs that crash will crash entire system.
+
+user mode program crash the whole system will not crash.
+
+user mode is more safe so more program exectute in usermode.
+
+switching from kernel to user and vice verse is known as mode
+shifting.
+
+system calls provide an interface to the services made available
+by an operating system.
+
+System calls is the programmatic way in which a computer program
+requests a service from the kernel of the operating system.
+
+example we want to read data from one file to another
+
+Acquire input filename
+write prompt to screen
+accept input
+Acquire Output filename
+Write prompt to screen
+Accept Input
+Open Input File
+If file doesn't exist, ABORT
+CREATE Output file
+If file exists, ABORT
+write completion message to screen
+terminate normally
+
+had to use lots of system calls even for very simple tasks.
+system calls are always being executed.
+
+These calls are generally avaiable on routines written in
+C and C++.
+
+-----------------Types of Systems Calls----------------------
+
+1. Process Control
+2. File Manipulation
+3. Device Management
+4. Information Maintenance
+5. Communications
+
+1. Process Control
+
+-end, abort
+-load, execute
+-create process, terminate process
+-get process attributes, set process attributes
+-wait for time
+-wait even, signal event
+-allocate and free memory
+
+2. File Manipulation
+-create file, delete file
+-open, close
+-read, write, reposition
+-get file attributes, set file attributes
+
+3. Device Manipulation
+-Request device, Release Device
+-Read, Write, Reposition
+-get device attributes, set device attributes
+-logically attach or detach devices
+
+4. Information Maintenance
+-get time or date, set time or date
+-get system data, set system data
+-get process, file, or device attributes
+-set process, file, or device attributes
+
+5. Communication
+-create, delete communcation connection
+-send, receive messages
+-transfer status information
+-attach or detach remote devices
+
+These are the five major categories we can grouped system calls
+
+--------------System Programs----------------------------------
+An important aspect of a modern system is the collection of 
+system programs.
+
+-System programs provide a convenient environment for
+program development and execution
+
+File Management
+-create
+-delete
+-copy
+-rename
+-print
+-dump
+-list
+
+Status information
+-date, time
+-amount of available memory or disk space
+-Number of users
+-Detailed performance
+-Logging, and debugging information
+
+File Modification modifiying inner content of files
+
+Programming-language support
+-compilers
+-assembler
+-debuggers
+-interpreters
+
+program-loading and execution
+-absolute loaders
+-relocatable loaders
+-linkage editors
+-overlay editors
+
+debugging systems for either higher-level langauges or machine
+language are needed as well.
+
+Communications
+
+-creating virtual connections among processes, users, and computer systems
+-allowing users to send message to another's screen
+-to browse webpages
+-to send electronic-mail message
+-to log in remotely or to transfer files from one machine to another.
+
+In addition to system programs, most operating system 
+have programs to solve common problems.
+
+--------------Operating System Design & Implementation----------
+1st Problem: Defining Goals and specifications
+2nd Problem: Type of system
+
+Beyond this highest design level, the requirements may be
+much harder to specify.
+
+
+requirements
+-user goals:This system should easy to use, convienent and safe
+-system goals: Easy to design, implement, operate
+
+Mechanisms and policies:
+
+Mechanisms determine how to do something
+
+policies what will be done.
+
+One important is the separation of policy from mechanism.
+
+separation of policies and mechanism will make the system
+good and flexible.
+
+First operating systems were written in assembly language.
+
+Now most commonly written in higher-level languages 
+such as C or C++.
+
+advantages of writing in higher-level language
+-the code can be written much faster
+-it is most compact
+-it is easier to understand and debug
+-it is easier to support
+
+-Operating systems vary greatly in their makeup internally
+
+- COMMONALITIES:
+    -multiprogramming
+    A single user cannot, in general, keep either the CPU or the I/O devices busy at all times
+    - multi-programming increases CPU utilization by organizing
+    jobs so taht the CPU always has on to execute
+    - Job contain code and data
+    - All jobs that are to be executed contains job pools
+    - cannot load all jobs at once become memory is limited.
+    - If we don't have job programming everytime we run a job
+      we have to wait until the job is finished completely
+      before another job can use the CPU.
+    - Multi-programming: One Job uses CPU then switches to IO
+      then job 2 uses CPU until Job 1 is done with IO
+    - For a operating system to be effecient it should be
+      able to ultilize multi-programming
+    - Time-sharing(Multi-tasking system)
+        -CPU executes multiple-jobs by switching among them
+        -Switches occurs so frequently that the users can interact while it is running
+        -Time-sharing requires an interactive computer system,
+         which provides direct communcication between the user
+         and the system
+        - A time-shared system allows many users to share the computer
+         simultanelously
+        - while their is time-gap between system and the user that
+          the computer can serve other users.
+        -Uses CPU scheduling and muli-programming to provide
+         each user with a small portion of a time-share computer
+        -Each user has at least on separate program in memory
+        -A program loaded in memory and executing is called a "Process"
+        
+-------------------Structures of Operating Systems-------------
+Simple Structure
+
+Application Program
+|
+|
+|
+Resident Systems Programs
+|                   
+|
+Device Drivers
+|
+|
+ROM BIOS device drivers
+
+All things above can access elements in the bottom
+
+Monolithic Structure
+
+            
+The users
+
+
+Shells and commands
+compilers and interpreters
+system libraries
+
+kernel
+
+If you want to add something to this system it would be
+difficult to add to it.
+
+Layers Structure
+
+layer can only use layer below another layer.
+designing this layered structure is difficult.
+
+system can be slow.
+
+Microkernels
+
+we have microkernel.
+implement non-essential fo kernel as programs.
+
+micro-kernel can have performance decrease.
+communication can lead to performance decrease.
+
+Modules:
+
+current best way to create modular kernel in objected-oriented
+programming.
+
+Each kernel system has a protected interface.Any module can
+call any other module. more flexible than layered structure.
+
+One of the best structuring of OS we can have.
+
+-------------------------Virtual Machines-----------------------
+
+-abstract the hardware of a single computer into different 
+execution environments. create the illusion of many computers.
+
+-Non-virtual machine has to do one process at a time
+
+-virtual machine can split up so that each process has 
+it's own illusionary computer.
+
+implementation
+
+virtual-machine software - runs in kernel mode
+virtual-machine itself -   runs in user mode
+
+A virtual has two modes just like a physical machine
+
+1. A virtual user mode
+2. A virtual kernel mode
+
+both of which run in a physical user mode
+
+---------------------Operating System Generation & System Boot-----------------
+
+-Design code, and implement an operating system specificallly
+for one machine at one site
+
+-Operating systems are designed to run on any of a class
+of machines at a variety of peripheral configurations
+
+-The system must then be configured or generated for each
+specific computer site, is process sometimes know as 
+system generation is used for this
+
+-The following knids of information must be determined by the SYSGEN Program
+    - What CPU is to be used?
+    - How much memory is available
+    - What devices are available
+    - What operating-systems options are desireds
+
+-System Boot
+    - The procedure of starting a computer by loading the kernel is known as booting the system
+    - On most computer systems, a small piece of code known as bootstrap program or bootstrap loader locates the kernel
+    - This program is in the form of ROM. ROM 
+      needs no initialization and cannot be infected by a computer virus
+
+Firmware - Another type of read-only memory
+If you want to change something in the ROM you have to change
+everyone on the ROM chip.
+
+EPROM-erasable programmable read-only memory
+
+When the full bootstrap program has been loaded, it can
+traverse the file system to find the operating system
+kernel, load it into memory, and start its execution.
+It is only at this point that the system is said to be
+running.
+
+---------------------Process Management-----------------------
+
+- Process can be though of as a program in execution.
+
+- A thread is the unit of execution within a process. A process
+  can have anywhere from just one thread to many threads.
+
+A process can have many threads.
+
+
+--------------------------------Process States------------------
+
+- As a process executes, it changes states
+
+- The state of a process is defined in part by the current activity of that processs
+
+each process may be in the following states
+
+new -> the process is being created
+
+running -> instructions are being executed
+
+waiting -> the process is waiting for some event to occur
+
+ready ->   the process is waiting to be assigned to a processor
+
+terminated ->   the process has finished execution
+
+-------------------------Process Control Block------------------
+Each process is represeneted in the operating system by 
+a process control block. also called a task control block
+
+process id-every process is identified by a unique id
+process state-the particular state a process is in a particular moment
+process number-
+process counter-address of next line of instruction to be executed
+registers-Tells us the registers that are being used in a given process
+memory limits
+list of open files
+
+I/O status information: Input Output devices assigned to a process
+
+process control block is used to represent a particular process
+
+
+-----------------------Process Scheduling-----------------------
+-The objective of multi-programming is to have some process
+running at all times, to maximize CPU utilization.
+
+-The objective of time-sharing is to switch the CPU among processess so frequently that users cn interact with each program with each program while it is running.
+
+-To meet these objectives, the process scheduler selects on
+available process for program execution on the CPU.
+
+-For a single processor system, there will never be more than one running process
+
+-If there are more processes, the rest will have to wait until
+the CPU is free and can be rescheduled.
+
+JOB QUEUE-As process enter the system, they are put into a job queue,
+which consists of all processes in the system.
+
+READY QUEUE-The processes that are residing in main memory
+and are ready and waiting to execute are kept on a list called the ready queue.
+
+example
+From job queue goes to ready queue. completes execution
+and terminates.
+
+from job queues goes to ready queue. executing but then
+a more import process comes so the job is swapped out into
+partially executed process then ready queue.
+
+-------------------------------Context Switch-------------------
+-Interrupts cause the operating system to change a CPU from
+its current task to run a kernel routine
+
+-Such operations happen frequently on general-purpose systems
+
+-When an interrupt occurs, the system needs to save the curent context of the process currenlty running on the CPU so that it
+can restore the context when its processing is done, essentially
+suspending the process and then resuming it.
+
+-The context is represented in the PCB of the process.
+
+-At home reading a book.the process is reading a book. suddenly 
+mother comes and asks and you to do something. you are being
+interuptted reading a book to help your mother. put book mark
+on book and then help your mother with the task. save the current process of what you were doing.
+
+-Switching the CPU to another process requires performing
+a state save of the current process and a state restore
+of a different process.
+
+This task is known as a context switch. ssave the
+state of the process and then restore the state of the 
+process.
+
+-Context-switch time is pure overhead, because the system does no useful work while switching
+
+-It speed varies from machine to machine
+
+-typical speeds are a few milliseconds
+
+------------------------Operations on Process-------------------
+-A process may create several new processes, via a create-process system call, during the course of execution
+-The creating process is called a parent process, and the new processes are called the children of the process
+-Each of these new processes may in turn create other process, forming a tree of processes
+-from shell you can issue commands like ls and cat.
+-When a process creates a new process, two possibilities exist in terms of execution
+1.The parent continues to execute concurrently with its children
+2. the parent waits until some or all of its children have terminated
+
+
+There are also two possibilities in terms of te addresss space of the new process:
+1.the child proces is a duplicate of the parent process
+2. the child process has new program loaded into it
+
+
+---------------------------Process Termination------------------
+-A process terminates when it finishes executing its final
+statement and asks the operationg system to delete it
+by using the exit() system call.
+-Use the exit() call a process ask the OS to terminate the process
+-At the point the process may returna status value to its parent process
+-All the resources of the process-including physical and
+virtual memory, open files and I/O buffers are deallocated
+by the operating system.
+-Termination can occur in other circumstances as well
+-A process can cause the termination of another process vian
+an appropiate system call.
+-Usually such a system call can be invoked only by the paren to the process that is to be terminated
+-Otherwise, users could arbitrarily kill each other's job.
+
+A parent may terminate the execution of one of its children
+for a variety of reasons, such as these:
+
+-The child has exceed its usage of some of the resources that
+it has been allocated.
+
+-The task assigned to the child is no longer required
+
+-The parent is exiting, and the operating system does not allow a child to continue if its parent terminates
+
+-----------------------------Interprocess Communication---------
+-Processses executing concurrently in the operating system
+may be either indepenent processes or cooperating processes
+-Independent Processes-They cannot affect or be affected by the other processes executing in the system
+-Cooperating Processes-They can affect or be affected b teh other processes executing in the system.
+-There are several reaons for providing an environment that allows process cooperation
+
+-Information Sharing
+-Computation speedup
+-Modularity-design system so that we have separate modules
+-Convenience-allows users to do multiple tasks at the same time
+-Cooperating processes require an itnerprocess communication
+mechanism that will allow them to exchange data and information.
+-There are two fundamental models of interprocess communication.
+-shared memory
+-message passing
+
+
+-In the shared-memory model, a region of memory that is shared by cooperating processes is established
+-Processes can then exchange information by reading and writing data to the shared region.
+-When one process wants to communicate with another process it will write into shared memory region
+-the other process can read that data
+
+--------------------------------Shared Memory Systems-----------
+-Interprocess communication using shared memory requires
+communicating processes to establish a region of shared memory
+-typically, a shared-memory region resided in teh address space
+of the process creating the shared-memory segment
+-other processes that wish to communicate using this shared-memory segment must attach it to their address space
+-normally, the operating system tries to prevent one process from access another process's memory
+-shared memory requires that two or more processes agree to 
+remove this restriction
+-A producer process produces information that is consumed
+by consumer process.
+-For example, a compiler may produce assembly code, which
+is consumed an assembler. the assembler, in turn, may produce
+object modules,which are consumed by the loader.
+-they have to work concurrently so that consumer and produce
+consume in equilibrium
+-one solution is to use shared-memory
+-buffer of items that are filled by producer and consumed
+by consumer.
+-The producer and consumer must be syncronized so that the
+consumer does not try to consume what has not been produced
+
+
+two kinds of buffers
+-unbounded buffers-no limit ont the size of the buffer. consumer
+may have to wait for new items, but the produces can always produce new items
+-bounded buffers=assumes a fixed buffer size, in this 
+case, the conusmer must wait if the buffer is empty.
+and the producer must wait if the buffer is full.
+
+
+---------------------------Threads------------------------------
+A program under execution is a process
+each process can have a number of threads
+basic unit of CPU utilizaiton
+
+thread is composed of
+a thread ID
+a program counter
+a register set
+a stack
+
+It shares with other threads belong to the same process
+its code section, data section, and other operating system
+resources such as open files and signals.
+
+A traditional / heavyweigth process has a single thread of control
+
+If a process has multiple threads of control, it can perform more than one task at a time..
+
+single-threaded process
+
+--------------------
+| CODE DATE FILE   |
+| registers  STACK |
+|                  |
+|                  |
+|   THREAD         |
+|                  |
+|                  |
+--------------------
+
+As shown in the figure above a program that is a single-threaded
+process can only have a single thread of control. There is
+only one program counter and one sequence of instructions
+that can be carried out at any given time.
+
+
+multi-threaded process
+
+
+
+--------------------
+| CODE DATE FILE   |
+| r1   r2   r3     |
+| s1   s2   s3     |
+|                  |
+| t1   t2   t3     |
+|                  |
+|                  |
+--------------------
+
+as shown above each thread has their own program counter,
+their own registers and stack but they share the code
+data and files.
+
+You can look at a process to see the threads associated with
+it.
+
+each thread may be doing different tasks
+
+one thread is dedicated to viewing webpage
+another page is spent downloading.
+
+the benefits of multi-threading programming can be broken down into four major categories
+
+responsiveness -    multithreading an interactive application may allow a program to continue running even if part of it is blocked or is performing a length operationg, thereby moving responsiveness to the user.
+
+resource sharing - by default, threads share the memroy and
+the resources of the process to which they belong. the benefit
+of sharing code and data is that it allows an application
+to have several different threads of activity within the same
+address space
+
+allocating memory and resources for process creationg is costly.
+because threads ahre resoucrse of the process to which they
+belong, it is more economical.
+
+utlization of multi-process architecture.
+multi-threading can be greatlu increased in a mult-processor
+
+Multi-threading models and Hyper-threading
+
+1. User-threads - Supported above the kernel and are managed without kernel support
+2. Kernel-threads - Supported and managed directly by the operating system
+
+Ultimately, there must exist a relationship between user threads and kernel threads.
+
+Many-to-One model
+
+kernel thread has many user threads.
+
+maps many user-level threads to one kernel thread
+
+thread management is one by the thread library in user space, so it is effecient.
+
+the entire process will block if a thread makes a blocking system call
+
+because only one thread can accesss the kernel at a time, multiple threads are unable to run in parallel on multi-processor
+
+one-to-one model
+
+one user thread is mapped to one kernel thread
+
+maps each user thread to a kernel thread
+more concurrency
+allows multi-threads to run in parallel on mult-processors
+
+-creating user thread requires corresponding kernel thread
+-restrict the number of threads supported by system.
+
+Many-to-Many model
+
+many user threads are mapped to many user threads
+
+many user threads to smaller many threads
+developers can create as many user threads as necessary
+and the corresponding kernel. threads can run in parallel
+on multiprocessor.
+
+Also when a thread performs a blocking system calls, the kernel
+can schedule another thread for execution
+
+-----------------fork() and exec() system calls-----------------
+
+fork(): The fork() system call is used to craete a separate, duplicate process.
+
+create exact replica of that process. separate duplicate
+process will be create.a different process.
+duplicate process will be called a child process.
+
+exec(): when an exec() system call is invoked, the program
+specified in the parameter to exec() will replace the entire
+process - including all threads.
+
+replace a process with another. they will have the same process
+id because we are replacing a process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
