@@ -744,4 +744,61 @@ as the program specified in the parameters to exec()
 will replace the process. In this instance, duplicating
 only the calling thread is appropriate.
 
+If the separate process does not call exec() after forking
+then the separate process should duplicate all threads.
 
+this is how we use fork depending on the different 
+scenarios that we could have.
+
+------------------Thread Cancellation--------------------
+
+Thread cancellation is the task of termination a thread before it has been completed. Before a thread could complete its execution it was terminated.
+
+example of thread cancellation 
+If multiple threads are concurrently searching
+through a database and one thread returns the result,
+the remaining threads might be canceled.
+
+When a user presses a button on a web browser
+that stops a web page from loading any further,
+all threads loading the page are canceled.
+
+A thread that is to be canceled is referred to as a 
+the target thread.
+
+Cancellation of a target thread may occur in 
+two different scenarios 
+
+1. Asychonronous cancellation: One thread immediately
+terminates the target thread.
+
+the thread has no power, it is cancelled by 
+some other thread.
+
+2. Deferred cancellation: The target thread 
+peridoically check whether it should be terminate,
+allowing it an opportunity to terminate itself
+in an orderly fashion.
+
+the thread has some power, it will not be directly
+cancelled by some other thread.
+
+Where the difficulty with cancellation lies
+
+1. Resources have been allocated to a cancelled thread
+
+2. A thread is cancelled while in the midst of
+updating it is sharing with other threads.
+
+Often, the OS will reclaim system resources rom
+a canceled thread but will not reclaim all resources.
+
+therefore, canceling a thread asynchronously
+may not free a necessary system-wide resource.
+
+deferred cancellation is safer. The target thread
+has checked itself and it is in a position to 
+be cancelled. it will not cancel itself until it
+is at a point where it can canceled safely.
+
+deferred cancellation is the preferred method.
