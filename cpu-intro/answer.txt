@@ -101,3 +101,15 @@ time		process_0		process_1
 8		done			waiting
 9		done			waiting
 10		done			done
+
+3. switch the order of the processes: -l 1:0,4:100. What happens
+now? Does switching the order matter? Why? (As always, use -c
+and -p to see if you were right)
+
+time		process_0		process_1
+1		running			ready
+2		waiting			running
+3		waiting			running
+4		waiting			running
+5		waiting			running
+6.		done			done
