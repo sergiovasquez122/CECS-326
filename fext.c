@@ -3,6 +3,9 @@
 #include <unistd.h>
 
 int main(){
+	fork();
+	fork();
+	fork();
 	printf("Hello World!\nPID = %d\n", getpid());
 	return 0;
 }
