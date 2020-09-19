@@ -113,3 +113,36 @@ time		process_0		process_1
 4		waiting			running
 5		waiting			running
 6.		done			done
+
+4. We’ll now explore some of the other flags. One important flag is
+-S, which determines how the system reacts when a process is-
+sues an I/O. With the flag set to SWITCH ON END, the system
+will NOT switch to another process while one is doing I/O, in-
+stead waiting until the process is completely finished. What hap-
+pens when you run the following two processes (-l 1:0,4:100
+-c -S SWITCH ON END), one doing I/O and the other doing CPU
+work?
+
+time		process_0		process_1
+1		running			ready
+2		waiting			ready
+3		waiting			ready
+4		waiting			ready
+5		waiting			ready
+6		done			running
+7		done			running
+8		done			running
+9		done			running
+
+5. Now, run the same processes, but with the switching behavior set
+to switch to another process whenever one is WAITING for I/O (-l
+1:0,4:100 -c -S SWITCH ON IO). What happens now? Use -c
+and -p to confirm that you are right.
+
+time		process_0		process_1
+1		running			ready
+2		waiting			running
+3		waiting			running
+4		waiting			running
+5		waiting			running
+6		done			done
