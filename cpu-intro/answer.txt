@@ -205,3 +205,9 @@ time		process_0		process_1		process_2		process_3
 16		done			done			done			running
 17		done			done			done			running
 18		done			done			done			running
+
+8. Now run with some random generated processes: -s 1 -l 3:50,3:50 or -s 2 -l 3:50,3:50 or -s 3 -l 3:50,3:50. See if you can predict how the trace will trun out. what happens when you use the flag -I IO_RUN_IMMEDIATE vs -I IO_RUN_LATER? what happens when you use -S SWITCH_ON_IO vs. -S SWITCH_ON_END?
+
+After running experiments with the parameters it seems
+that the command that negatively affects the performance
+time is the switch on end command.
