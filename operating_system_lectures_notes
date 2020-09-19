@@ -10,7 +10,7 @@ Often we are running more than one program at once.
 examples code be listening to music while having
 your browser open and using your favorite IDE.
 
-In order to virtual the CPU to give the illusion
+In order to virtualize the CPU to give the illusion
 of many CPU's the OS applies time-sharing of the CPU.
 We run one program then stop it and run another one and
 so on.
@@ -31,7 +31,6 @@ Miscellaneous Control: Methods such as suspending
 a process and resuming it.
 Status: Methods to get the status information of 
 a process.
-
 
 --------------------------Process States------------------
 A process can in different states during its lifetime.
@@ -55,6 +54,14 @@ time		Process0		Process1
 6		Done			Running
 7		Done			Running
 8		Done			Running
+
+
+------------------------Process API----------------------
+
+the fork system call is to create a new process.
+It create an almost exact copy ofthe calling process.
+the process comes into life as if it had been called
+fork() itself.
 
 -------------------------------Operating System Interfaces -------------------
 1. User interface
