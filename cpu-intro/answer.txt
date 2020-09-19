@@ -184,4 +184,24 @@ time		process_0		process_1		process_2		process_3
 26		waiting			done			done			done
 27		done			done			done			done	
 
+7. Now run the same processe, but with -I IO_RUN_IMMEDIATE set, which immediately runs the process that issued the I/O. How does this behavior differ? Why might running a proces that completed an I/O again be a good idea?
 
+time		process_0		process_1		process_2		process_3
+1		running			ready			ready			ready
+2		waiting			running			ready			ready
+3		waiting			running			ready			ready
+4		waiting			running			ready			ready
+5		waiting			running			ready			ready
+6		running			ready			ready			ready
+7		waiting			running			ready			ready
+8		waiting			done			running			ready
+9		waiting			done			running			ready
+10		waiting			done			running			ready
+11		running			done			ready			ready
+12		waiting			done			running			ready
+13		waiting			done			running			ready
+14		waiting			done			done			running
+15		waiting			done			done			running
+16		done			done			done			running
+17		done			done			done			running
+18		done			done			done			running
