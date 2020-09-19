@@ -1,3 +1,8 @@
+The operating system takes physical resources and virtualizes them. It handles issues related to concurrency.
+Stores files persistently.
+
+
+
 -------------------------------Operating System Interfaces -------------------
 1. User interface
     1. command line interface
