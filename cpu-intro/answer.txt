@@ -1,0 +1,103 @@
+prompt> ./process-run.py -l 5:100,5:100
+
+produce a trace of what would happen when you
+run these processes
+
+Process 0		Process 1
+running			ready
+running			ready
+running			ready
+running			ready
+running			ready
+done			running
+done			running
+done			running
+done			running
+done			running
+
+PID
+1. running
+2. wait
+3. wait
+4. wait
+5. wait
+6. running
+7. wait
+8. wait
+9. wait
+10. wait
+11. running
+12. wait
+13. wait
+14. wait
+15. wait
+16. done
+
+actual output
+
+Time    PID: 0       CPU       IOs
+  1     RUN:io         1          
+  2    WAITING                   1
+  3    WAITING                   1
+  4    WAITING                   1
+  5    WAITING                   1
+  6*    RUN:io         1          
+  7    WAITING                   1
+  8    WAITING                   1
+  9    WAITING                   1
+ 10    WAITING                   1
+ 11*    RUN:io         1          
+ 12    WAITING                   1
+ 13    WAITING                   1
+ 14    WAITING                   1
+ 15    WAITING                   1
+ 16*      DONE         1
+
+1. Run process-run.py with the following flags: -l 5:100,5:100.
+What should the CPU utilization be (e.g., the percent of time the
+CPU is in use?) Why do you know this? Use the -c and -p flags to
+see if you were right.
+
+process_0		process_1		
+running			ready
+running			ready
+running			ready
+running			ready
+running			ready
+done			running
+done			running
+done			running	
+done			running
+done			running
+
+actual output
+
+Time    PID: 0    PID: 1       CPU       IOs
+  1    RUN:cpu     READY         1          
+  2    RUN:cpu     READY         1          
+  3    RUN:cpu     READY         1          
+  4    RUN:cpu     READY         1          
+  5    RUN:cpu     READY         1          
+  6       DONE   RUN:cpu         1          
+  7       DONE   RUN:cpu         1          
+  8       DONE   RUN:cpu         1          
+  9       DONE   RUN:cpu         1          
+ 10       DONE   RUN:cpu         1  
+
+2. Now run with these flags: ./process-run.py -l 4:100,1:0.
+These flags specify one process with 4 instructions (all to use the
+CPU), and one that simply issues an I/O and waits for it to be done.
+How long does it take to complete both processes? Use -c and -p
+to find out if you were right.
+
+time		process_0		process_1
+1		running			ready
+2		running			ready
+3		running			ready
+4		running			ready
+5		done			running
+6		done			waiting
+7		done			waiting
+8		done			waiting
+9		done			waiting
+10		done			done
