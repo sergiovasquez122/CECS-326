@@ -13,13 +13,14 @@ void* simpleThread(void* which){
     for(;num < 20;num++){
         if(random() > RAND_MAX / 2){
             usleep(500);
-	}
+
             val = shareVariable;
             printf("*** thread %d sees value %d\n", which_value, val);
             shareVariable = val + 1;
+        }
+        val = shareVariable;
+        printf("Thread %d sees final value %d\n", which_value, val);
     }
-    val = shareVariable;
-    printf("Thread %d sees final value %d\n", which_value, val);
     pthread_exit(NULL);
 }
 
