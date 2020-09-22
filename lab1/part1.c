@@ -8,18 +8,17 @@ int shareVariable = 0;
 
 void* simpleThread(void* which){
     int num, val;
-    int which_value = *(int *) which;
-    num = 0;
-    for(;num < 20;num++){
-        if(random() > RAND_MAX / 2){
+    int* which_ptr = (int *) which;
+    for(num = 0;num < 20;num++){
+        if(random() > RAND_MAX / 2)
             usleep(500);
-	}
+	
             val = shareVariable;
-            printf("*** thread %d sees value %d\n", which_value, val);
+            printf("***thread %d sees value %d\n", *which_ptr, val);
             shareVariable = val + 1;
     }
     val = shareVariable;
-    printf("Thread %d sees final value %d\n", which_value, val);
+    printf("Thread %d sees final value %d\n", *which_ptr, val);
     pthread_exit(NULL);
 }
 
@@ -45,15 +44,17 @@ int main(int argc, char** argv) {
     }
     int number_of_threads = atoi(argv[1]);
     pthread_t threads[number_of_threads];
-    int i = 0;
-    for(;i < number_of_threads;i++){
+    int* ids = malloc(sizeof(int) * number_of_threads);
+    for(int i = 0;i < number_of_threads;i++){
+	    ids[i] = i;
+    }
+    for(int i = 0;i < number_of_threads;i++){
         pthread_attr_t attr;
         pthread_attr_init(&attr);
-        pthread_create(&threads[i], &attr, simpleThread, &i);
+        pthread_create(&threads[i], &attr, simpleThread, &ids[i]);
     }
-
-    i = 0;
-    for(;i < number_of_threads;i++){
+    for(int i = 0;i < number_of_threads;i++){
         pthread_join(threads[i], NULL);
     }
+    return 0;
 }
