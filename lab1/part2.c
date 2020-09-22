@@ -6,21 +6,26 @@
 
 int shareVariable = 0;
 
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 void* simpleThread(void* which){
     int num, val;
     int which_value = *(int *) which;
     num = 0;
     for(;num < 20;num++){
-        if(random() > RAND_MAX / 2){
-            usleep(500);
+#ifdef PTHREAD_SYNC
+	    pthread_mutex_lock(&mutex);
+#endif
 
             val = shareVariable;
             printf("*** thread %d sees value %d\n", which_value, val);
             shareVariable = val + 1;
-        }
+#ifdef PTHREAD_SYNC
+	    pthread_mutex_unlock(&mutex);
+#endif
+    }
         val = shareVariable;
         printf("Thread %d sees final value %d\n", which_value, val);
-    }
     pthread_exit(NULL);
 }
 
@@ -46,15 +51,20 @@ int main(int argc, char** argv) {
     }
     int number_of_threads = atoi(argv[1]);
     pthread_t threads[number_of_threads];
-    int i = 0;
-    for(;i < number_of_threads;i++){
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_create(&threads[i], &attr, simpleThread, &i);
+    int ids[number_of_threads];
+
+    for(int i = 0;i < number_of_threads;i++){
+	    ids[i] = i;
     }
 
-    i = 0;
-    for(;i < number_of_threads;i++){
+    for(int i = 0;i < number_of_threads;i++){
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_create(&threads[i], &attr, simpleThread, &ids[i]);
+    }
+
+    for(int i = 0;i < number_of_threads;i++){
         pthread_join(threads[i], NULL);
     }
+    return 0;
 }
