@@ -6,6 +6,7 @@
 
 
 /**
+ * the exec() will run a different program altogether than fork() which will create a copy of a process. the exec() does not create a new process but replaces the current one. notice also that the value of the child after the exec is not printed. there is no reason that it be expected too since after the exec the process is now replaced.
  */
 int main(int argc, char *argv[]){
 	printf("hello world (pid:%d)\n", (int) getpid());
