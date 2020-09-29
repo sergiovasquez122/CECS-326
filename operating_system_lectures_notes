@@ -18,6 +18,16 @@ so on.
 mechanisms: low-level methods that implement a 
 needed piece of functionality.
 
+address pspaces is the memory that a process can 
+address. part of the machine state of a process are
+registers.
+
+parts of the machine state:
+program counter otherwise known as an instruction pointer
+this is what tells us which instrucdion of the program will execute next
+
+stack pointer
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
@@ -62,6 +72,274 @@ the fork system call is to create a new process.
 It create an almost exact copy ofthe calling process.
 the process comes into life as if it had been called
 fork() itself.
+
+----------------------Threads----------------------------
+threads ia like a separate process execept they share
+the same address space and thus can access the same data.
+
+One reason we would want to use threads is parallelism.
+you can speed up a program by using multiple threads 
+to do a portion of the work.
+
+Another reason is to avoid blocking program progress
+due to slow I/O.  While one thread in your program waits
+another thread can be switched to which are ready to run.
+threads share an address space and thus it is easy
+to share data.
+
+working with threads make application more rich but
+also more complicated.
+
+race condition: the result depends on the timing
+execution of the code.
+
+critical section: piece of code that accesses a share
+variable and must not concurrently executed by
+more than one thread.
+
+a critical section is piece of code that accesses
+a shared resource, usually a variable or data structure.
+
+a race condition: arises if multiple
+thread of executation enter the critical section at
+roughly the same tiem. both
+attempt to update the shared data structure, leading
+to unforseen results.
+
+mutual exclusion:
+the proprerty that if one thread is executing
+within the critical section no other thread is allowed
+to do so.
+
+the operating system was the first concurrent program.
+-------------------------synchronization-------------------
+    while(true){
+        /* produce an item in next produced */
+        while(count == BUFFER_SIZE);
+
+        buffer[in] = next_produced;
+        in = (in + 1) %  BUFFER_SIZE:
+        count++;
+}
+
+
+    while(true){
+        while(count == 0);
+        next_consumed = buffer[out];
+        out = (out + 1) % BUFFER_SIZE;
+        count--;
+}
+
+register_1 = count;
+register_1 = register_1 + 1;
+count = register_1;
+
+register_2 = count;
+register_2 = register_2 - 1;
+count = register_2;
+
+
+we can arrive at the incorrect state because we allow both
+processes to manipulate the variable count concurrently.
+
+race condition: outcome of the execution depend
+on the particular order in which the access takes place.
+
+criticial section: process is accessing or updating
+data that is shared with at least on other process.
+
+we want so that no other process is allowed to execute in
+the critical section while another one is executing.
+
+each process requires permission to enter critical section.
+
+entry section: section of code in the critical section
+that implements the permission for a process to enter
+
+solution to critical-section problem must satistfy three requirements.
+
+1. Mutual exclusion: If process pi is executing in its critical section, then no other proesses can be executing in their critical sections.
+
+2. progress
+
+3. bounded waiting: bound to 
+
+while (true){
+    entry section
+            critical section
+    exit section
+            remainder section
+}
+
+
+peterson solution:
+
+    int turn;
+    boolean flag[2];
+    while(true){
+            flag[i] = true;
+            turn = j;
+            while(flag[j] && turn == j);
+            /** critical section */
+            flag[i] = false;
+            /*remainder section */
+    }
+
+peterson solution does not work on mult-threaded applications.
+
+memory model:
+
+1. strongly ordered: when a memory modification on one processor is immediately visible to all other processors.
+
+2. weakly ordered: where modifications to meomry on one processor may not be immediately visible to other processors
+
+memory modifications are visible to threads running on 
+other processors: memory barriers.
+
+while(!flag)
+    memory_barrier();
+print x;
+
+x = 100;
+memory_barrier();
+flag = true;
+
+memory barriers are considered very low-level operations.
+
+hardware instructions
+
+atomically: one uninterruptible unit.
+
+boolean test_and_set(boolean* target){
+    boolean rv = *target;
+    *target = true;
+    return rv;
+}
+
+int compare_and_swap(int *value, int expected, int new_value){
+    int temp = *value;
+    if(*value == expected)
+        *value = new_value;
+    return temp;
+}
+
+while(true){
+        while(compare_and_swap(&lock, 0, 1) != 1);
+        /* critical section */
+        lock = 0;
+        /* remainder section */
+}
+
+increment(&sequence);
+
+void increment(atomic_int *v){ 
+    int temp;
+    do {
+        temp = *v;
+    } while(temp != compare_and_swap(v, temp, temp + 1);
+}
+
+mutex lock
+
+mutex is short for mutual exclusion
+
+while (true){
+    acquire lock
+        critical section
+    release lock
+        remainder section
+}
+
+acquire(){
+    while(!available);
+    available = false;
+}
+
+release(){available = true;}
+
+busy waiting: while a process is in its critical section,
+any other process that tries to enter its critical section
+must loop continously in teh call to acquire().
+
+this type of mutext lock is also called a spin-lock.
+
+advantage: no context switching is needed.
+
+mutex locks are considered the simplest of synchronization tools
+semaphores: integer variable that is only accessible
+through the wait and signal system calls..
+
+wait(s){
+    while(s <= 0);
+    s--;
+}
+
+
+signal(s){s++;}
+
+when one process
+modifies the semaphore value, no other process can simultaneously modify
+that same semaphore value.
+
+counting semaphore: can range over an unrestricted domain.
+
+binary semaphorse: can range only between 0 and 1.
+
+binary semaphores behave similary to mutex locks.
+
+systems that do not have mutex locks can use binary semaphors
+for mutual exclusion.
+
+counting semaphores are used to control access to a given
+resource consiting of a finite number of instances.
+
+the semaphore is initialized to the number of resources available.
+
+when the count for the semaphore goes to 0, all resources are being used. when a process is done with a resource it 
+performs a signal.
+After that, processes that wish to use a resource will block until the count becomes greater than 0.
+
+s1;
+signal(synch);
+wait(synch);
+s2;
+
+
+typedef struct{
+    int value;
+    struct process* list;
+} semaphore;
+
+wait(semaphore *s){
+        s->value--;
+        if(s->value < 0){
+            add this process to s->list;
+            sleep();
+        }
+}
+
+
+signal(semaphore *s){
+    s->value++;
+    if(s->value <= 0){
+            remove a process P from s->list;
+            wakeup(P);
+    }
+}
+
+
+---------------------------------synchronization examples-----------
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------Operating System Interfaces -------------------
 1. User interface
@@ -668,7 +946,7 @@ It shares with other threads belong to the same process
 its code section, data section, and other operating system
 resources such as open files and signals.
 
-A traditional / heavyweigth process has a single thread of control
+A traditional / heavyweight process has a single thread of control
 
 If a process has multiple threads of control, it can perform more than one task at a time..
 
@@ -726,7 +1004,7 @@ of sharing code and data is that it allows an application
 to have several different threads of activity within the same
 address space
 
-allocating memory and resources for process creationg is costly.
+allocating memory and resources for process creation is costly.
 because threads ahre resoucrse of the process to which they
 belong, it is more economical.
 
@@ -867,3 +1145,41 @@ be cancelled. it will not cancel itself until it
 is at a point where it can canceled safely.
 
 deferred cancellation is the preferred method.
+
+-----------------Thread review----------------------------
+A thread is like a worker in a toy shop
+---is an active entity
+---executing unit of toy order
+---works simultaneously with others
+---many workers completing toy orders
+---requires coordination
+---sharing of tools, parts, work stations
+
+
+---is an active enity
+----executing unit of a process
+----works simultaneously with others
+----many threads executing
+----requires coordination
+----sharing of a I/O devices, CPU, Memory
+
+Why are threads useful?
+
+Each thread execute same code for different subset of input
+matrix. by parallization we can achieve speedup. different
+thread can work on different parts of the program. 
+
+parallelizzation -> speedup
+specilizaton -> hot cache
+effecieny -> cheaper IPC
+
+benefits to applications and OS
+
+multi-thread kernels
+thread working on behalf of apps
+os-level services
+
+
+
+
+

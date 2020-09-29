@@ -56,5 +56,6 @@ int main(int argc, char** argv) {
     for(int i = 0;i < number_of_threads;i++){
         pthread_join(threads[i], NULL);
     }
+    free(ids);
     return 0;
 }
