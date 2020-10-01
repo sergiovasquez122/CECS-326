@@ -113,6 +113,143 @@ to do so.
 
 the operating system was the first concurrent program.
 -------------------------synchronization-------------------
+A cooperating process is one that can affect or be affected by other processes executing in the system.
+
+                        cooperating processes can either
+
+                       /                                \
+                      /                                  \
+                     /                                    \
+                    /                                      \
+                   /                                        \
+                directly share a logical address             or be allowed to share data only through files or messages
+                space. (both code and data)
+
+the problem is that concurrent access to shared data may result in data inconsistency. If multiple processes try to 
+access and modify the same data it could lead to data inconsistency. This is why we need process sychronization.
+
+Producer-Consumer problem
+A producer process produces information taht is consumed by a consumer process.
+
+For example, a compiler may produce assembly code, which is consumed by an assembler.
+The assembler, in, may produce object modules, which are consumed by the loader.
+
+-One solution to the producer-consumer problem uses shared memory.
+
+-To allow producer and consumer processes to run concurrently, we must have available a buffer of items that
+can be filled by the producer and emptied by the consumer
+
+-This buffer will reside in a region of memory that is shared by the producer and consumer processes
+
+-A producer can produce one item while the consumer is consuming another item
+
+-The producer and consumer must be sychronized, so that the consumer does not try to consume one item that has not yet
+been produced
+
+
+                                    two kinds of buffers
+
+
+        Unbounded buffer                                        Bounded Buffer
+                |                                                       |
+                |                                                       |    
+                |                                                       |
+                |                                                       |
+                |                                                       |
+        Places no practical limit                                Assumes a fixed buffer size. In this
+on the size of the buffer. the consumer may                      case, the consumer wait wait if the
+have to wait for new items, but the producer                     buffer is empty, and the producer must wait if the buffer is b full.
+
+counter variable = 0
+counter will keep track of the number of items in the buffer
+
+counter is incremented every time we add a new item to the buffer counter++
+counter is decremented every time we remove one item from the buffer counter--
+
+example:
+-Suppose that the value of the vaiable counter is currently 5
+-The producer and consumer processes execute the statement "counter++" and "counter--" concurrently.
+
+-following the execution of these two statements, the value of the variable counter may be 4, 5, or 6
+
+-the only correct result, though is counter == 5, which is generated correctly if the poducer and consumer execute separately
+
+counter++ may be implemented in machine language as:
+
+        register_1 = counter
+        register_1 = register_1 + 1
+        counter = register_1
+
+counter-- may be implemented in machine language as:
+
+        register_2 = counter
+        register_2 = register_2 - 1
+        counter = register_2
+
+table of how the process takes place
+
+t0      producer        execute     register_1    =   counter                  {register_1=5}
+t1      producer        execute     register_1    =   register_1 + 1           {register_1=6}
+t2      consumer        execute     register_2    =   counter                  {register_2=5}
+t3      consumer        execute     register_2    =   register_2 - 1           {register_2=4}
+t4      producer        execute     counter       =   register_1               {counter=6}
+t5      consumer        execute     counter       =   register_2               {counter=4}
+
+we arrived at this incorrectg state because we allowed both processes to run concurrently.
+
+A situation where several processes access and manipulate the same data concurrently and the outcome of the
+execution depends on the particular order in which the access takes place, is called a race condition.
+
+We want the resulting changes not to interfere with one another, hence we need process synchronization.
+
+
+---------------------------------------------The Critical Section-Problem--------------------------------------
+consider a system consisting of n processes (p0, p1, ..., pn)
+each process has a segment of code, called a critical section.
+in which the process may be changing common variables, updating a table, writing a file, and so on.
+when one process is executing in its critical section, no other process is to be allowed to execute in its critical
+section. that is, no two other processes are executing in their critical sections at the same time.
+that is, no two processes are executing in their critical sections at the same time.
+
+the critical-section problem is to design a protocol that the processes can use to cooperate. they should not
+try to manipulate shared data concurrently.
+
+the critical-section problem is to design a protocol that the processes can use to cooperate.
+
+-Each process must request permission to enter its critical section
+-The section of code implementing the request is the entry section
+-The critical section may be followed by an exit section
+-The remaining code is the remainder section
+
+general structure of a process
+
+do{
+    entry section
+        critical section
+    exit section
+        remainder section
+} while(true);
+
+A solution to the critical-section problem must satisfy the following three requirements:
+
+1. Mutual Exclusion:
+
+If process Pi is executing in its critical section, then no other processes can be executing in their critical section
+
+2. Progress
+
+If no process is executing in its critical section and some processes wish to enter their critical section, then only
+those processes that are not executing in their remainder sections can be participate in the decision on which will
+enter its critical section nexts, and this selection cannot be postponed indefinitely.
+
+3. Bounded waiting
+
+There exists a bound, or limit, on the number of times that other processes are allowed to enter their critical sections after
+a process has made a request to enter its critical section and before that request is granted.
+
+---------------------------------------------------------------------------------------------------------------
+
+
     while(true){
         /* produce an item in next produced */
         while(count == BUFFER_SIZE);
@@ -130,14 +267,18 @@ the operating system was the first concurrent program.
         count--;
 }
 
+
+possible implementation of count++
+
 register_1 = count;
 register_1 = register_1 + 1;
 count = register_1;
 
+possible implementation of count--
+
 register_2 = count;
 register_2 = register_2 - 1;
-count = register_2;
-
+counter = register_2;
 
 we can arrive at the incorrect state because we allow both
 processes to manipulate the variable count concurrently.
@@ -145,11 +286,19 @@ processes to manipulate the variable count concurrently.
 race condition: outcome of the execution depend
 on the particular order in which the access takes place.
 
+in order to prevent a race condition we have to make
+sure that only one process at a time can access the 
+count variable.
+
 criticial section: process is accessing or updating
-data that is shared with at least on other process.
+data that is shared with at least one other process.
 
 we want so that no other process is allowed to execute in
 the critical section while another one is executing.
+
+critical section problem: design a protocol that
+the processes can use to synchronize their activitity so
+as to cooperatively share data.
 
 each process requires permission to enter critical section.
 
@@ -160,9 +309,11 @@ solution to critical-section problem must satistfy three requirements.
 
 1. Mutual exclusion: If process pi is executing in its critical section, then no other proesses can be executing in their critical sections.
 
-2. progress
+2. progress: if no process is executing in its critical section and some processes wish to enter their critical section. then only entries not executing remainder section can decide which will enter its critical section.
 
-3. bounded waiting: bound to 
+3. bounded waiting: bound on number of tiems other processes
+are allowed to enter their critical section after a process
+has made a request to enter its critical section.
 
 while (true){
     entry section
@@ -186,6 +337,9 @@ peterson solution:
     }
 
 peterson solution does not work on mult-threaded applications.
+
+software-based solutions are not guaranteed to work on modern
+computer architectures.
 
 memory model:
 
@@ -216,6 +370,18 @@ boolean test_and_set(boolean* target){
     return rv;
 }
 
+do {
+    while(test_and_set(&lock));
+    /* do nothing */
+
+    /* critical section */
+
+    lock = false;
+
+    /* remainder section */
+
+} while(true)
+
 int compare_and_swap(int *value, int expected, int new_value){
     int temp = *value;
     if(*value == expected)
@@ -224,11 +390,41 @@ int compare_and_swap(int *value, int expected, int new_value){
 }
 
 while(true){
-        while(compare_and_swap(&lock, 0, 1) != 1);
+        while(compare_and_swap(&lock, 0, 1) != 0);
         /* critical section */
         lock = 0;
         /* remainder section */
 }
+
+this algorithm satisfies the mutual exclusion property but
+does not satisfy the bounded waiting property.
+
+the code segment below satisfies all the critical section requirements
+
+while(true){
+    waiting[i] = true;
+    key = 1;
+    while(waiting[i] && key == 1)
+        key = compare_and_swap(&lock, 0, 1);
+    waiting[i] = false;
+    
+    /* critical section */
+
+    j = (i + 1) % n;
+    while((j != i) && !waiting[j])
+        j = (j + 1) % n;
+
+    if(j == i)
+        lock = 0;
+    else
+        waiting[j] = false;
+    /** remainder section */
+}
+
+atomic variable is used to ensure mutual exclusion
+in situations where there may be a data race on 
+a single variable while it is being updated as when a counter
+is incremented. 
 
 increment(&sequence);
 
@@ -239,9 +435,18 @@ void increment(atomic_int *v){
     } while(temp != compare_and_swap(v, temp, temp + 1);
 }
 
+still not a viable solution to the consumer producer problem.
+
 mutex lock
 
 mutex is short for mutual exclusion
+
+mutex lock has a boolean variable available whose
+value indicates if the lock is available or not.
+If the lock is available, a call to acquire() succeeds.
+and the lock is then considered unavailable. A process
+that attempt to acqurie an unavailable lock is blocked
+until the lock is released.
 
 while (true){
     acquire lock
@@ -250,22 +455,30 @@ while (true){
         remainder section
 }
 
+// the definition of the acquire function
+
 acquire(){
     while(!available);
     available = false;
 }
 
+// the definition of the release function
 release(){available = true;}
+
+calls to either acquire() or release() must be performed atomically.
 
 busy waiting: while a process is in its critical section,
 any other process that tries to enter its critical section
-must loop continously in teh call to acquire().
+must loop continously in the call to acquire().
 
-this type of mutext lock is also called a spin-lock.
+this type of mutex lock is also called a spin-lock.
 
 advantage: no context switching is needed.
+disadvantage: processes have to loop continously while
+waiting to enter the critical section.
 
 mutex locks are considered the simplest of synchronization tools
+
 semaphores: integer variable that is only accessible
 through the wait and signal system calls..
 
@@ -283,7 +496,7 @@ that same semaphore value.
 
 counting semaphore: can range over an unrestricted domain.
 
-binary semaphorse: can range only between 0 and 1.
+binary semaphores: can range only between 0 and 1.
 
 binary semaphores behave similary to mutex locks.
 
@@ -295,6 +508,11 @@ resource consiting of a finite number of instances.
 
 the semaphore is initialized to the number of resources available.
 
+when a process releases a resource, it performs a signal() operation.
+
+each process that wishes to use a resource performs a wait()
+opeartion on the semaphore.
+
 when the count for the semaphore goes to 0, all resources are being used. when a process is done with a resource it 
 performs a signal.
 After that, processes that wish to use a resource will block until the count becomes greater than 0.
@@ -304,6 +522,10 @@ signal(synch);
 wait(synch);
 s2;
 
+
+the current implementation suffers from busy waiting.
+
+we modify the definition so that we no longer are busy waiting.
 
 typedef struct{
     int value;
@@ -326,6 +548,107 @@ signal(semaphore *s){
             wakeup(P);
     }
 }
+
+----------------------Monitors---------------------------------
+
+Timing errors can still occur when mutex locks or semaphores are used.
+
+A monitor type is an ADT that includes a set of programmer-defined operations that are provided with mutual exclusion
+within the monitor. 
+
+errors can be caused by a programmer.
+
+// problem 1
+signal(mutex);
+
+/*
+    critical section
+
+*/
+
+wait(mutex);
+
+// problem 2
+
+wait(mutex);
+
+/*
+    critical section
+*/
+
+wait(mutex);
+
+// problem 3
+one of the calls of wait or signal is ommitted.
+
+monitors are high-level constructs of synchronization tools.
+
+Monitor is an abstract data-type
+
+by themselves are not sufficient enough to handle sychronization neeeds constructs like conditioning.
+
+condition x, y;
+
+the only operation that can be invoked on a condition variable
+are wait() and signal(). The operation
+
+    x.wait();
+
+mean that the process invoking this operation is suspended until
+after another process invokes
+
+    x.signal();
+
+
+x.signal() is called by a process p while a process q is suspended.
+
+2 possibilities exist
+
+1. signal and wait
+
+2. signal and continue
+
+many programming languages have incorporated monitors.
+
+any function is replaced by
+
+wait(mutex);
+/*
+    body of F
+*/
+if (next_count > 0)
+    signal(next);
+else
+    signal(next);
+
+x_count++;
+if (next_count > 0)
+    signal(next);
+else
+    signal(mutex);
+wait(x_sem);
+x_count--;
+
+
+if (x_count > 0){
+    next_count++
+    signal(x_sem);
+    wait(next);
+    next_count--;
+}
+-------------implementing a monitor using semaphores------------
+use a binary semaphore for each monitor.
+
+using the signal and wait approach
+
+wait(mutex);
+/*
+*/
+
+if(next_count > 0)
+    signal(next);
+else signal(mutex);
+
 
 
 ---------------------------------synchronization examples-----------
