@@ -247,9 +247,52 @@ enter its critical section nexts, and this selection cannot be postponed indefin
 There exists a bound, or limit, on the number of times that other processes are allowed to enter their critical sections after
 a process has made a request to enter its critical section and before that request is granted.
 
----------------------------------------------------------------------------------------------------------------
+----------------------------------------Peterson Solution---------------------------------
+-A classic software-based solution to the critical-section problem
+-May not work correctly on modern computer architecture
+-Help us to understand the problem at a software implementation.
+
+Peterson's solution is restricted to two processes that alternate execution between their critical sectoins
+and remainder sections. Let's clall the processes Pi and Pj.
+
+Peterson's solution requires two data items to be shared between two processes.
+
+int turn						boolean flag[2]
+   |								|
+   |								|
+   |								|
+Indicates whose turn it is to				Used to indicate if a process is ready to enter its
+enter its critical section 				critical section.
+
+examples:
+turn == i tells us it is process_i turn 		flag[j] == true tells us process j is ready 
+to enter its critical section.				to enter its critical section.
 
 
+Peterson's solution is like a humble algorithm, when it has the chance to enter the critical section it 
+gives the turn to the other process. 
+
+analogy:
+you and your friend are waiting for the bus and then when it comes you allow you friend to go first and wait
+until he enters the bus before you yourself enters the bus.
+
+structure of pi peterson solution
+
+do{
+	flag[i] = true; // Process pi is ready to enter its critical section
+	turn = j; // algorithm is a humble algorithm so will give turn to process pj
+	while(flag[j] && turn[j] == j); // wait while process pj is in its critical section
+
+	critical section
+
+	flag[i] = false; // set the flag as false as the process pj has completed its critical section.
+
+	remainder section
+} while(true);
+
+
+
+------------------------------------------------------------------------------------------
     while(true){
         /* produce an item in next produced */
         while(count == BUFFER_SIZE);
@@ -325,16 +368,16 @@ while (true){
 
 peterson solution:
 
-    int turn;
-    boolean flag[2];
-    while(true){
-            flag[i] = true;
-            turn = j;
-            while(flag[j] && turn == j);
-            /** critical section */
-            flag[i] = false;
-            /*remainder section */
-    }
+int turn;
+boolean flag[2];
+while(true){
+        flag[i] = true;
+        turn = j;
+        while(flag[j] && turn == j);
+        /** critical section */
+        flag[i] = false;
+        /*remainder section */
+}
 
 peterson solution does not work on mult-threaded applications.
 
