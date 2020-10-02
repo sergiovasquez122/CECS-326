@@ -306,7 +306,20 @@ do{
 } while(true);
 
 
+example: 
+both try to enter the critical section at the same time.
+process pi enters first and sets its flag[i] to true and give the turn to process pj.
+
+process pj enters seconds and sets if flag[j] to true and give the turn to process pi.
+
+since turn == i and flag[i] == true, process pi will enter its critical section.
+flag[i] will becomes false once process pi exits its critical section so now 
+process pj is allowed to enter its critical section.
+
+
+
 ------------------------------------------------------------------------------------------
+
     while(true){
         /* produce an item in next produced */
         while(count == BUFFER_SIZE);
