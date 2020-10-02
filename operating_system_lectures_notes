@@ -317,8 +317,78 @@ flag[i] will becomes false once process pi exits its critical section so now
 process pj is allowed to enter its critical section.
 
 
+The peterson solution satisfies all three requirements for the critical section problem
 
-------------------------------------------------------------------------------------------
+1. mutual exclusion is preserved
+
+2. process is preserved
+
+3. bounded waiting is preserved
+
+peterson solutions is only restricted to two processes and is not guaranteed to work on modern computer
+architecture
+
+
+--------------------------------------Test and Set Lock--------------------------------------------
+-Hardware solution to the synchronization problem
+-There is shared lock variable which can take on values either, 0 or 1.
+-0 means unlocked and 1 means locked
+-Before entering into the critical section, a process inquires about the lock.
+-If it is locked, it keeps on waiting till it becomes free
+-If it is not locked, it sets the lock and executes the critical section
+
+example:
+room that only one person can be in at a time. checks if the room is locked or unlock.
+only when person who is currently in the room and finishes work unlocks the room can another person
+use the room.
+
+definition of test_and_set() function.
+
+boolean test_and_set(boolean* target){
+	boolean rv = target;
+	*target = TRUE;
+	return rv;
+}
+
+this function is an atomic operation. all the 
+instruction are done and cannot be interrupted.
+
+example:
+
+initially the lock is set to zero.
+
+process pi executes first.
+it call the test_and_set function on the lock.
+since the lock is 0 the return while will be zero and
+it will continue onto the critical section. process pj
+will wait in the while loop until process pi exits the critical section
+and sets the lock value back to 0.
+
+process pi
+
+do {
+	while(test_and_set(&lock));
+
+	// do nothing
+	// critical section
+	lock = false;
+	//remainder section	
+} while(true);
+
+advantage of current solution
+
+satisfies mutual-exclusion.
+
+does not satisfies bounded waiting.
+
+process pi enters and complete critical section while process pj waits.
+when process pi is done another process pk enters and now process pj still have to waits.
+this could happen indefinitely.leads to starvation of process to critical section.
+
+---------------------------------------Semaphore---------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------
 
     while(true){
         /* produce an item in next produced */
