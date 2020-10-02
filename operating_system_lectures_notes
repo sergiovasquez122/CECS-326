@@ -250,10 +250,10 @@ a process has made a request to enter its critical section and before that reque
 ----------------------------------------Peterson Solution---------------------------------
 -A classic software-based solution to the critical-section problem
 -May not work correctly on modern computer architecture
--Help us to understand the problem at a software implementation.
+-Help us to understand the problem at a software implementation level.
 
-Peterson's solution is restricted to two processes that alternate execution between their critical sectoins
-and remainder sections. Let's clall the processes Pi and Pj.
+Peterson's solution is restricted to two processes that alternate execution between their critical sections
+and remainder sections. Let's call the processes Pi and Pj.
 
 Peterson's solution requires two data items to be shared between two processes.
 
@@ -290,6 +290,20 @@ do{
 	remainder section
 } while(true);
 
+
+structure of process pj in peterson's solution
+
+do{
+	flag[j] = true;// process pj wants to enter its critical section
+	turn = i; // process pj is humble and offer the turn to process pi
+	while(flag[i] && turn == i); // process pj will wait for process pi 
+
+	critical section
+
+	flag[j] = false; // done with the critical section
+
+	remainder section
+} while(true);
 
 
 ------------------------------------------------------------------------------------------
