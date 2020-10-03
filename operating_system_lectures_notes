@@ -386,9 +386,58 @@ when process pi is done another process pk enters and now process pj still have 
 this could happen indefinitely.leads to starvation of process to critical section.
 
 ---------------------------------------Semaphore---------------------------------------------------
+-Software based solution to the sychronization problem.
+
+-Semaphore proposed by Dijkstra, is a technique to manage concurrent processes by using a simple integer value,
+which is known as a semaphore.
+
+-Semaphore is simply a variable which is non-negative and shared between threads. this variable is used to solve
+the critical secion problem and to achieve process synchronization in the multi-processing environment
+
+-A semaphore S is an integer variable that, apar from initialization is accessed only through two
+standard atomic operations: wait() and signal();
+
+wait() -> [from the Dutch word proberen, which means 'to test']
+signal() -> [from the Dutch word verhogen, which means 'to increment']
+
+definition of wait();
+P(Semaphore s){
+	while(s <=0);
+	// no operation
+	s--
+}
+
+if the value of s > 0 greater than 0, then s will be decremented and enter the critical section.
+it decrements the value of s to let other other processes to know that the value of the semaphore has been decreased.
+
+definition of signal();
+V(Semaphore s){
+	s++;
+}
+
+to tell other processes that the process is done using the resource.
+
+
+all the modification to the integer value of the semaphore in the wait() and signal() operatoins
+must be executed indivisbly, 
+that is, when one process modifies the semaphore value, no other process 
+can simulatenously modify that same semaphore value.
+
+1. Binary Semaphore
+The value of a binary semaphore can range only between 0 and 1. On some systems, binary semapohres are known as mutex locks,
+as they are locks that provide mutual exclusion.
+
+the value of a semaphore is initialized to 1.
+
+
+2. Counting Semaphore
+Its value can range over an unrestricted doman. It is used to controll access to a resource that
+has multiple instances. 
 
 
 ----------------------------------------------------------------------------------------------------
+
+
 
     while(true){
         /* produce an item in next produced */
