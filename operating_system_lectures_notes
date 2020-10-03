@@ -431,8 +431,19 @@ the value of a semaphore is initialized to 1.
 
 
 2. Counting Semaphore
-Its value can range over an unrestricted doman. It is used to controll access to a resource that
+Its value can range over an unrestricted doman. It is used to control access to a resource that
 has multiple instances. 
+
+two instances of 2 for resource with count of 2
+S = 2
+
+process 1 will enter the loop and then decrement the value of S to 1
+
+process 2 will enter the loop and then decrement the value of S to 0
+
+process 3 will enter the loop and then will stay in loop until process 1 or
+process 2 release the resource.
+
 
 
 ----------------------------------------------------------------------------------------------------
