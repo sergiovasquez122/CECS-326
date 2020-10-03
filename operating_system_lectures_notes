@@ -444,11 +444,48 @@ process 2 will enter the loop and then decrement the value of S to 0
 process 3 will enter the loop and then will stay in loop until process 1 or
 process 2 release the resource.
 
+-------------------------------------Disadvantage of Semaphores-------------------------------------------------
+-The main disadvantage of the semapohre definition that was discussed is that it requires busy waiting.
+
+- While a process is in its critical section, any other process that tries to enter its critical section
+must loop continously in the entry code.
+
+-busy waiting wastes CPU cycles that some other process might be able to use productively.
+
+-this type of semaphore is called a spinlock because the process 'spins' while waiting for the lock.
+
+to overcome the need for busy waiting, we can modify the definiton of the wait() and signal() semaphore operations.
+
+-When a process executes the wait() operations and finds that the semapohre value is
+not positive, it must wait
+
+--however, rather than engaging in busy waiting, the process can block itself
+
+--The block operation places a process into a waiting queue associated with the semapohre, and the sate of the process is switched to the waiting state.
+
+--the control is transferred to teh CPU schedule, which select another process to execute 
+
+--------------------------------------Deadlocks and Starvation--------------------------------------
+-The implementation of a semaphore with a waiting queue may result in a situation where
+two or more processes are wiaitng indefintey for an event tha can be caused only one of the 
+waiting processes
+-The event in question is the execution of a signal() operation. When such as state is reached, these processes are said
+to be deadlocked.
+
+p0			p1	
+wait(S);		wait(Q);
+wait(Q);		wait(S);
+   .			   .
+   .			   .
+   .			   .
+signal(S);		signal(Q);
+signal(Q);		signal(S);
+
+---------------------------------------------Classic Problems of Syncrhonization-------------------------------------
+					          (The bounded-buffer problem)
 
 
 ----------------------------------------------------------------------------------------------------
-
-
 
     while(true){
         /* produce an item in next produced */
