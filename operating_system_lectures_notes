@@ -484,7 +484,50 @@ signal(Q);		signal(S);
 ---------------------------------------------Classic Problems of Syncrhonization-------------------------------------
 					          (The bounded-buffer problem)
 
+The bounded buffer problem is one of the classics problems of synchronization
 
+There is a buffer of n slots and each slot is capable of storing one unit of data.
+
+There are two processes running, namely, producer and consumer, which are operating
+on the buffer.
+
+-there are two processes running, namely, producer and consumer, which are operating on the bufffer
+
+-the producer tries to insert data into an empy slot of the buffer.
+-the consumer tries to remove data from a filled slot in the buffer.
+-the producer must not insert data when the buffer is full
+-the consumer must not remove data when teh buffer is empty.
+-the producer and consumer shoud not insert and remove data simultaneously
+
+we make use of three semaphores:
+
+1. m(mutex) a binary sempahore which is used to acquire and release the lock
+2. empty, a counting semaphore whose initial value is the number of slots in the buffer, since, initially all slots are empty.
+3. full, a counting semaphore whose initial value is 0.  
+
+producer
+
+do{
+	wait(empty); // wait until empty > 0 and then decrement empty
+	wait(mutex); // acquire lock
+	/* add data to buffer */
+	signal(mutex); // release lock 
+	signal(full); // increment full because the producer has added one data to the buffer
+} while(TRUE);
+
+// consumer 
+do {
+	wait(full); // wait until full > 0 and then decrement 'full'
+	wait(mutex);// acquire lock
+	/* add data to buffer */
+	signal(mutex); // release lock
+	signal(empty); // increment empty because the consumer has removed one data to the buffer
+} while(TRUE);
+
+three problems we have stated have been solved.
+the producer should not produce when the buffer is full.
+the consumer should not consume when the buffer is empty.
+the consumer and producer should not simulatenously consume and produce.
 ----------------------------------------------------------------------------------------------------
 
     while(true){
