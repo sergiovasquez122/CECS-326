@@ -835,6 +835,19 @@ y-x is ___
 
 1. is the correct answer.
 
+
+question
+--------
+
+A counting semaphore was initialized to 10. then 6 P(wait) and 4V(signal) operations were completed on this semapohre 
+the resuting value of the semaphore is.
+
+a. 0
+b. 8
+c. 10
+d. 12
+
+b is the correct answer.
 ----------------------------------------------------------------------------------------------------
 
     while(true){
