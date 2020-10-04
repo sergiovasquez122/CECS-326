@@ -848,6 +848,163 @@ c. 10
 d. 12
 
 b is the correct answer.
+
+
+---------------------------------Quiz on synchronization--------------------------------------------
+Q1
+in __ only one process at a time is allowed into its critical section, among all processes that have
+critical secgion for the same resource.
+
+1. mutual exclusion
+2. synchronization
+3. deadlock
+4. starvation 
+
+1. mutual exclusion is the correct answer
+
+Q2
+Process synchronization can be done at the 
+1. software level
+2. hardware level
+3. both software and hardware level
+4. none of theses
+
+3. is the correct answer
+
+Q3
+Mutual Exclusion can be provided by
+1. binary semaphore
+2. mutex locks
+3. both binary semaphores and mutex locks
+4. none of these
+
+3. both binary semaphore and mutex locks.
+
+Q4 
+Peterson's solution is restricted to ____
+processes that alternate execution between their critical se ctions
+and remainder sections.
+
+1. one
+2. two
+3. three
+4. all of the above
+
+2. is the correct answer
+
+
+Q5
+A solutiono to synchronization problem using test and set lock
+1. satisfies mutual exclusion 
+2. statisfies bounded waiting 
+3. Does not satisfy mutual exclusion
+4. None of the above
+
+1. is the correct answer
+
+Q6
+A semaphore S is an integer value variable hat apart form initialization, is accessed only
+through two standard atomic operations
+
+1. exit() and exit()
+2. exec() and signal()
+3. wait() and exit()
+4. wait() and signal()
+
+4. is the correct answer
+
+Q7 
+Where two or more processes are waiting indefinitely for an event that can be caused only by
+one of the waiting processes is called
+1. mutex locked
+2. deadlocked
+3. spinlocked
+4. none of the above
+
+2 deadlocked
+
+Q8 
+Peterson's solution is a classic __ based solution to the critical section problem
+1. software
+2. hardware
+3. software and hardware
+4. none of the above
+
+1. is the correct answer
+
+Q9 
+The bounded buffer problem is also known as 
+1. readers-writers problem
+2. dining philosphers problem
+3. producer consumer problem
+4. dining writers problem
+
+3. is the correct answer
+
+Q10 
+In readers-writers problem multiple processes re permitted to concurrently acquire a reader-writer lock
+in read mode, but only one process may acquire the lock for __ as 
+exclusive access is required for __
+1.reading, readerse
+2. reading, writers
+3. writing, writers
+4. none of the above
+
+3. is the correct answer.
+
+Q11
+In producer-consumer problem which of the following assumptions are true?
+
+1. we assume that the pool consists of n buffers, each capable of holding one unit of data
+2. the mutex semaphore provideds exclusion for access to the buffer pool and is initalized to the value 0
+3. the mutex semaphore provideds mutual exclusion for access to the buffer an is initialized to the value 1
+4. the empty and full semaphores count the number of empty and full buffers. the semaphore empty is initalized
+to the value n; the semaphore full is initialized to the value 0
+
+1. is the correct answer.
+
+Q12
+The solution to the dining-philosphers problem using monitors is 
+1. deadlock-free
+2. starvation-free
+3. page-fault free
+4. all of the above
+
+1. is the correct answer
+
+Q13
+Which are the states in which a philospher can be in the dining-philosphers problem?
+1. thinking
+2. eating
+3. hungry
+4. all of the above
+
+4. is the correct answer
+
+Q14
+All processes share a semaphore variable mutex, which is initialized to 1. each process muthst
+execute wait bbefore entering the crtical section and
+signal afterwards. suppose that a process interchanges teh order in which the wait()
+and signal operation() on the semaphore mutext are executed, resulting
+ in the following execution. signal(mutex) /*critical section */ wait(mutex) in this situation.
+
+1. a deadlock will occur
+2. processes will starve to enter their critical section
+3. several processes maybe executing in their critical sections simulaneously
+4. all of the above
+
+3. is the correct answer.
+
+Q15
+A situation where several processe access and manipulate the same data concurrently and the outcome of the execution depends
+on the paricular order in which the access takes place is called
+1. Deadlock
+2. Race condition
+3. Spin lock
+4. Page fault
+
+2. is the correct answer.
+
 ----------------------------------------------------------------------------------------------------
 
     while(true){
