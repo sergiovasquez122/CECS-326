@@ -528,6 +528,196 @@ three problems we have stated have been solved.
 the producer should not produce when the buffer is full.
 the consumer should not consume when the buffer is empty.
 the consumer and producer should not simulatenously consume and produce.
+-----------------------------------READER-WRITERS PROBLEM-------------------------------------------
+-A database is to be shared among several concurrent processes.
+-Some of these processes may want only to read the database, wherease others may want to
+update
+-We distinguish between these two types of processes by referring to the former as readers and the latters
+as writers
+-obviously, if two readers access the shared data simultaneously, no adverse affect will result.
+-however, if a writer and some other thread(either a reader or a writer) access the database simulatenously,
+chaos may ensue.
+-To ensure that these difficulties do not arise, we require that the writers have
+exclusive access to the shared database.
+this sychronization is referred to as the readers-writers problem.
+
+we will make use of two semaphores and an integer variable.
+1. mutex, a semaphore(initialized to 1) which is used to ensure mutual exclusion when readcount is updated i.e
+when any reader enters or exit from the critical section.
+2. wrt, a semaphore(initialized to 1) common to both reader and writer processes.2. wrt, a semaphore(initialized to 1) common to both reader and writer processes.
+3. integer that keep tracks of how many variables are reading the data.
+
+writer process
+do{
+	/* writer requests for critical section */
+	wait(wrt);
+	/* perform the write */
+	// leaves the critical section 
+	signal(wrt);
+} while(true);
+
+reader process
+do{
+	wait(mutex);
+	readcnt++; // the number of readers has now increased by 1
+	if(rcnd == 1)
+		wait(wrt); // this ensure no writer can enter if there is even one reader
+	signal(mutex); // other readers can enter while this current reader is inside teh crticial section
+/*	current reader perform reading here */
+	wait(mutex);
+	readcnt--;
+	if(readcnt == 0)
+		signal(wrt);
+		signal(mutex);
+
+} while(true);
+
+---------------------------------The dining-philophers problem-------------------------------------
+five philosphers in two possible states, thinking and eating.
+philospher needs to have two chopsticks in order to eat. chopsticks
+are limited. 5 chopsticks for 5 philosphers.
+
+				philospher either
+			/			 	\
+		      thinks 				eats
+			|				 |
+			|				 |
+		   when a philospher			when a philospher gets hungry he tries to pick up the forks that are cloest to him, a philospher may pick up only one fork at a time. cannot pick up fork on the hands of a neighbor.
+		   thinks he does not
+		   interact with his colleagues.
+
+no two adjacent philosphers can eat at the same time. this is a problem of resource allocation.
+One simple soluition is to represent each fork/chopstick with a semaphore.
+a philospher tries to grab a fork/chopstick by executing a wait() operation on that semaphore.
+he releases his fork/chopsticks by executing the signal() operation on the appropiate semaphores.
+
+		thus the shared data are
+		semaphore[5];
+where all the elements of chopsticks are initialized to 1.
+so we are using binary semaphores.
+
+structure of philospher i
+do{
+	wait(chopstick[i]);
+	wait(chopstick[((i + 1) % 5)]); // uses modular because circular table
+	// eat
+	signal(chopstick[i]);
+	signal(chopstick[(i + 1) % 5]);
+	// think
+} while(TRUE);
+
+although this solutaiotn guarantees that no two neighboars are eating simulatenously.
+
+all five become hungry simulatenously and thus all elements of chopsticks will be zero.
+
+when a each philospher tries to grab his right chopstick he will be deadlocked forever.
+
+----------------------------------------Monitors----------------------------------------------------
+-A high-level abstraction that provides a conventient and effective mechanism for process
+sychronization
+-A monitor type presents a set of programmer-defined operations that provide mutual exclusions
+within the monitor.
+-The monitor type also contains the declaration of variables whose values define the satte of an instance of that type,
+along wit the bodies of procedures or functions that operare on that variables.
+
+
+syntax of a monitor
+
+monitor monitor_name
+{
+//shared variable declaration
+procedure p1(...){
+
+}
+
+procedure p2(...){
+
+}
+
+procedure pn(...){
+
+}
+
+initialization code(...){
+
+}
+}
+
+-A procedure defined within a monitor can access only
+those varaibles declared locally within the monitor and its parameter.
+-Similary, the local variables of a monitor can accessed by only the local procedures.
+-The monitor construct ensures that only one process at a time can be active within the monitor
+-conditional construct-			condition x, y;
+the only operations that can be invoked on a condition variable are wait() and signal().
+
+the operation x.wait(); means that process invoking this opoerationg is suspended until another process invokes
+x.signal();
+
+the x.signal() operations resumes exactly one suspended process.
+
+
+
+queue		shared data				entry queue
+associated
+with x,y
+
+		operations
+
+		intialization code
+
+Dining-philosphes solution monitors 
+
+-We now illustrate monitor concepts by presenting a deadlock-free solution to the dining-philosphers problem.
+
+-This solution imposesthe restriction that a philospher may pick up his chopsticks only if both are available.
+
+-to code this solution, we need to distinguish among three states n which we may find a philospher.
+for this purpose, we introduce the following data structures.
+
+		enum {thinking, hungry, eating} state[5];
+
+-philospher i can set the variable state[i] = eating only if his two neighbors are not eating:
+(state[(i+4) % 5] != eating) && (state[(i+1) % 5] != eating)
+
+-we also need to declare condition self[5]; where philospher i can delay himself when he is hungry 
+but is unable to obtain the chopsticks he need.
+
+
+Monitor dp{
+	enum {thinking, hungry, eating} state[5];
+	
+	void pickup(int i){
+		state[i] = hungry;
+		test(i);
+		if(state[i] != eating)
+		self[i].wait();
+}
+	void putdown(int i){
+		state[i] = thinking;// done eating
+		test((i + 4) % 5);// give the neighbors chance to eat.
+		test((i + 1) % 5);
+}
+
+	void test(int i){
+		if((state[(i + 4) % 5] != eating) && (state[i] == hungry) && state[(i + 1) % 5] != eating)
+		{
+		state[i] = eating;
+		self[i].signal();
+	}
+}
+
+			
+		// initially all philosphers are in the thinking state.
+		initialization-code(){
+			for(int i = 0;i < 5;i++){
+				state[i] = thinking;
+		}
+	}
+}
+
+when one philospher finishes the philospher to the left and right are tested, this solution does not have
+dead lock a philospher need to have both chopsticks avaiable before they are allowed to eat. only one process
+at is allowed in the monitor at a time.
 ----------------------------------------------------------------------------------------------------
 
     while(true){
