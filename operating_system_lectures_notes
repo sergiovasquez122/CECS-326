@@ -1005,7 +1005,108 @@ on the paricular order in which the access takes place is called
 
 2. is the correct answer.
 
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------Quiz on syncrhonization------------------------------------------
+Q1 What are three properties of a good implementation of synchronization?
+1. mutual exclusion
+2. progress
+3. bounded waiting
+Q2 Can the OS know when a program is in a critical section?
+no it can't we can only enforce safety through mutex locks
+Q3 Describe Peterson's algorithm
+Peterson's solution is an software implementation
+of syncrhonization. it only works on 2 processes.
+it is starvation free.
+Q4 How does test and set work?
+Test and set checks to see if the variable is the
+expected value and if so swaps it. test and set
+does not satisfy bounded waiting.
+Q4 What is a semaphore? Which two operations does it support? are they atomic?
+a semaphore is an integer variable that represents the amount of resources avaialable. it supports wait and signal. both operations must be atomic.
+Q5 Describe how you would syncrhonize producer and consumer threads using a semaphore.
+You would need a mutex lock and then a semaphore
+that represents the amount of items produced in buffer and
+another semaphore that represents the amount of
+items empty in the buffer
+
+Q5 Can deadlock occur with only one thread? why or why not?
+yea it can by trying to acquring resource it already has
+
+-------------------------------Quiz---------------------
+Q1 what is synchonrization
+Ensuring the orderly execution of cooperating
+process to ensure data consistency
+Q2 Producer-Consumer problem
+classic syncrhonization problem where
+Producer does not produce if no room to produce
+and consumer does not consumer if there is no
+item on the buffer.
+Q3 Cooperating process
+can affect or be affected by other executing processes
+Q4 Race Condition
+outcome of execution depends on order in
+which access takes place
+Q5 critical section
+piece of program that requires mutual exclusion.
+Q6 critical section problem
+Design protocol that processes can use to cooperatate
+ant not be executing in the critical section at the 
+same time.
+Q7 Entry section
+section of code where process asks for permission
+to enter critical section.
+Q8 solution for critical section
+-mutual exclusion
+-progress
+-bounded waiting
+Q9 Mutual Exclusion
+Only one process can be in its critical section at a given time.
+Q10 progress
+If no process is in its critical section and one
+process wants to enter critical section, then the 
+selection of the next process that enter critical section
+cannot be postponed.
+Q11 bounded waiting
+bound must exist on the # of times other processes
+are allowed to enter their critical section after
+a process has made a requirest to enter its criticlhal
+section and before that request is granted.
+Q12 Premeptive kernel
+allowed processes to be preempted while running in kernel mode. aka interrupted.
+Q13 Nonpreemptive kernel
+processes cannot be interrupted while in kernel mode. runs until exit kernel mode, blocks or voluntarily yields CPU.
+Q14 Peterson solution
+good algormithic description of critical section problem
+at software level implementation
+Q15 hardware solution
+atomic hardware instructions
+Q15 locking
+protecting critical regions through locks
+Q16 mutex
+mutual exclusion locks
+Q17 sempahore
+synchronization tool that is more sophisticated than
+mutex locks
+Q18 Deadlock
+two process waiting indefinitely for an event
+that can be caused only by one of the waiting processes
+Q19 starvation
+Indefinite blocking, process in semaphore queue
+may never be removed in which it is suspended.
+Q20 classic synchronization problems
+bounded-buffer problem
+readers-writers problem
+dining-philosphers problem
+Q21 bounded buffer-problem
+Same as the consumer-producer problem
+Q22 readers-writers problem
+allow multiple readers to read at a time but
+only one writer can access at a time.
+Q23 dining philosphers problem
+5 philophopers with 10 chopsticks are either in 
+thinking state or eating state. if in eating state
+must use the two chopsticks adjacent to them to eat.
+synchronization problem.
+---------------------------------------------------------------------------------------------------
 
     while(true){
         /* produce an item in next produced */
