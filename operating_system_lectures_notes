@@ -775,8 +775,36 @@ c is the current answer. did not take into account the case when
 
 p0 runs then p1 then p0 then p2 then p0.
 
+question
 
+process p1
+while(true){
+wants1 = true;
+while(wants2 == true);
+wants1 = false;
+} /* remainder section */
 
+process p2
+while(true){
+wants2 = true;
+while(wants1 == true);
+/* critifcal section */
+wants2 = false;
+}
+}
+
+here, want1 and wants2 are shared varialbes, which are initialized to flase.
+which one of the following statements is true about the above construct?
+
+a. it does not ensure mutual exclusion
+
+b.  it does not ensure bounded waiting
+
+c. it requireds that processes enter the critical section in stric alternation
+
+d. it does not prevent deadlocks, but ensure mutual exclusion..
+
+d is the correct answer.
 ----------------------------------------------------------------------------------------------------
 
     while(true){
