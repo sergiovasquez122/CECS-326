@@ -718,6 +718,35 @@ Monitor dp{
 when one philospher finishes the philospher to the left and right are tested, this solution does not have
 dead lock a philospher need to have both chopsticks avaiable before they are allowed to eat. only one process
 at is allowed in the monitor at a time.
+
+process synchronization question
+
+Consider the methods used by processes P1 and P2 for accessing their critical secions whenever needed, as given below.
+the initial values of shared boolean variables s1 and s2 are randomly assigned.
+
+p1 methods
+while(s1 == s2);
+critical section
+s1 = s2;
+
+p2 method
+while(s1 != s2);
+critical section
+s2 = not(s1)
+
+Which one of teh following statements describes the properties achieved?
+
+1. mutual exclusion but not progress
+2. progress but not mutual exclusion
+3. neither mutual exclusion nor progress
+4. both mutual exclusion and progress
+
+this will achieve mutual exclusion but not progress.
+one process can be postponed indefinitely.
+
+
+
+
 ----------------------------------------------------------------------------------------------------
 
     while(true){
