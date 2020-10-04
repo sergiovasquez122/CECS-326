@@ -1106,6 +1106,177 @@ Q23 dining philosphers problem
 thinking state or eating state. if in eating state
 must use the two chopsticks adjacent to them to eat.
 synchronization problem.
+---------------------------------Quiz-----------------------
+Q1 A situation where several processes access and manipulate the same data concurrently and the outcome of the execution depends on the particular order in which access takes place is called:
+a. data consistency
+b. race condition
+c. aging
+d. starvation
+
+b is the correct answer
+
+Q2 The segment of code in which the process may change
+common variables, update tables, write into files is known as :
+a. program
+b. critical section
+c. non-critical section
+d. syncrhonizing
+
+b is the correct answer.
+
+Q3 The following conditions must be satisfied to solve the critical section problem:
+a. aging
+b. mutual exclusion
+c. deadlock
+d. progress
+e. bounded waiting
+
+b, d and e are the correct answers
+
+Q4 Mutual exclusion implies that 
+a. if a process is executing in its critical section, then no oter process must be executing in their critical section
+b. if a process is executing in its critical section, then other processes must be executing in their critical sections.
+c. if a process is executing in its critical section, then all the resources of the system must be blocked until it finished execution
+d. none of these
+
+a is the correct answer.
+
+Q5 Bounded waiting implies that there exists a bound on the number of times a process is allowed to enter its critical section:
+a. after a process has made a request to enter its critical section and before the request is granted
+b. when another process is in its critical section
+c. before a processs has made a request to enter its critical section
+d. none of these
+
+a is the correct answer.
+
+Q6 An un-interruptible unit is known as:
+a. single
+b. atomic
+c. static
+d. none of these
+
+b is the correct answer.
+
+Q7 The TestAndSet instruction is executed:
+a. after a particular process
+b. periodically
+c. atomically
+d. none of these
+
+c is the correct answer.
+
+Q8 semaphore is a/an __ to solve the critical section problem
+a. hardware for a system
+b. special program for a system
+c. integer variable
+d. none of these
+
+c. is the correct answer
+
+Q9 the two atomic operations permissible on semaphores are
+a. wait
+b. stop
+c. hold
+d. signal
+
+a and d are the correct answers.
+
+Q10 spinlocks are:
+a. CPU cycles wasting locks over critical sections of programs
+b. locks that avoid time wastage in contex switches
+c. locks that work better on multi-processor system
+d. all of these
+
+d is the correct answer
+
+Q11 The main disadvantage of spinlocks is that:
+a. they are not sufficient for many process
+b. they require busy waiting
+c. they are unreliable sometimes
+d. they are too complex for programmers
+
+b. is the correct answer 
+
+Q12 If the semaphore value is negative:
+a. its magnitude is the number of process waiting on that semaphore
+b.  it is invalid
+c. no operation can be further performed on it until the signal operation is performed on it
+d. none of these
+
+a. is the correct answer
+
+Q13 the code that changes the value of the semapohre is 
+1. remainder section code
+2. non-critical section code
+3. critical section code
+4. none of these
+
+3 is the correct answer
+
+Q14 what will happen if a non-recursive mutex is locked more than once?
+
+b is the correct answer
+
+A semaphore:
+a. is a binary mutex
+b. must be accessed from only one process
+c. can be accessed from multiple processes
+d. none of these
+
+c is the correct answer
+
+Q15 the two kinds of semaphores are:
+a. mutex
+b. binary
+c. counting
+d. decimal
+
+b and c are the correct answer.
+
+Q16 the bounded buffer problem is also know as:
+a. readers-writers problem
+b. dining-philospher problem
+c. producer-consumer problem
+d. none of these
+
+c is the correct answer
+
+Q17 In the bounded buffer problem, there are the
+empty and full semaphores that:
+a. count the number of empty and full buffers
+b. count the number of empty and full memory spaces
+c. count the number of empty and full queues
+d. none of these
+
+a is the correct answer
+
+Q18 To ensure difficulties do not arise in
+the readers-writers problem, __ are given exclusive
+access to the shared object
+a. readers
+b. writers
+c. none of these
+
+b. is the correct answer.
+
+
+Q19 The monitor construct ensure that:
+a. only one process can be active at a time within the monitor
+b. n number of processes can be active at a time within the monitor
+c. the queue has only one process in it at a time
+d. all of these
+
+a is the correct answer.
+
+Q20 The operations that can be invoked on a condition variable are:
+a. wait
+b. hold
+c. signal
+d. continus
+
+a and c are the correct answer
+
+
 ---------------------------------------------------------------------------------------------------
 
     while(true){
