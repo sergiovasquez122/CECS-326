@@ -802,9 +802,39 @@ b.  it does not ensure bounded waiting
 
 c. it requireds that processes enter the critical section in stric alternation
 
-d. it does not prevent deadlocks, but ensure mutual exclusion..
+d. it does not prevent deadlocks, but ensure mutual exclusion.
 
 d is the correct answer.
+
+tip: see the things that you know about and check what happens.
+
+question 
+
+consider three concurrent processes p1, p2, and p3 as shown below, which access a shared variable D that
+has been initialized to 100.
+
+p1		p2		p3
+--------------------------------------------
+	.	.		.
+	.	.		.
+	.	.		.
+D = D + 20	D = D - 50	D = D + 10
+	.	.		.
+	.	.		.
+
+The processes are executed on a uni-processor system running a time-shared operating system. If the minimum and 
+maximum possible values of D are the process have completed execution are X and Y respectively, then the value of
+y-x is ___
+
+130
+
+1.80
+2.130
+3.50
+4. none of these
+
+1. is the correct answer.
+
 ----------------------------------------------------------------------------------------------------
 
     while(true){
