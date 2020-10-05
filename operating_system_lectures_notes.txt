@@ -486,13 +486,6 @@ signal(Q);		signal(S);
 
 The bounded buffer problem is one of the classics problems of synchronization
 
-
-int n; // pool consists of n buffers
-semaphore mutex = 1;// mutual access to critical section
-semaphore empty = n;// count number of empty buffers
-semaphore full = 0;// count number of full buffers
-
-
 There is a buffer of n slots and each slot is capable of storing one unit of data.
 
 There are two processes running, namely, producer and consumer, which are operating
@@ -535,8 +528,6 @@ three problems we have stated have been solved.
 the producer should not produce when the buffer is full.
 the consumer should not consume when the buffer is empty.
 the consumer and producer should not simulatenously consume and produce.
-
-
 -----------------------------------READER-WRITERS PROBLEM-------------------------------------------
 -A database is to be shared among several concurrent processes.
 -Some of these processes may want only to read the database, wherease others may want to
