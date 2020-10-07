@@ -2603,7 +2603,78 @@ os-level services
 ----------------------------------------dead locks--------------
 
 
+----------------System Models---------------------
+Computer System has a finite number of resources
+to be distributed among competing processes.
+The resources may be partitioned into several
+types where they also have a resource count.
 
+EX: 
+CPU: 2
+PRINTER: 1
+NETWORK: 2
+
+
+-------normal mode of operation for a process-------
+1. Request. The process requests the the resource. If the
+request cannot be granted immediately the process
+waits until it can acquire the resource.
+
+2. Use. the thread can operated on the resource.
+
+3. Release. The thread releases the resource.
+
+------Deadlock in multi-threaded applications-------
+
+	pthread_mutex_t first_mutex;
+	pthread_mutex_t second_mutex;
+
+	pthread_mutex_init(&first_mutex, NULL);
+	pthread_mutex_init(&second_mutex, NULL);
+
+/* thread_one runs in this function */
+void* do_work_one(void * param){
+	pthread_mutex_lock(&first_mutex);
+	pthread_mutex_lock(&second_mutex);
+	/*
+		Do some work
+	*/
+	pthread_mutex_lock(&second_mutex);
+	pthread_mutex_unlock(&first_mutex);
+
+	pthread_exit(0);
+}
+
+/* thread_two runs in this function */
+void* do_work_two(void *param){
+	pthread_mutex_lock(&second_mutex);
+	pthread_mutex_lock(&first_mutex);
+	/*
+		Do some work
+	*/
+	pthread_mutex_unlock(&first_mutex);
+	pthread_mutex_unlock(&second_mutex);
+	pthread_exit(0);
+}
+
+A deadlock will occur if the first thread
+acquires the first mutex and the second thread
+immediately acquires the second mutex, this will
+result in both threads being indefinitely stalled
+with no progress.
+
+----Livelock----
+liveness: a concurrent application's ability
+to execute a in a timely manner.
+
+
+another form of liveness failure.
+similar to deadlock but occurs because threads
+continously tries an actions that fails.
+livelock typically occur when threads try failing
+operations at the same time. It is generally
+remedied by having each thread retry the failing
+operation at random times.
 ---------------------------------------recovery from deadlocks--------------------------------------------------
 When a detection algorithm determines that a deadlock exists, several alternatives are available. One possibility is to inform the operator that a deadlock has occurred and let the operator deal with the deadlock manually.
 
