@@ -2775,7 +2775,61 @@ recover from or keep avoid them are not worth it.
 
 ------Deadlock prevention
 
+8.5.1 Mutual Exclusion
+The mutual-exclusion condition must hold.
+Cannot prevent deadlocks by denying the mutual-
+exclusion because some resources are
+non-sharable.
 
+8.5.2 Hold and Wait
+To ensure this condition does not hold in a system
+any thread requesting a resource must not
+hold any other resources.
+
+one protocol is to request and allocate all its
+resources befores it begins its execution. Impractical solution to do the nature of resource requesting.
+
+alternative protocol allows a thread to request resources only when it has none. Resource must relinquish resources it has allocated before it can request more resources.
+
+cons of approaches
+---------------------
+1. resource utilization may be low.
+2. starvation is possible.
+
+8.5.3 No Preemption
+To ensure that this condition does not hold,
+if a thread is holding some resources and
+request resource that cannot be immediately granted
+it must relinquish its resources. The thread will
+only restart when it receives both its loss resources
+and the requested ones.
+
+Alternate strategy:
+If thread requests resources and the resource is availabl grant it.
+If not then check if allocated to some other thread that is waiting for additional resources. if so preempt the resource from the waiting thread and give it to the requesting thread.
+
+if neither the resource is available and the resource is not being hold by a waiting thread then the requesting thread must wait. now it is the condition that its resources may be preempted if another thread requests them.
+
+A thread can be restared only when it is allocated the new resource and any resources that were loss due to being preempted.
+
+----Circular Wait
+Three options are impractical.
+
+Way to ensure Circular wait does not hold is 
+to impose a total ordering of all resource types and
+to require that each thread requests resources in an increasing order of enumeration.
+
+F(first_mutex) = 1
+F(second_mutex) = 2
+
+A thread request a resource R_i after that the 
+thread can only request resources only iff
+F(R_j) > F(R_i).
+
+An alternative strategy to employ is 
+require that a thread requesting an instance of 
+resource R_j must have released any resources
+R_i such that F(R_i) >= F(R_j).
 
 ---------------------------------------recovery from deadlocks--------------------------------------------------
 
