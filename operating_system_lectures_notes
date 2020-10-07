@@ -2862,6 +2862,80 @@ Avoidance algorithms always ensure that the system
 is in a safe state. Requests for resources are only
 granted if the system would still be in a safe
 state after the request.
+
+----Resource-Allocation-Graph algorithm
+Banker algorithm for multiple instances of each resource type.
+
+Four data structures are need for this algorithm 
+
+Available: A vector of length that represents the availability of resources in the system.
+
+Max: An n x m matrix defines the maximum demand of each thread. 
+
+Allocation: An n x m defines the number of each type currently allocated to each thread.
+
+Need: An n x m matrix indicates the remaining resources
+needs of each thread. If Need[i][j] equals k, then thread T_i may need k more instances of resource type R_j to complete its task.a
+
+
+Safety Algorithm:
+1. Let Work and Finish be vectors of length m and n, resptively. Initialize Work = Available. Finish[i] = false for i = 0, 1, ..., n - 1.
+2. Find an index i such that both
+	a. Finish[i] == false
+	b. need_i <= work
+	if no such i exists go to step 4
+	3. Work = Work + Allocation_i
+	   Finish[i] = true;
+	   Go to Step 2.
+	4. If Finish[i] == true for i, then the system is in a safe state.
+
+This algorithm may require an order of m x n**2 operatiosn to determine whether a state is safe.
+
+Resource-Request Algorithm
+
+----Deadlock Detection----
+1. An algorithm that examines the state of the system to determine whether a deadlock has occurred.
+
+2. An algorithm to recover from the deadlock.
+
+dectection-and-recovery scheme require overhead
+that includes not only the run-time costs
+of maintaining the necessary information and
+executing the detection algorithm but also the potential
+losses inherent in recovering from a deadlock.
+
+8.7.1 Single Instance of Each Resource Type
+
+If all resources have only a single instance, then we can define a dead-lock detection algorithm that uses a variant of the RAG, called a wait-for graph(WAG). We obtain this graph from the resource-allocation graph by removing the resource nodes and collapsing the appropriate edges.
+
+In a system in which all resources have a single 
+instance if the WAG has a cycle then a deadlock
+has occurred. To deadlocks, the system
+needs to maintain the wait-for graph and periodically
+invoke an algorithm that searches for a cycle
+i the graph. This operation is O(N**2).
+
+----Several instances of a Resource Type
+Similar data structure that are used in the banker's algorithm.
+
+Available: A vector of length m indicates the number of available resources of each type.
+
+Allocation: An n x m matrix defines the number of resources of each type currently allcoated to each thread
+
+Request: an n x m matrix indicates the current request of each thread. If request[i][j] equals k, then then thread T_i is requesting k more instances of resource type R_j.
+
+8.7.3 Detection-Algorithm usage:
+When should we invoke the detection algorithm as it is a costly operation.
+
+1. How often is a deadlock likely to occur?
+2. How many threads will be affected by deadlock when it happens?
+
+One way is to invoke the algorithm for every
+resource request.
+
+Another way is to invoke the algorithm after every
+defined interval. Once per hour or when the 
+CPU utilization drops below 40 percent.
 ---------------------------------------recovery from deadlocks--------------------------------------------------
 
 When a detection algorithm determines that a deadlock exists, several alternatives are available. One possibility is to inform the operator that a deadlock has occurred and let the operator deal with the deadlock manually.
