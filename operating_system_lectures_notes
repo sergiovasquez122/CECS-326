@@ -2675,7 +2675,110 @@ livelock typically occur when threads try failing
 operations at the same time. It is generally
 remedied by having each thread retry the failing
 operation at random times.
+----Deadlock Characterization----
+four condition must hold simultaneously in a system
+for there to be deadlock.
+
+1. Mutual Exclusion. At least one resource must be held in a non-shareable mode. If another thread request a non-sharable resource another thread then it must wait until the resource has been released.
+
+2. Hold and wait. A thread must be holding at least one resource and waiting for a resource hold by
+some other threads.
+
+3. No preemption. Resources cannot be preempted.
+resource can only be volunitary be released by a 
+thread after it completes it execution.
+
+4. Circular wait.
+
+A set {t0, t1, ..., tn} of waiting threads must exist
+such that t0 is waiting for a resource by t1, t1 is waiting
+for a resource by t2. ...,tn is waiting for a resource
+for resource held by t0.
+
+note that the conditions are not completely independent
+but we consider them independent for simpler analysis.
+
+----Resource-Allocation Graph----
+Deadlocks can be represented as DAGS, which are
+characterize system resource-allocation graph.
+This graph consists of a set of vertices V and
+a set of Edges E. 
+
+T = {T1, T2, ..., Tn}, the set consisting of all the active threads in the system.
+
+R = {R1, R2, ..., Rm}, the set consisting of all the resources types in the system.
+
+edge
+	T_i -> R_j signified that thread T_i
+
+has requested an instance of resource type R_j and is currently waiting for that resource.
+
+edge
+	R_j -> T_i signifies that an instance of type
+R_j has been allocated to thread T_i. A directed edge
+T_i -> R_j is called a request edge. A directed
+edge R_j -> T_i is called an assignment edge.
+
+
+example jk
+The sets T, R, and E:
+
+	T = {T1, T2, T3}
+	R = {R1, R2, R3, R4}
+
+
+	E = {T1 -> R1, T2 -> R3, R1 -> T2, R2 -> T1, R3 -> T3}
+
+Resource instances
+	one instance of type R1
+	two instances of type R2
+	one instance of type R3
+	three instances of type R4
+
+If the RAG has no cycle then it has no deadlock.
+But if a RAG does have a cycle then a deadlock 
+may or may not exist. 
+
+If each resource type has only one instance and there
+is a cycle in the graph then there is a cycle.
+In this case a cycle is both a sufficient and
+necessary condition for the existence of a deadlock.
+
+If each resource type has several instances,
+then a cycle does not necessarily imply that 
+a deadlock has occurred. In this case, a cycle
+in the graph is a necessary but not sufficient condition
+for the existence of a deadlock.
+
+----Methods for handling deadlocks
+
+Three ways to deal with the deadlock problem
+1. Ignore the problem altogether and pretend it does not exist(ignorance)
+2. Use a protocol to prevent or avoid deadlocks. ensure the system never enters a deadlock state.(prevention)
+3. Allow the system to enter a deadlock state but we try to detect and recover from deadlocks.(avoidance)
+
+Deadlock prevention provides a set methods
+to ensure that at least one of the necessary
+conditions cannot hold.
+
+Deadlock avoidance requires that the operating 
+system be given additional information in 
+advance concerning what resources a thread will
+request and use during its lifetime.
+
+If a system does not employ a deadlock avoidance algorithm then a deadlock situation may arise. In this environment can provide an algorithm that examines the state of the system to determine where the deadlock has occurred and an algorithm to recover from the deadlock.
+
+The final alternative if not employing deadlock avoidance or deadlock recovery algorithms is to simply ignore the problem. This will cause the system performance to deteriorate and eventually will need to be restarted manually.
+This is used in most operating system because
+deadlock rarely happen and the extra expense to
+recover from or keep avoid them are not worth it.
+
+------Deadlock prevention
+
+
+
 ---------------------------------------recovery from deadlocks--------------------------------------------------
+
 When a detection algorithm determines that a deadlock exists, several alternatives are available. One possibility is to inform the operator that a deadlock has occurred and let the operator deal with the deadlock manually.
 
 another system is to let the system recover from the deadlock.
