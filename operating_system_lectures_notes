@@ -630,6 +630,24 @@ within the monitor.
 along wit the bodies of procedures or functions that operare on that variables.
 
 
+signal(mutex);
+    ...
+critical section
+    ...
+wait(mutex);
+the code above will allow several processes to be 
+executing in their critical sections simultaneously.
+
+wait(mutex);
+    ...
+critical section
+    ...
+wait(mutex);
+
+the process will be permantly blocked on the second call.
+
+
+
 syntax of a monitor
 
 monitor monitor_name
@@ -673,6 +691,48 @@ with x,y
 		operations
 
 		intialization code
+
+
+Implementing a monitor using semaphores
+
+wait(mutex);
+    ...
+body of F
+    ...
+if (next_count > 0)
+    signal(next);
+else 
+    signal(mutex);
+
+Implementing a condition variable using binary semaphore
+
+x_count++;
+if (next_count > 0)
+    signal(next);
+else
+    signal(mutex);
+wait(x_sem);
+x_count--;
+
+The operation x.signal() can be implemented as 
+    if(x_count > 0) {
+        next_count++;
+        signal(x_sem);
+        wait(next);
+        next_count--;
+}
+
+
+resuming processes within a monitor
+
+conditional-wait construct.
+
+x.wait(c)
+
+c = priority number.
+when x.signal() is executed the process with the smallest
+priority number is resumed next.
+
 
 Dining-philosphes solution monitors 
 
@@ -2540,7 +2600,63 @@ multi-thread kernels
 thread working on behalf of apps
 os-level services
 
+----------------------------------------dead locks--------------
 
 
 
+---------------------------------------recovery from deadlocks--------------------------------------------------
+When a detection algorithm determines that a deadlock exists, several alternatives are available. One possibility is to inform the operator that a deadlock has occurred and let the operator deal with the deadlock manually.
+
+another system is to let the system recover from the deadlock.
+
+two options for breaking a deadlock.
+
+1. abort one or more processes
+----------two methods that reclaim all resources allocated to terminated processes.
+
+---------abort all deadlocked processes.
+costly but will break the deadlock cycle. processes which were almost complete will lose all their work and will have to start from scratch on task
+
+---------abort one process at a time until the deadlock is eliminated
+costly because we have to abort a process then run a 
+dead-lock detection algorithm again to determine if the
+processes are still deadlocked.
+
+deciding which process to abort is a difficult question
+and requires many factors, some of these are:
+
+1. What the priority of the process is
+
+2. How long the process has computed and 
+how much longer the process will compute before
+completing its designated task
+
+3. How many and what types of resources the process
+has used
+
+4. How may more resources the process needs in order
+to complete
+
+5. How many processes will need to be terminated.
+
+-------------resource preemption
+forcefully take resources from processes
+and give them to other processes until the
+deadlock cycle is broken.
+
+if this is the option to deal with the deadlock,
+then three issues need to be addressed.
+
+1. selecting a victim. Which resources and
+which processes are to be empted?
+
+2. Rollback. need to restart that process possibly
+since it has lost the resources it needed to finish
+its execution 
+
+3. Starvation. How do we ensure that starvation
+will not occur? It can happen that we continously 
+chose the same person as a victim. the most common
+solution is to include the number of rollbacks in 
+the cost factor.
 
