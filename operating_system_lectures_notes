@@ -2831,6 +2831,37 @@ require that a thread requesting an instance of
 resource R_j must have released any resources
 R_i such that F(R_i) >= F(R_j).
 
+----Deadlock Avoidance
+Deadlock prveention algorithms prevent deadlocks
+by limiting how requests can be made. The side
+effects of preventing deadlocks by this method are
+low-device utilization and reduced system throughput.
+
+Require the system know additional information
+about how resources are to be requested.
+
+The simplest and most useful model requires that
+each thread declare the maximum number of resources
+of each type that it may need.
+
+----Safe State
+A state if safe is the system can allocate resources
+to each thread in some order and still avoid a deadlock.
+
+A system is in a safe state only if there exists a state sequence. A sequence of threads <T1, T2, ..., Tn> is a safe if T_i can be satifisied with its resource plus all the resources of the threads preceding it.
+
+If no such sequence exists the system is said to be unsafe.
+
+safe state -> not deadlocked
+deadlocked -> unsafe state
+
+not all unsafe states are deadlocks, unsafe states
+may only lead to deadlocks.
+
+Avoidance algorithms always ensure that the system
+is in a safe state. Requests for resources are only
+granted if the system would still be in a safe
+state after the request.
 ---------------------------------------recovery from deadlocks--------------------------------------------------
 
 When a detection algorithm determines that a deadlock exists, several alternatives are available. One possibility is to inform the operator that a deadlock has occurred and let the operator deal with the deadlock manually.
