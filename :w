@@ -2787,7 +2787,7 @@ conditions must simultaneously hold
 	conditions do not hold we can can
 	prevent deadlocks.
 
-8.5.1 Mutual Exclusion(one or more than resource are non-sharable)
+8.5.1 Mutual Exclusion
 
 The mutual-exclusion condition must hold.
 Cannot prevent deadlocks by denying the mutual-
@@ -2808,7 +2808,7 @@ It is then not possible for us to avoid mutual-exclusion.
 It is out of the question,
 must be there.
 
-8.5.2 Hold and Wait(process is holding at least one resource and waiting for more resources)
+8.5.2 Hold and Wait(process is holding at least one resource and waiting for more resources held by other processes)
 
 To ensure that the hold & wait condition never occurs in the system, we must guarantee that, whenever process
 request a resource it is not holding a resource.
@@ -2818,38 +2818,33 @@ process must request all resources it needs before its execution and then must
 have all the resources allocated to it before it begins its execution resource.
 
 
-2nd protocol to prevent hold and wait condition:
-Allows a process to request a resource when it has none.
-It must relinquesh it resources before it can for more. Mut 
-also then wait for both it roueces and the requested resources beofre it can start again.
+one protocol is to request and allocate all its
+resources befores it begins its execution. Impractical solution to do the nature of resource requesting.
 
-	both these two protocols have
-	two main disadvantages
-	-----------------------------
-	1. resource utilization is low
-	2. starvation is possible
+alternative protocol allows a thread to request resources only when it has none. Resource must relinquish resources it has allocated before it can request more resources.
 
-examples:
-1st protocol may have a resource but not be using it
+cons of approaches
+---------------------
+1. resource utilization may be low.
+2. starvation is possible.
 
-2nd protcol when release resource it must wait to
-get it back and others as well. could wait indefinitely.
+8.5.3 No Preemption
+To ensure that this condition does not hold,
+if a thread is holding some resources and
+request resource that cannot be immediately granted
+it must relinquish its resources. The thread will
+only restart when it receives both its loss resources
+and the requested ones.
 
-8.5.3 No Preemption(A resource cannot be taken from a process unless the process releases the resource)
+Alternate strategy:
+If thread requests resources and the resource is availabl grant it.
+If not then check if allocated to some other thread that is waiting for additional resources. if so preempt the resource from the waiting thread and give it to the requesting thread.
 
-preemption should be there.
+if neither the resource is available and the resource is not being hold by a waiting thread then the requesting thread must wait. now it is the condition that its resources may be preempted if another thread requests them.
 
-If a process is hodling resources and must wait for another process to get desired resource then all its current resource are preempted.
+A thread can be restared only when it is allocated the new resource and any resources that were loss due to being preempted.
 
-alternatively, if process requests some resource, we first check whether they are avaiable, if they are we allocate them, if no then we check whether they are holed by some other process that is waitinf ro additional resources, if so we prempted the desired resources from
-the waiting process and allocate them for the requesting process
-
-generally applicable to resources whose state can be easily stored and restored later.
-
-----Circular Wait(A set of processes are waiting for each other in circular form)
-
-p0->p1->p2->....->pn->pn
-
+----Circular Wait
 Three options above are impractical.
 
 Way to ensure Circular wait does not hold is 
