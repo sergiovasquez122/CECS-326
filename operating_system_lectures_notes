@@ -2891,24 +2891,67 @@ The simplest and most useful model requires that
 each thread declare the maximum number of resources
 of each type that it may need.
 
-----Safe State
-A state if safe is the system can allocate resources
-to each thread in some order and still avoid a deadlock.
+----Safe State---
+------------------------
+| |deadlock|		|
+| ----------  unsafe    |
+|			|
+|			|
+|-----------------------|
+|             safe 	|
+|			|
+------------------------
 
-A system is in a safe state only if there exists a state sequence. A sequence of threads <T1, T2, ..., Tn> is a safe if T_i can be satifisied with its resource plus all the resources of the threads preceding it.
+A state is safe if the system can allocate resource to each proces (up to its maximum)
+in some order and stilll avoid a deadlock.
 
-If no such sequence exists the system is said to be unsafe.
+A system is in a safe state only if there exists a safe sequence.
+
+A safe state is not a deadlocked state. Conversly, a deadlocked state
+is an unsafe state. No all unsafe state are deadlocks, however.
 
 safe state -> not deadlocked
 deadlocked -> unsafe state
 
-not all unsafe states are deadlocks, unsafe states
-may only lead to deadlocks.
+An unsafe state my lead to a deadlock. As long as teh state is safe, teh operationg system
+can avoid unsafe states. In an unsafe state, the operating system cannot prevent processes from requesting resources
+such that a deadlock occurs. The behavior of the processes control unsafe states.
 
-Avoidance algorithms always ensure that the system
-is in a safe state. Requests for resources are only
-granted if the system would still be in a safe
-state after the request.
+example:
+Consider a system with 12 magnetic tape drives and three processe p0, p1, and p2:
+		maximum need	|	current needs
+----------------------------------------------------------
+p0		12		|	5
+p1		4		|	2	
+p2		9		|	2
+
+At time t0, the system is in a safe state.
+the sequence <P1, P0, P2> satisfies the safety condition.
+
+p0 has 5 tape drives at time 0
+p1 has 2 tape drives at time 0
+p2 has 2 tape drives at time 0
+
+in total 9 tape drives are being used at time 0.
+since the system has 12 tape drives total 12 - 9 = 3 tape drives are free.
+
+p1 uses it tape drives then relinquish its resources when it is done there are now 
+12 - 7 = 5 tape drives that are free.
+
+p0 uses its tape drive then relinquish its resources when it is done there are now
+10 tape drives that are free.
+
+p2 uses its tape drive then relinqush it resources when it is done, there are now
+12 tape drives that are free.
+
+example 2:
+A system can go from a safe stateto an unsafe state. 
+suppose that, at time t1, process p2 requests and is allocated one more tape drive.
+the system si no longer in a safe state.
+
+p1 is satisfied and relinquish its resources.
+we now have 4 tape drives in hand. p0 and p2 cannot be satisfied
+with the current amount resources in hand and thus we are in an unsafe state.
 
 ----Resource-Allocation-Graph algorithm
 Banker algorithm for multiple instances of each resource type.
