@@ -176,17 +176,17 @@ example:
 
 counter++ may be implemented in machine language as:
 
-        register_1 = counter
-        register_1 = register_1 + 1
-        counter = register_1
+        register_1 = counter // value of register_1 is equal to 5
+        register_1 = register_1 + 1 // value of register_1 is equal to 6
+        counter = register_1 // value of counter is 5
 
 counter-- may be implemented in machine language as:
 
-        register_2 = counter
-        register_2 = register_2 - 1
-        counter = register_2
+        register_2 = counter // value of register_2 is equal to 5
+        register_2 = register_2 - 1 // value of register_2 is equal to 4
+        counter = register_2 // value fo counter is 4
 
-table of how the process takes place
+table of how the process may take place
 
 t0      producer        execute     register_1    =   counter                  {register_1=5}
 t1      producer        execute     register_1    =   register_1 + 1           {register_1=6}
@@ -195,18 +195,26 @@ t3      consumer        execute     register_2    =   register_2 - 1           {
 t4      producer        execute     counter       =   register_1               {counter=6}
 t5      consumer        execute     counter       =   register_2               {counter=4}
 
-we arrived at this incorrectg state because we allowed both processes to run concurrently.
+we arrived at this incorrect state because we allowed both processes to run concurrently.
 
 A situation where several processes access and manipulate the same data concurrently and the outcome of the
 execution depends on the particular order in which the access takes place, is called a race condition.
 
 We want the resulting changes not to interfere with one another, hence we need process synchronization.
 
+don't want two or more processes to access and manipulate the same data and then causing some kind of 
+inconsistency.
 
 ---------------------------------------------The Critical Section-Problem--------------------------------------
+Process sychronization is another topic in operating system. critical section-problem is related to process
+sychronization.
+
 consider a system consisting of n processes (p0, p1, ..., pn)
-each process has a segment of code, called a critical section.
+each process has a segment of code, called a 
+			critical section.
 in which the process may be changing common variables, updating a table, writing a file, and so on.
+
+
 when one process is executing in its critical section, no other process is to be allowed to execute in its critical
 section. that is, no two other processes are executing in their critical sections at the same time.
 that is, no two processes are executing in their critical sections at the same time.
@@ -246,6 +254,7 @@ enter its critical section nexts, and this selection cannot be postponed indefin
 
 There exists a bound, or limit, on the number of times that other processes are allowed to enter their critical sections after
 a process has made a request to enter its critical section and before that request is granted.
+not having this would lead to starvation.
 
 ----------------------------------------Peterson Solution---------------------------------
 -A classic software-based solution to the critical-section problem
