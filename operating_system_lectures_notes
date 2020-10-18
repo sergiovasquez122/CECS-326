@@ -594,7 +594,9 @@ do{
 } while(true);
 
 ---------------------------------The dining-philophers problem-------------------------------------
-five philosphers in two possible states, thinking and eating.
+Another classic problem in Synchronization 
+
+Five philosphers in two possible states, thinking state and eating state.
 philospher needs to have two chopsticks in order to eat. chopsticks
 are limited. 5 chopsticks for 5 philosphers.
 
@@ -612,29 +614,54 @@ One simple soluition is to represent each fork/chopstick with a semaphore.
 a philospher tries to grab a fork/chopstick by executing a wait() operation on that semaphore.
 he releases his fork/chopsticks by executing the signal() operation on the appropiate semaphores.
 
-		thus the shared data are
+when a hungry philospher has both his forks at the same time, he eats without releaseing his forks.
+when he has finished eating, he puts down both of his forks and start thinking again.
+
+One solution to represent each chopstick with a semaphore
+
+A philosopher tries to grab a chopstick by executing a wait() operations on that semaphore.
+
+He releases his fork/chopsticks by executing the signal() operations on the appropriate semaphores.
+
+thus the shared data are
 		semaphore[5];
 where all the elements of chopsticks are initialized to 1.
 so we are using binary semaphores.
 
 structure of philospher i
 do{
+	// get the chopsticks adjacent to him
 	wait(chopstick[i]);
 	wait(chopstick[((i + 1) % 5)]); // uses modular because circular table
 	// eat
+	// release the chopsticks 
 	signal(chopstick[i]);
 	signal(chopstick[(i + 1) % 5]);
 	// think
 } while(TRUE);
 
-although this solutaiotn guarantees that no two neighboars are eating simulatenously.
+although this solution guarantees that no two neighbors are eating simulatenously,
+it could still create a deadlock.
 
-all five become hungry simulatenously and thus all elements of chopsticks will be zero.
+suppose that all five philosphers become hungry simultaneously and each grabs their left chopstick.
+All the elements of chopsticks will now be equal to 0.
 
-when a each philospher tries to grab his right chopstick he will be deadlocked forever.
+When each philosopher tries to grab his right chopstick, he will be delayed forever.
+this scenario will lead to a deadlock.
+
+some possible remedies to avoid deadlocks
+
+Allow at most four philosopher to sitting simultaneously on the table.
+
+Allow a philosopher to pick up his chopsticks only if both chopsticks are available.
+
+Use an asymmetric solution;that is, an odd philosopher picks up first his 
+left chopstick and then hsi right chopstick, whereas an even philosopher picks
+up his right chopsticks and then his left chopstick.
+
 
 ----------------------------------------Monitors----------------------------------------------------
--A high-level abstraction that provides a conventient and effective mechanism for process
+-A high-level abstraction that provides a convient and effective mechanism for process
 sychronization
 -A monitor type presents a set of programmer-defined operations that provide mutual exclusions
 within the monitor.
