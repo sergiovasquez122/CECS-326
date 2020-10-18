@@ -787,7 +787,6 @@ for this purpose, we introduce the following data structures.
 -we also need to declare condition self[5]; where philospher i can delay himself when he is hungry 
 but is unable to obtain the chopsticks he need.
 
-
 Monitor dp{
 	enum {thinking, hungry, eating} state[5];
 	
@@ -796,20 +795,23 @@ Monitor dp{
 		test(i);
 		if(state[i] != eating)
 		self[i].wait();
-}
+	}
+
 	void putdown(int i){
 		state[i] = thinking;// done eating
 		test((i + 4) % 5);// give the neighbors chance to eat.
 		test((i + 1) % 5);
-}
+	}
 
 	void test(int i){
+		// if the philosopher to the left and right of a hungry philosopher then 
+		// the philospher will start eating
 		if((state[(i + 4) % 5] != eating) && (state[i] == hungry) && state[(i + 1) % 5] != eating)
 		{
 		state[i] = eating;
-		self[i].signal();
+		self[i].signal(); // completed eating and now any other philosopher can start entering monitor
+		}
 	}
-}
 
 			
 		// initially all philosphers are in the thinking state.
@@ -839,7 +841,7 @@ while(s1 != s2);
 critical section
 s2 = not(s1)
 
-Which one of teh following statements describes the properties achieved?
+Which one of the following statements describes the properties achieved?
 
 1. mutual exclusion but not progress
 2. progress but not mutual exclusion
