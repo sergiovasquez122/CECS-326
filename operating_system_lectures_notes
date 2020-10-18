@@ -127,6 +127,15 @@ be copied and the existence of special instructions.
 
 -typical speeds are a few milliseconds.
 
+-----------------------Process Creation------------------------------
+-A process may create several new processes, via a create-processes system call, during the course of execution.
+
+-The creating process is called a parent process, and the new processes are called the children of that process
+
+-Each of these new processes may in turn create other processes, forming a tree of processes.
+
+
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
