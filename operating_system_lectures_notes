@@ -493,27 +493,30 @@ signal(Q);		signal(S);
 ---------------------------------------------Classic Problems of Syncrhonization-------------------------------------
 					          (The bounded-buffer problem)
 
-The bounded buffer problem is one of the classics problems of synchronization
+The bounded buffer problem(producer consumer problem) is one of the classics problems of synchronization
+Problems are used to determine how solutions are able to solve problems and how well are they
+able to do it.
 
-
+global variables
 int n; // pool consists of n buffers
 semaphore mutex = 1;// mutual access to critical section
 semaphore empty = n;// count number of empty buffers
 semaphore full = 0;// count number of full buffers
-
 
 There is a buffer of n slots and each slot is capable of storing one unit of data.
 
 There are two processes running, namely, producer and consumer, which are operating
 on the buffer.
 
--there are two processes running, namely, producer and consumer, which are operating on the bufffer
+-there are two processes running, namely, producer and consumer, which are operating on the buffer
 
+operations of the processes
 -the producer tries to insert data into an empy slot of the buffer.
 -the consumer tries to remove data from a filled slot in the buffer.
+problems we must take care of
 -the producer must not insert data when the buffer is full
--the consumer must not remove data when teh buffer is empty.
--the producer and consumer shoud not insert and remove data simultaneously
+-the consumer must not remove data when the buffer is empty.
+-the producer and consumer should not insert and remove data simultaneously
 
 we make use of three semaphores:
 
