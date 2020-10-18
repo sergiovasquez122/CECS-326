@@ -100,6 +100,33 @@ ready queue: The process that are residingin main memory and are ready and waiti
 called the ready queue.
 
 
+----------------------------Context Switch---------------
+-Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
+
+-Such operations ahhappeon frequently on general-purpose systems.
+
+-when an interrupt occurs, the system needs to save teh current contex of the process currently running on the CPU
+so that it can restore that context when its processing is done, essentially suspending the process and then
+resuming it
+
+-the contex is represented in the PCB of the process
+
+example: reading book and then mother tells you do something. mother is interupt, need to interrupt your current
+task and do the new task. put bookmark on current page and then do the other task. by putting bookmark you
+are saving current context and when you are done you will resume reading of book.
+
+-switching the CPU to another process requires performing a state save of the current process and a state restore
+of a different process.
+
+	this task is known as a context switch.
+
+-Context-switch time is pure overhead, because the system does no useful work while switching.
+
+-It speed varies from machine to machine, depending on the memory speed, the number of registers that must
+be copied and the existence of special instructions.
+
+-typical speeds are a few milliseconds.
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
