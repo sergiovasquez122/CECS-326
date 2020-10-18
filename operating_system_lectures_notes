@@ -134,6 +134,17 @@ be copied and the existence of special instructions.
 
 -Each of these new processes may in turn create other processes, forming a tree of processes.
 
+-when a process creates a new process, two possibilities exist in forms of execution
+
+1. the parent continues to execute concurrently with its children
+
+2. the parent wait until some or all of its children have terminated.
+
+there are also two possibilities in terms of the address space of the new process
+
+	1. the children process is a duplicate of the parent process.
+
+	2. the children process has a new program loaded into it.
 
 
 -----------------------------Process API-----------------
