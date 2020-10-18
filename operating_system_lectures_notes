@@ -52,6 +52,35 @@ anywhere from just one thread to many threads.
 		|		|
 		------	waiting
 
+
+-----------------------------Process Control Block------
+-Each process is represented in the operating system as a process control block
+
+
+	process state
+	program number
+	program counter
+	registers
+	memory limits
+	list of open files
+	...
+
+-process id: unique number to identify process
+
+-process state: the particular state in which the process is at that particular moment
+
+-program counter: indicates the address of the next instruction to be executed by the program
+
+-cpu registers: registers being used by a particular process
+
+-cpu scheduling: priority of the process
+
+-memory management information: memory that is being used by a particular process
+
+-accounting information: keep account of resources being and so on.
+
+-I/O status information: I/O devices that are being assigned to the process
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
