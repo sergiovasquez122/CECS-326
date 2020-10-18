@@ -1,6 +1,3 @@
-The operating system takes physical resources and virtualizes them. It handles issues related to concurrency.
-Stores files persistently.
-
 --------------------------------Process------------------
 A process is a running program. A program is just
 a bunch of instructions and some data sitting in disk.It
@@ -27,6 +24,33 @@ program counter otherwise known as an instruction pointer
 this is what tells us which instrucdion of the program will execute next
 
 stack pointer
+
+A thread is the unit of execution within a process. A process can have
+anywhere from just one thread to many threads.
+
+	process is composed of threads
+
+-----------------------------Process State---------------
+-As a process executes, it changes state.
+-The state of a process is defined in part by the current activity of that process
+
+	Each process may be in of the following states
+	
+	New - The process is being created
+
+	Running - Instructions are being executed
+
+	Waiting - The process is waiting for some event to occur(I/O completion or reception of a signal)
+
+	Ready	- The process is waiting for waiting to be assigned to a processor. 
+
+	Terminated - The process has finished execution
+
+
+	new ->  ready -> running -> terminated
+		|		|
+		|		|
+		------	waiting
 
 -----------------------------Process API-----------------
 
