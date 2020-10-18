@@ -858,7 +858,7 @@ keep in mind definitions and analyze code to solve these problems.
 
 question 2
 
-The following program consists of 3 concurrent processes and 3 binary semaphorse the semaphores are initialized to
+The following program consists of 3 concurrent processes and 3 binary semaphores the semaphores are initialized to
 s0 = 1, s1  = 0, s2 = 0
 
 process p0 	process p1 		process p2
@@ -879,9 +879,7 @@ c. exactly thrice
 
 4. exactly once
 
-b exactly twice is my current answer
-
-c is the current answer. did not take into account the case when
+a is the correct answer. did not take into account the case when
 
 p0 runs then p1 then p0 then p2 then p0.
 
