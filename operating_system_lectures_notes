@@ -935,7 +935,6 @@ The processes are executed on a uni-processor system running a time-shared opera
 maximum possible values of D are the process have completed execution are X and Y respectively, then the value of
 y-x is ___
 
-130
 
 1.80
 2.130
@@ -943,7 +942,10 @@ y-x is ___
 4. none of these
 
 1. is the correct answer.
+130 is the maximum
+50 is the minimum
 
+130 - 50 = 80
 
 question
 --------
