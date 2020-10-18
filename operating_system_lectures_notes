@@ -901,18 +901,19 @@ wants2 = false;
 }
 }
 
-here, want1 and wants2 are shared varialbes, which are initialized to flase.
+here, want1 and wants2 are shared variables, which are initialized to false.
 which one of the following statements is true about the above construct?
 
 a. it does not ensure mutual exclusion
 
 b.  it does not ensure bounded waiting
 
-c. it requireds that processes enter the critical section in stric alternation
+c. it requireds that processes enter the critical section in strict alternation
 
 d. it does not prevent deadlocks, but ensure mutual exclusion.
 
-d is the correct answer.
+d is the correct answer. If they both enter the entry section they'll
+set the variable then wait indefinitely for each other.
 
 tip: see the things that you know about and check what happens.
 
