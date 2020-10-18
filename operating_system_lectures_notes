@@ -291,10 +291,10 @@ do{
 	flag[i] = true; // Process pi is ready to enter its critical section
 	turn = j; // algorithm is a humble algorithm so will give turn to process pj
 	while(flag[j] && turn[j] == j); // wait while process pj is in its critical section
-
+	// has entered its critical section
 	critical section
 
-	flag[i] = false; // set the flag as false as the process pj has completed its critical section.
+	flag[i] = false; // set the flag as false as the process pi has completed its critical section.
 
 	remainder section
 } while(true);
@@ -403,17 +403,18 @@ which is known as a semaphore.
 -Semaphore is simply a variable which is non-negative and shared between threads. this variable is used to solve
 the critical secion problem and to achieve process synchronization in the multi-processing environment
 
--A semaphore S is an integer variable that, apar from initialization is accessed only through two
+-A semaphore S is an integer variable that, apart from initialization is accessed only through two
 standard atomic operations: wait() and signal();
 
 wait() -> [from the Dutch word proberen, which means 'to test']
 signal() -> [from the Dutch word verhogen, which means 'to increment']
 
 definition of wait();
+
 P(Semaphore s){
-	while(s <=0);
+	while(s <= 0); // stay in while loop while semaphore resources are used up
 	// no operation
-	s--
+	s-- // decrement a resource from the semaphore.
 }
 
 if the value of s > 0 greater than 0, then s will be decremented and enter the critical section.
@@ -421,13 +422,13 @@ it decrements the value of s to let other other processes to know that the value
 
 definition of signal();
 V(Semaphore s){
-	s++;
+	s++; // process is done using the resource
 }
 
 to tell other processes that the process is done using the resource.
 
 
-all the modification to the integer value of the semaphore in the wait() and signal() operatoins
+all the modification to the integer value of the semaphore in the wait() and signal() operations
 must be executed indivisbly, 
 that is, when one process modifies the semaphore value, no other process 
 can simulatenously modify that same semaphore value.
@@ -437,7 +438,6 @@ The value of a binary semaphore can range only between 0 and 1. On some systems,
 as they are locks that provide mutual exclusion.
 
 the value of a semaphore is initialized to 1.
-
 
 2. Counting Semaphore
 Its value can range over an unrestricted doman. It is used to control access to a resource that
@@ -454,7 +454,7 @@ process 3 will enter the loop and then will stay in loop until process 1 or
 process 2 release the resource.
 
 -------------------------------------Disadvantage of Semaphores-------------------------------------------------
--The main disadvantage of the semapohre definition that was discussed is that it requires busy waiting.
+-The main disadvantage of the semaphore definition that was discussed is that it requires busy waiting.
 
 - While a process is in its critical section, any other process that tries to enter its critical section
 must loop continously in the entry code.
@@ -465,19 +465,19 @@ must loop continously in the entry code.
 
 to overcome the need for busy waiting, we can modify the definiton of the wait() and signal() semaphore operations.
 
--When a process executes the wait() operations and finds that the semapohre value is
-not positive, it must wait
+-When a process executes the wait() operations and finds that the semaphore value is
+not positive, it must wait.
 
---however, rather than engaging in busy waiting, the process can block itself
+--however, rather than engaging in busy waiting, the process can block itself.
 
---The block operation places a process into a waiting queue associated with the semapohre, and the sate of the process is switched to the waiting state.
+--The block operation places a process into a waiting queue associated with the semaphore, and the state of the process is switched to the waiting state.
 
---the control is transferred to teh CPU schedule, which select another process to execute 
+--the control is transferred to the CPU schedule, which select another process to execute.
 
 --------------------------------------Deadlocks and Starvation--------------------------------------
 -The implementation of a semaphore with a waiting queue may result in a situation where
-two or more processes are wiaitng indefintey for an event tha can be caused only one of the 
-waiting processes
+two or more processes are wiaitng indefintey for an event that can be caused only one of the 
+waiting processes.
 -The event in question is the execution of a signal() operation. When such as state is reached, these processes are said
 to be deadlocked.
 
