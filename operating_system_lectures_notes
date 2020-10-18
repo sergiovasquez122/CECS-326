@@ -661,12 +661,11 @@ up his right chopsticks and then his left chopstick.
 
 
 ----------------------------------------Monitors----------------------------------------------------
--A high-level abstraction that provides a convient and effective mechanism for process
+-A high-level abstraction that provides a convenient and effective mechanism for process
 sychronization
 -A monitor type presents a set of programmer-defined operations that provide mutual exclusions
 within the monitor.
--The monitor type also contains the declaration of variables whose values define the satte of an instance of that type,
-along wit the bodies of procedures or functions that operare on that variables.
+-The monitor type also contains the declaration of variables whose values define the state of an instance of that type, along wit the bodies of procedures or functions that operare on that variables.
 
 
 signal(mutex);
@@ -683,9 +682,7 @@ critical section
     ...
 wait(mutex);
 
-the process will be permantly blocked on the second call.
-
-
+the process will be blocked on the second call.
 
 syntax of a monitor
 
@@ -716,7 +713,7 @@ those varaibles declared locally within the monitor and its parameter.
 -conditional construct-			condition x, y;
 the only operations that can be invoked on a condition variable are wait() and signal().
 
-the operation x.wait(); means that process invoking this opoerationg is suspended until another process invokes
+the operation x.wait(); means that process invoking this operation is suspended until another process invokes
 x.signal();
 
 the x.signal() operations resumes exactly one suspended process.
