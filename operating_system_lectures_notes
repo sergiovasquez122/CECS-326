@@ -81,6 +81,25 @@ anywhere from just one thread to many threads.
 
 -I/O status information: I/O devices that are being assigned to the process
 
+-----------------------------Process Scheduling----------
+-The objective of multiprogramming is to have some process running at all times, to maximize CPU utilization
+
+-The objective of time sharing is to switch the CPU among processes so frequently that users can interact
+with each program while it is running.
+
+-To meet these objectives, the process scheduler selects an available process for program execution on the CPU.
+	-For a single-processor system, there will never be more than one running process
+	-If there are more processes, the rest will have to wait until the CPU is free and rescheduled
+
+
+Scheduling queues
+
+job queue: As processes enter the system, they are put into a job queue. Which consist of all processes in the system.
+
+ready queue: The process that are residingin main memory and are ready and waiting to execute are kept on a list
+called the ready queue.
+
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
