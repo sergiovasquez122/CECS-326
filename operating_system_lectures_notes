@@ -851,7 +851,10 @@ Which one of the following statements describes the properties achieved?
 this will achieve mutual exclusion but not progress.
 one process can be postponed indefinitely.
 
-keep in mind definitions and analyze code to solve theses problems.
+Suppose s1 == s2 and process P1 wants to enter the critical section. If p2 does not want to enter critical 
+section then P1 will wait indefinitely.
+
+keep in mind definitions and analyze code to solve these problems.
 
 question 2
 
