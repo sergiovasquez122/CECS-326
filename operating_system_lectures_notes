@@ -520,11 +520,11 @@ problems we must take care of
 
 we make use of three semaphores:
 
-1. m(mutex) a binary sempahore which is used to acquire and release the lock
+1. m(mutex), a binary semaphore which is used to acquire and release the lock
 2. empty, a counting semaphore whose initial value is the number of slots in the buffer, since, initially all slots are empty.
 3. full, a counting semaphore whose initial value is 0.  
 
-producer
+// producer code
 
 do{
 	wait(empty); // wait until empty > 0 and then decrement empty
@@ -534,7 +534,7 @@ do{
 	signal(full); // increment full because the producer has added one data to the buffer
 } while(TRUE);
 
-// consumer 
+// consumer code
 do {
 	wait(full); // wait until full > 0 and then decrement 'full'
 	wait(mutex);// acquire lock
