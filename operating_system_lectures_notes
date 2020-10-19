@@ -147,6 +147,25 @@ there are also two possibilities in terms of the address space of the new proces
 	2. the children process has a new program loaded into it.
 
 
+---------------------------Operations on processes-----------------------
+-A process terminates when it finished executing its final statement and asks the operating system to delete it using
+the exit() system call.
+-At that point, the process may return a status value(typically an integer) to its parent process(vai the wait() system call).
+-All the resources of the process-including physical and virtual memory. open files and I/O buffers/are deallocated by
+the operating system.
+-Terminations can occur in other circumstances as well:
+---A process an cause the termination of another process via an appropiate system call
+---Usually, such a system canll can be invoked only bythe parent of the process that is to be terminated
+---otherwise, users could arbitrarily kill each other's job.
+
+---A parent may terminate the execution of one of its children for a variety of reasons, such as these
+
+-----The child has been exceeded it usuage of some of the resources that it has been allocated.
+
+-----The task assigned to the child is no longer required
+
+-----The parent is exiting, and the operating system does not allow a child to continue if its parent terminates
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
