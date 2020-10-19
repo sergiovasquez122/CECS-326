@@ -221,6 +221,87 @@ can be filled by the producer and emptied by the consumer.
 
 -the producer and consumer must be syncronized, so that the consumer does not try to consumer an item that
 has not yet been produced.
+
+-----------------------------Message-passing systems-----------------------------
+
+Message-passing a mechanism
+to allow processes to communicate and to synchronize
+their actions without sharing the same address space
+and is particulary useful in a distributed environment, where
+the communicating processs may reide on different computer connected by a network.
+
+provides at least two operations
+
+-send messages to other process
+
+-receive message from other process
+
+message sent by a process can be of either fixed or variable size.
+
+fixed size:
+system-level implementation is straightforward
+task of programming is more difficult
+
+variable size:
+requires a more complex system-level implementation.
+but the programming tasks become simpler.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+If processes P and Q want to communicate, they must send message to and 
+receive message from each other.
+
+A communication link must exist between them.
+
+link can be implemented in many ways
+
+-direct or indirect communications
+-synchronous or asynchronous communication
+-automatic or explicit buffering
+
+issues
+naming
+synchronization
+buffering
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
