@@ -302,6 +302,26 @@ naming
 synchronization
 buffering
 
+-----------------message passing systems-----------------
+processes that want to communicate must have a way to refer to each other.
+they can use either direct or indirect communication
+
+under direct commnication-each process that want sto communicate must
+explicitly name the recipient or sender of teh cummnication.
+
+send(P, message) - send a message to process P
+receive(P, message) - receive a message from process Q
+
+A communication link in this scheme has the following properties:
+A link is established automatically between every pair of processes that
+want to communicate. The processes need to know only each other's identify 
+
+A link is associated with exactly two processes.
+
+Between each pair of processes, there exists exactly one link.
+
+symmtry in addressing.
+
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
