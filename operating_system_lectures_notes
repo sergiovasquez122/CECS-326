@@ -166,6 +166,61 @@ the operating system.
 
 -----The parent is exiting, and the operating system does not allow a child to continue if its parent terminates
 
+----------------------------Interprocess communication------------------
+Processes executing concurrently in the operating system may be either independent processes or coooperating processes
+
+independent processes: they cannot affect or be affected by the other processes executing in the system
+
+cooperating processes: they can affect or be affected by the other processes executing in the system.
+
+any process that shares data with other processes is a cooperating process.
+
+there are several reasons for providing an enviroment that allows process cooperation
+
+	information sharing
+
+	computation speedup
+
+	modularity
+
+	convenience
+
+cooperating process requires an interprocess communication mechanism that will allow them to exchange data
+and information
+
+there are two fundamentals of interprocess communication
+
+	1. shared memory
+	2. message passing
+
+-in the shared memory model, region of memory that is shared by cooperating process is established
+processes can then exchange information by reading and writing data to the shared region.
+
+-In the message passing model, communication takes place by means of message exchanged between the cooperating processes.
+
+
+-----------------------------Shared Memory Systems---------------------
+-interprocess communication using shared memory requires communicating processes to establish a region of shared
+memory.
+-typically, shared-memory region resided in the address space of teh process creating the shared-memory segment.
+-other process that wish to communicate using this shared memory segment must attach it to their
+address space
+-normally, the operating system tries to prevent one process from accessing another process's memory
+-shared memory requires that two or more processes agree to remove this restriction.
+
+producer-consumer problem
+
+A producer processs produces information that is consumed by a consumer process
+
+-one solution to the producer-consumer problem uses shared memory.
+
+-to allow producer and consumer processes to run concurrently, we must have available a buffer of items that
+can be filled by the producer and emptied by the consumer.
+
+-this buffer will resided in a region of memory that is shared by the producer and consumer processes
+
+-the producer and consumer must be syncronized, so that the consumer does not try to consumer an item that
+has not yet been produced.
 -----------------------------Process API-----------------
 
 must be included in the interface of any OS.
