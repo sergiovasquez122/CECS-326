@@ -261,6 +261,79 @@ this reduction is substantial. Thus, the average waiting time under an FCFS poli
 -The FCFS algorithm is thus particulary troublesome for time-sharing systems, where it is important that each user get a share of the CPU at regular intervals.
 
 -It would be disatrous to allow one process to keep the CPU for an extended period.
+
+----------------------------Shortest Job-first scheduling----------------------	
+-This algorithm associates with each process the length of the process's next CPU burst.
+
+-When the CPU is available, it is assigned to the process
+that has the smallest next CPU burst.
+
+-If the next CPU burst of two processes are the same, FCFS scheduling is used to break the tie.
+
+	The SJF algorithm can be either preemptive or nonpreemptive
+
+	A more appropiate term for this scheduling method would be the shortest-next-CPU-Burst algorithm
+because scheduling depends on the length of the next CPU burst of a process, rather than its total length.
+
+example of SJF scheduling (non-preemptive)
+
+process Id		burst time
+p1			6
+p2			8
+p3			7
+p4			3
+
+(0 + 3 + 9 + 16) / 4 = 7.0
+
+by comparison, if we were using the FCFS scheduling scheme, the average waiting time would be 10.25
+
+(0 + 6 + 14 + 21) / 4 = 10.25
+
+example of SJF scheduling (preemptive)
+
+Consider the follwing four processes, with the length of the CPU brust given in milliseconds and the processes arrive at the ready queue at the times shown
+
+process		arrival time		burst time
+p1		0			8
+p2		1			4
+p3		2			9
+p4		3			5
+
+p1 one executes for one unit of time
+p2 comes at time 1 and takes hold of CPU
+p3 comes at time 2 and is in ready queue
+p4 comes at time 5 and is in ready queue
+p2 terminates and now p4 is scheduled to be executed.
+p4 ends terminates at time 10 and gives p1 time to complete.
+p1 executes until time 17 and then terminates and give
+execution to p3.
+p3 terminates at time 26
+
+waiting time = total waiting time - no of milliseconds process executed - arrival time.
+
+waiting time for P1 = (10 - 1 - 0) = 9
+waiting time for p2 = (1 - 0 - 1) = 0
+waiting time for p4 = (5 - 0 - 3) = 2
+waiting time for p3 = (17 - 0 - 2) = 15
+
+(9 + 0 + 2 + 15 ) / 4 = 6.5
+
+preemptive SJF scheduling is sometimes called shortest-time remaining job scheduling
+
+problems with SJF scheduling
+
+the difficult with the SJF algorithm is knowing the length of the next CPU request.
+
+although the SJF algorithm is optimal, it cannot be implemented at the level of short-term CPU scheduling
+
+there is no way to knwo the length fo the next CPU burst
+
+One approach is 
+	-to try to approximate the SJF scheduling
+	-we may not know the length of the next CPU burst but we may be able to predict its value.
+	-we expect that the next CPU burst will be similar in length to the previous ones.
+
+	-Thus, by computing an approximation of the lenght of the next CPU burst, we can pick the process with the shortest predicted CPU burst.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
