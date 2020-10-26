@@ -389,6 +389,23 @@ WA(p4) = (12 - 0 - 4) = 8
 (15 + 0 + 3 + 4) / 4 = 5.5
 
 The average waiting time is 5.5 
+
+-----------------------SFJ scheduling solved problem----------------------
+Process		Arrival Time		Burst Time
+p1		0			8
+p2		3			6
+p3		7			1
+p4		8			3
+
+turn around time = completion time - arrival time 
+(TA)
+
+TA(p1) = 20 - 0 = 20
+TA(p2) = 10 - 3 = 7
+TA(p3) = 8 - 7 = 1
+TA(p4) = 13 - 8 = 5
+
+(20 + 7 + 1 + 5) / 4 = 8.25
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
