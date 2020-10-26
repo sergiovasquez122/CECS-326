@@ -99,6 +99,123 @@ job queue: As processes enter the system, they are put into a job queue. Which c
 ready queue: The process that are residingin main memory and are ready and waiting to execute are kept on a list
 called the ready queue.
 
+----------------------------CPU SCHEDULING--------------
+CPU scheduling is the basis of multi-programmed operating systems
+
+By switching the CPU among processes, the operating system can make the computer more productive.
+
+-In a single-processor system, only one process can run at a time.
+
+-Any others must wait until the CPU is free and can be recheduled
+
+-The objective of multi-programming is to have some process running at all times, to maximize CPU utilization
+
+-A process is executed until it must wait, typically for the completion of some I/O request.
+
+In a simple computer system, the CPU then just sits idle. All this waiting time is wasted; No useful work is accomplished.
+
+-With multi-programming, we try to use the time productivly
+	-several processes are kept in memory at a time
+
+-When one process has to wait, the operating system takes the CPU away from that prcoess and gives the CPU to another process and this pattern continues.
+
+----------------------------CPU and I/O burst cycles--------
+-Process execution consists of a cycle of CPU execution and I/O wait.
+	-Processes alternate between these two states
+
+Process execution begins with a 
+	CPU burst
+		IO Burst
+			CPU Burst
+				IO Burst
+					...
+
+CPU burst is when the process is being executed in the 
+CPU.
+
+I/O burst is when the CPU is waiting for I/O for
+further execution.
+
+Eventually, the final CPU burst ends with a system request to terminate execution.
+
+load store
+add store
+read from file
+
+wait for I/O
+
+store increment
+index
+write to file
+
+wait for I/O
+
+load store
+add store
+read from file
+
+wait for I/O
+
+----------------------------Preemptive and non-preemptive scheduling-------------------------------------
+
+		CPU scheduler
+Whenever the CPU becomes idle, the operating system must
+select on of teh process in the ready queue to be executed. The selection process is carried out by the short-term scheduler. The scheduler selects a process from teh processes in the memory that are ready to execute and allocats the CPU to that process.
+
+		Dispatcher
+
+The dispatcher is the module that gives control
+of the CPU to the process selected by the short-term
+scheduler. The time it takes for the dispatcher
+to stop one process and start another running is known
+as the dispatch latency.
+
+CPU-scheduling decisions may take place under the following four circumstances:
+
+1. When a process switches from the running state to the waiting state
+
+2. When a process switches from the running state to the ready state(ex, when an interrupt occurs.)  
+
+3. When a process switches from the waiting state to the ready state(ex, at completion of I/O) 
+
+4. When a process terminates.
+
+No choices for situations for 1 and 4. A new process must be selected for execution.
+However, there is a choice for situations 2 and 3.
+
+When scheduling takes place only under circumstances 1 and 4, we say that scheduling scheme is nonpremptive or cooperative; otherwise, it is preemptive.
+
+----------------------------Scheduling Criteria---------------
+
+cpu utilization
+	throughput
+		turnaround time
+			waiting time
+				response time
+
+cpu utilization: we want to keep the cpu as busy as
+possible. conceptually cpu utilization can range from
+0 to 100 percent. In a real system, it should range from 40 percent to 90 percent.
+
+throughput: If the cpu is busy executing processes, then work is being done. One measure of work is the number of processes that are completed per time unit, called throughput.
+
+turnaround time: From the point of view of a particular
+process, the important criterion is how long it takes to
+execute that proces. the interval from time of submission
+of a processs to the time of completion is the turnaround time.
+turnaround time is the sum of the periods spent waiting
+to get into memory, waiting in the ready queue, executing
+on the CPU and doing I/O.
+
+waiting time: The cpu scheduling algorithm does
+not affect the amount of time during which a process
+executes or does I/O. It affects only the amount of
+time that a process spends waiting in the
+ready queue. Waiting time is the sum of the
+periods spent waiting in the ready queue.
+
+response time: turnaround time may not be the best critertion. another measure is the time from the submission of a request until the first response is produced. this measure, called response time, is the time it takes to start responding, not the time it takes to output the responses. The turnaround time is generally limited by the speed of the output device.
+
 
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
