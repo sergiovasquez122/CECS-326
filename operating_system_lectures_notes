@@ -371,6 +371,24 @@ One approach is
 	-we expect that the next CPU burst will be similar in length to the previous ones.
 
 	-Thus, by computing an approximation of the lenght of the next CPU burst, we can pick the process with the shortest predicted CPU burst.
+
+----------------------------SJF Scheduling---------------
+Process		Arrival time		Burst time
+p1		0			12
+p2		2			4
+p3		3			6
+p4		8			5
+
+waiting time = completion time - processes execution time - arrival time
+
+WA(p1) = (17 - 2 - 0) = 15
+WA(p2) = (2 - 0 - 2)  = 0
+WA(p3) = (6 - 0 - 3) = 6
+WA(p4) = (12 - 0 - 4) = 8
+
+(15 + 0 + 3 + 4) / 4 = 5.5
+
+The average waiting time is 5.5 
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
