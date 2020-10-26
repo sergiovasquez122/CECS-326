@@ -216,7 +216,51 @@ periods spent waiting in the ready queue.
 
 response time: turnaround time may not be the best critertion. another measure is the time from the submission of a request until the first response is produced. this measure, called response time, is the time it takes to start responding, not the time it takes to output the responses. The turnaround time is generally limited by the speed of the output device.
 
+----------------------------Scheduling Algorithms-----------
+(first-come, first-served scheduling)
 
+-by far the simplest CPU-scheduling algorithm.
+
+-the process that request the CPU first is allocated the CPU first.
+
+-The implementation of the FCFS policy is easily managed
+with a FIFO queue
+
+-first-in first out.
+
+-when a process enters the ready queue, its pc is linked onto the tail of the queue.
+
+-when the cpu is free, it is allocated to the process at the head of the queue.
+
+-the running process is then removed from the queue.
+
+-the average waiting time under the FCFS policy, however, is often quite long.
+
+consider the following set of processes that arrive at time 0
+
+	process		burst time(ms)
+	p1		24
+	p2		3
+	p3		3
+
+If the process arrives in the order p1, p2, p3 and are served in fcfs order, we get the result in the following gantt chart
+
+(0 + 24 + 27) / 3 = 17.0
+
+
+If the process arrives in the order p2, p3, p1 and are served in fcfs order, we get the result in the following gannt chart
+
+(0 + 3 + 6) / 3 
+
+this reduction is substantial. Thus, the average waiting time under an FCFS policy is generally not minimal and may vary substantially if the process's CPU burst time vary  greatly.
+
+		the FCFS scheduling algorithm is nonpremptive
+
+-Once the CPU has been allocated to a process, that process keps the CPU until is has either releases teh CPU, eiteher by terminating or by requesting I/O.
+
+-The FCFS algorithm is thus particulary troublesome for time-sharing systems, where it is important that each user get a share of the CPU at regular intervals.
+
+-It would be disatrous to allow one process to keep the CPU for an extended period.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
