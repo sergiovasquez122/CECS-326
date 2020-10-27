@@ -445,6 +445,21 @@ for example
 -if priorities range from 127(low) to 0(high), we could increase the priority of a waiting process by 1 every 15 minutes.
 -eventually, even a process with an initial priority of 127 would have the highest priority in the system and would be executed.
 
+----------------------------Priority Scheduling solved problem----------------------------
+
+Process		Arrival		Burst		Priority
+p1		0		11		2
+p2		5		28		0
+p3		12		2		3
+p4		2		10		1
+p5		9		16		4
+
+WA(p1) = 40 - 2 - 0 = 38
+WA(p2) = 5 - 0 - 5 = 0
+WA(p3) = 49 - 0 - 12 = 37
+WA(p4) = 33 - 3 - 2 = 28
+WA(p5) = 51 - 9 = 42
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
