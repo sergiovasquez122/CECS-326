@@ -558,6 +558,55 @@ average waiting time and average turn around time.
 
 (8 + 8 + 2 + 4 + 7) / 5
 
+----------------------------Multi-level Queue Scheduling-----------------------
+A class of scheduling algorithms has been created for situations in which processes are easiliy classified into different groups
+
+example:
+
+foreground 		background
+processes		processes
+
+interactive		batch
+
+they have
+-Different response-time requirements
+-Different scheduling needs
+
+In addition foreground processes may have priority over background processes.
+
+A multi-level queue scheduling algorithm partitions the ready queue into several separate queues.
+
+-the processes are permanently assigned to one queue, generally based on some property of the process, such as memory size, process priority, or process type.
+
+-each queue has its own scheduling algorithm
+
+example:
+Separate queues might be used for foregroun and backgroun processes
+
+The foreground queue might be scheduled by an RR algorithm, while the background queue is scheduled by an FCFS algorithm.
+
+the foreground queue might be scheduled by an RR algorithm, while the background queue is scheduled by an FCFS algorithm.
+
+In addition, there must be scheduling among the queues, which is commonly implemented as fixed-priority preemptive scheduling.
+
+For example, the foreground queue may have absolute priority over the background queue
+
+
+example:
+An example of a multilevel queue scheduling algorithm with five queues, listed below in order of priority
+
+highest priority
+
+system processes
+interactive processes
+interactive editing processes
+batch processes 
+student processes
+lowest priority
+
+a lower-priority does not run unless all processes
+above it are empty.
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
