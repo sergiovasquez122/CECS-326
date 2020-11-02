@@ -629,7 +629,65 @@ queues will use different scheduling algorithms, can also have different quantum
 
 -The method used to determine which queue a process willl enter when that process needs service
 
+----------------------------scheduling algorithms---------
+Consider a set of n tasks with known runtimes r1, r2, ..., rn to be run on a uniprocessor machine. which of teh following processor scheduling algorithms will result in the maximum throughput?
 
+1. round-robin
+2. shortest-job-first
+3. highest-response-ratio-next
+4. first-come-first-served
+
+2. is the correct answer
+
+Which of the following scheduling algorithms is non-preemptive
+
+1. round-robin
+2. first in first out
+3. multilevel queue scheduling
+4. multilevel queue scheduling with feedback
+
+2. is the correct answer
+
+which of the following statement is true?
+	1. shortest remaining time first scheduling may cause starvation
+	2. preemptive scheduling may cause starvation
+	3. round robin is better than FCFS in terms of response time 
+
+a. 1 only
+b. 1 and 2 only
+c. 2 and 3 only 
+d. 1, 2, and 3
+
+d is true
+
+consider the 3 processes p1, p2, and p3 shown in the table
+
+process arrival		time
+p1	0		5
+p2	1		7
+p3	3		4
+
+1. FCFS: p1, p2, p3
+   RR2:  p1, p2, p3
+
+2. FCFS: p1, p3, p2
+   RR2:  p1, p3, p2
+
+3. FCFS: p1, p2, p3
+   RR2 : p1, p3, p2
+
+4. FCFS: p1, p3, p2
+   RR2 : p1, p2, p3
+
+3. is the correct answer
+
+A scheduling algorithm assigns priority proportional to the waiting time of a process. every process starts with priority zero(the lowest priority). the scheduler re-evaluates the process priorites every T time units and decides the next process to schedule. which of the following is true if the processes have no I/O operations adn all arrive at the time zero.
+(a) this algorithm is equivalent to the first-come-first erve algorithm
+(b) this algorithmm is equivalent to the round-robin algorithm
+(c) this algorithm is equivalent to the shortest-job-first algorithm.
+(d) this algorithm is equivalent to the shortest-remaining-time-first algorithm.
+
+b. is the correct answer
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
