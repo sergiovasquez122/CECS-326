@@ -607,6 +607,29 @@ lowest priority
 a lower-priority does not run unless all processes
 above it are empty.
 
+-------------------MLFQS------------------------
+The multilevel feedback-queue scheduling algorithm allows a process to move between queues.
+
+-The idea is to separate processes according to the characteristics of their CPU bursts.
+-If a process uses too much CPU time, it will be moved to a lower-priority queue.
+-This scheme laves I/O-bound and interactive processes in the higher-priority queues.
+-In addition, a process that waits too long in a lower-priority queue may be moved to a higher-priority queue.
+
+		this form of aging prevents starvation
+
+queues will use different scheduling algorithms, can also have different quantum times.
+
+-the number of queues
+
+-the scheduling algrotihm for each queue
+
+-the method used to determine when to upgrade a process to a higher priority queue
+
+-The method used to determine when to demote a process to a lower priority queue
+
+-The method used to determine which queue a process willl enter when that process needs service
+
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
