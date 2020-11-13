@@ -688,6 +688,39 @@ A scheduling algorithm assigns priority proportional to the waiting time of a pr
 (d) this algorithm is equivalent to the shortest-remaining-time-first algorithm.
 
 b. is the correct answer
+----------------------------Memory Management-----------------------
+-The main purpose of a computer system is to execute programs
+
+-During execution, these programs; together with the data they access, must be in main memory
+
+-in CPU scheduling we showed how the cpu can be shared by a set of processes
+
+-CPU utilization, as well as speed of the computer's response to its user could be improved
+
+-to realize this increase in performance, however, we must keep several process in memory. 
+that is, we must share memory.
+
+analogy
+book shelve is secondary memory.
+books are data
+
+when we want to read or write to a book we need
+to use a table. we can think of the table is main memory or ram.
+
+whenever we want to use data or program we take data from secondary to main memory.
+
+If the main memory is small we can't load many programs into main memory which slows down the performance of the
+system.
+
+topics in main memory
+----------------------
+-various ways to manage memory
+
+-memory management algorithms
+	-primitive bare-machine approach
+	-paging strategies 
+	-segmentation strategies
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 

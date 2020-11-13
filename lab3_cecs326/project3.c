@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 
-int arr[] = {12,11,13, 14, 15, 16, 18, 19,25, 26, 27,28,29,30,20,10,9,8,7,6,5,4,3,2,1,0};		//array in descending order
+int arr[] = {3,5,2,3,5,1,6,4,3,4,6,7,3,4,1,2,3,3,423,543,123,5234,235,643,643,123, 156};		//array in descending order
 int n = sizeof(arr) / sizeof(arr[0]);			//array is divided by the position 0 of array 
 
 struct structure{					//structure variables
