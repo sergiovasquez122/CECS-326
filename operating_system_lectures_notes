@@ -721,6 +721,76 @@ topics in main memory
 	-paging strategies 
 	-segmentation strategies
 
+----------------------------Basic Hardware-----------------------
+-memory  consists of a large array of words or bytes, each with its own address.
+
+-the CPU fetches instruction from memory according to the value fo the program counter.
+
+-these instruction may cause additional loading from and storing to specific memory addresses.
+
+A typical instruction-execution cycle, first fetches an instruction from memory.
+
+This insruction is then decoed and may cause operands to be fetched from memory.
+
+After the instruction has been executed on the operands, results may be stored back in memory.
+
+The CPU can directly access only- registers built into the process or main memory
+
+There are machine instructions that take memory addresses as arguments, but none that take disk addresses
+
+So, any instructions in execution, and any data being used by the instructions, must be in one of these
+direct-access storage devices.
+
+If the data are not in memory, they must be moved there before the CPU can operate on them.
+
+registers	-	Accessible within one cycle of the CPU clock
+			Most CPUs can decode instructions and perform simple operations on register contents at the rate of one or more operations per tick
+
+Main memory	-	Access may take many cycles of the CPU clock to complete.
+			in this case, the processor normally needs to stall, since it does not have the 
+			data required to complete the instructions that is executing.
+			This situation is intolerable because of the frequency ofthe memory accesses.
+
+Remedy		-	Add fast memory between the CPU and main memory.
+			a memory buffer used to accomodate a speed differential, called a cache.
+
+protection of the OS from unauthorized access
+
+-The operating system has to be protected from access by user processes.
+
+-In addition, user processes must be protected from one another.
+
+-This protection must be provided by the hardware
+
+Ensure that each process has a separate memory space.
+To do this, we need the ability to determine the ragne of lega addresses that the process may access and to ensure that the process can access only these legal addresses.
+
+for this we use two registers - BASE and LIMIT
+
+A base and a limit register define a logical address space.
+
+The base register holds the smallest legal physical memory address
+
+The limit register specifies the size of the range
+
+For example, the base register holds 300040 and limit register is 120900, then the program can legally
+access all addresses from 300040 through 420940 (inclusive).
+
+	
+		base		base + limit
+CPU -> 		>	-> 	yes		< yes -> fetch from memory
+
+		trap to operating system monitor--addressing error.
+
+
+The base and limit registers can be loaded only by the operating system, which uses a special privleged instruction.
+
+Since privliged instructions can be executed only in kernel mode. and sinc eonly operating system execute in kernel mode,
+only the operating system can load the base and limit registers.
+
+this scheme allows the operating system to change the value of the registers but prevents user programs from changing the registers contents.
+
+----------------------------Address Binding----------------
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
