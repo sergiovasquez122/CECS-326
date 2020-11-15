@@ -1038,6 +1038,45 @@ worst fit:
 -allocate the largest hole.
 -you must search the entire list, unless it is sorted by size.
 -this strategy produces the largest leftover hole.
+----------------------------Fragmentation---------------
+As processes are loaded and removed from memory, the free memory space is broken into little pieces which result
+in fragmentation.
+
+types of fragmentation
+----------------------
+1. external fragmentation
+2. internal fragmentation
+
+external fragmentation:
+it exists when there is enough total memory space to satisfy a request, but the available spce
+are not contigous.
+
+-Storage is fragmented into a large number of small holes
+
+-This fragmentation problem can be severe. In the worst case, we could have a block of freee memory between
+every two processes
+
+-If all these small pieces of memory were in one big free block instead, we might be able to run several processes.
+
+internal fragmentation:
+It occurs when memory blocks assigned to processes are bigger than what the process actually needs
+
+some portion of memory is left unused, as it cannot be used by another process
+
+solution to internal fragmentation:
+make use of best-fit approach for allocation memory segments to processes
+
+solution to external fragmentation:
+compaction
+
+shuffle the memory contents so as to place all free memory together in large block
+
+problems:
+compactions is not always possible
+
+if relocation is static and is done at assembly or load time, compaction cannot be done
+
+it is possible only if relocation is dynamic and is done at execution time
 
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
