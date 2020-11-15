@@ -1077,6 +1077,17 @@ compactions is not always possible
 if relocation is static and is done at assembly or load time, compaction cannot be done
 
 it is possible only if relocation is dynamic and is done at execution time
+----------------------------Paging----------------------
+Paging is a memory-management scehem that permits the physical address space of a process to be non-contigous
+
+basic method of paging
+
+-break physical memory into fixed-sized blocks called frames
+-break logical memory into blocks fo the same size called pages
+-when a process is to be exectued, its pages are loaded into any available memory frames from the backing store.
+-the backing store is divided into fixed-sized blocks that are of the same size of the memory frames
+
+divide the physical memory into frames and processes into pages. sizes of the frames and the pages are the same.
 
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
