@@ -890,6 +890,108 @@ advantages
 dynamic loading does not require special support from the os
 
 user must take advantage of the method
+----------------------------Dynamic Linking and Shared Libraries--------------------
+When a prgrams runs, apart from its own modules,it also needs to use certains system libraries as well.
+
+static linking - system language libraries are treated like any ohter bject module and are combined by the loader into the binary program image.
+
+disadvantage - wastes disk-space and main memory
+
+Dynamic Linking - Checks to see whether the needed routine is already in memory. If not, the routine is loaded into memory.
+
+the concept of dynamic linking is similar to that of dynamic loading. but here, linking, rather than loading, is postponed until execution time.
+
+Dynamically Linked Libraries(DLL):
+With dynamic linking, a stub is included in the image for each lilbrary routine reference.
+
+A small piece of code that indicates how to locate the appropriate memory-resideent library
+routine or how to load the libarry if the routine is not already present.
+
+when the stub is executed, it checks to see whether the needed routine is alredy in memory.
+
+If not, the program loads into memory.
+
+Either way, the stub replaces itself with the address of the routine and executes the routine.
+
+thus, the next time that particular code segment is reached, the library routine si executed directly,
+incurring no cost for dynamic linking.
+----------------------------Swapping------------------------
+-A process must be in memmory to be executed
+-A process, however, can be swapped temporaily out of memory to a backing store and then 
+brought back into memory for continued execution.
+
+example:
+In a multi-programming environment with a round-robin cpu-scheduling algorithm:
+
+when a quantum expire, the memory manager will start to swap out the process that just finished and t swap another process into the memory space that has been freed.
+
+swapping of the two processes using a disk as a backing store
+
+OS
+			p1 -> swapout
+userspace 
+					disk store
+			p <- swap in 
+
+normally:
+A process that is swapped out will be sapped back into the memory space it occupied previously
+
+but it depends on the addres binding method.
+
+if binding is done at assembly or load time: the process cannt be easily moved to a different location
+
+if binding is done at execution time. the process can be swappined into a different memory space,
+becaue the physical address are computed during execution time.
+
+backing store: swapping requires a backing store
+			-> commonly a fast disk.
+
+-it must be large enough to accomodate copies of all mmoery images for all users.
+
+-it must provide direct access to these memory images
+
+-the system maintains a ready queue consisting ofall processes whose memory images are on the backing store
+or in memroy and are ready to run
+
+-whenever the CPU scheduler scheduler decides to execute a process, it calls the dispatcher
+
+-if it not, and if there is no free memory region, the dispatcher swaps out a process currently in memory and swaps
+in the desired process
+
+-it then reloads registers and transfer control to the selected process
+
+----------------------------Swap time--------------------
+-The context-swithch time in a swapping system is failry high.
+
+example:
+
+Let User Process size = 10 MB
+
+Transfer Rate of Backing Store = 40 MB per second
+
+actualy transfer of the 10 MB to or from memory takes
+
+10000 / 40000 = 1/4
+
+For effecient CPU utilization, we want the execution time for each process to be long relative for the swap time
+
+thus, in a round-robin CPU-scheduling algorithm, for example, the time quantum should be substantially larger
+than 0.516 seconds
+
+The major part of the swap time is transfer time
+
+The total tranfser time is directly proportional to the amount of memory swapped
+
+		other factors that affect swapping
+
+-A process must be completely idle in order to be swapped
+
+-a process may be waiting for an I/O operation when we want to swap that process to free up memory.
+
+-If the I/O is asyncrhorounly accessing the user memory for I/O buffers, then the 
+process cannot be swapped 
+
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
