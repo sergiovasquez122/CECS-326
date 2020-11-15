@@ -860,7 +860,36 @@ the user generates only logical addresses and thinks tha the process run in loca
 
 the user program supplies logical addresses; these logical adddresses must be mapped to physical addressses before they are used.
 
+--------------------------------Dynamic Loading--------------------------------------
+-As we have discussed so far, the entire program and all data of a process must be in physical memory for the process to execute
 
+-The size of a process is thus limited to the size of physical memory
+
+-To obtain better memory-space utilization, we can use dynamic loading.
+
+With dynamic loading, a routine is not loaded until it is called.
+
+-all routines are kept on disk in a relocatable format
+
+-the main program is loaded into memory and is executed.
+
+-when a routine needs to call another routine, the calling routine first checks to see whether the other routine has been loaded
+
+-If not, the relocatable linking loader is called to load the desired routine into memry and to update the prgoram's address tables to reflect this change.
+
+-then control is passsed to the newly loaded routine.
+
+advantages
+
+-an unused routine is never loaded.
+
+-this method is particulary useful when large amounts of code are needed to handle infrequently occuring cases
+
+-although the total program size may be gig, the portion that is used and hence loaded may be much smaller
+
+dynamic loading does not require special support from the os
+
+user must take advantage of the method
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
