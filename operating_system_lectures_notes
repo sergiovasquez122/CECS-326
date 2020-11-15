@@ -1016,6 +1016,29 @@ merging of fixed size partitions can be done if they are adjacent to each other
 repartition from a larger sized partition to a smaller partitions can be done as well
 
 this is in most cases how memory allocation is done
+----------------------------Dynamic Storage Allocation problem-----------------------
+-How to satisfy a require of size n from a list of free partitions/holes in main memory?
+
+solutions
+1. first fit
+2. best fit
+3. worst fit
+
+first fit:
+-allocate the first hole that is big enough
+-searching can start either at the beginning of the set of holes or where the previous first-firt search ended.
+-we can stop searching as soon as we find a free hole that is free enough 
+
+best fit:
+-allocate the smallest hole that is big enough.
+-we must search the entire list, unless the list is ordered by size.
+-this strategy produces the smallest leftover hole
+
+worst fit:
+-allocate the largest hole.
+-you must search the entire list, unless it is sorted by size.
+-this strategy produces the largest leftover hole.
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
