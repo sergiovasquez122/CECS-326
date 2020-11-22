@@ -504,11 +504,22 @@ p3		12		2		3
 p4		2		10		1
 p5		9		16		4
 
+The average waiting of all the processes using preemptive priority scheduling algorithm is ___
+
+	1. 29
+	2. 30
+	3. 31
+	4. 32
+
 WA(p1) = 40 - 2 - 0 = 38
 WA(p2) = 5 - 0 - 5 = 0
 WA(p3) = 49 - 0 - 12 = 37
 WA(p4) = 33 - 3 - 2 = 28
 WA(p5) = 51 - 9 = 42
+
+(38 + 0 + 37 + 28 + 42) / 5 = 29
+
+(1) is the correct answer.
 
 ---------------------------Priority Scheduling solved problem-------------------------------
 process		arrival		burst 		priority
