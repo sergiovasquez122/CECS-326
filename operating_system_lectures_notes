@@ -403,6 +403,10 @@ p2		2			4
 p3		3			6
 p4		8			5
 
+calculating turnaround time then using that to calculate waiting time
+
+
+
 waiting time = completion time - processes execution time - arrival time
 
 WA(p1) = (17 - 2 - 0) = 15
