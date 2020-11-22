@@ -394,7 +394,7 @@ One approach is
 	-we may not know the length of the next CPU burst but we may be able to predict its value.
 	-we expect that the next CPU burst will be similar in length to the previous ones.
 
-	-Thus, by computing an approximation of the lenght of the next CPU burst, we can pick the process with the shortest predicted CPU burst.
+	-Thus, by computing an approximation of the length of the next CPU burst, we can pick the process with the shortest predicted CPU burst.
 
 ----------------------------SJF Scheduling---------------
 Process		Arrival time		Burst time
