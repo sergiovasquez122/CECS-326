@@ -556,13 +556,15 @@ wa(p5) = 7 - 2 = 5
 ---------------------------Scheduling Algorithms---------
 -The round-robin scheduling algorithm is designed especially for timesharing systems.
 -It is similar to FCFS scheduling, but preemption is added to switch between processes.
--A small unit of time, called a time quantum or time slice, is defined
+-A small unit of time, called a time quantum or time slice, is defined(generally from 10 to 100 milliseconds)
 
 -the ready queue is treated as a circular queue
 
 -the CPU scheduler goes around the ready queue, allocating the CPU to each process for a time interval of up to 1 time quantum.
 
--we keep the ready queue as a FIFO queue of processes
+implementation of Round Robin scheduling: 
+
+-We keep the ready queue as a FIFO queue of processes
 
 -New processes are added to the tail of the ready queue
 
@@ -570,22 +572,21 @@ wa(p5) = 7 - 2 = 5
 
 		One of two things will then happen
 
-the process may have  a cpu				the cpu burst of running process is longer than 1 time quantum, the timer will go off and will cause an interrup to the o.s
+the process may have  a CPU				the CPU burst of running process is longer than 1 time quantum, the timer will go off and will cause an interrupt to the O.S
 a context switch will be executed, and the process will be put at the tail of the ready queue.
 the cpu scheduler will then select the next process in the ready queue
-burst of less than 1 time quantum
+burst of less than 1 time quantum.
 
-the process will release the cpu voluntarily
+the process will release the CPU voluntarily.
 
-the cpu scheduler will then proceed to the next
-process in the ready queue
-
+the CPU scheduler will then proceed to the next
+process in the ready queue.
 
 ----------------------------Round-Robin scheduling--------
 
 calculating turnaround time and waiting time for Round-robin scheduling
 
-Consider the following set of professes taht arrive at time 0, with the length of teh CPU burst given in milliseconds and tiem quantum taken as 4 milliseconds for RR scheduling
+Consider the following set of professes taht arrive at time 0, with the length of the CPU burst given in milliseconds and time quantum taken as 4 milliseconds for RR scheduling
 
 process ID 	burst 
 P1		24
