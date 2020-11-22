@@ -356,6 +356,20 @@ p1 executes until time 17 and then terminates and give
 execution to p3.
 p3 terminates at time 26
 
+calculating turnaround time then using that to calculate waiting time 
+
+turnaround time for p1 = 17 - 0 = 17
+turnaround time for p2 = 5 - 1 = 4
+turnaround time for p3 = 26 - 3 = 24
+turnaround time for p4 = 10 - 3 = 7
+
+waiting time for P1 = 17 - 1 - 7 = 9
+waiting time for p2 = 4 - 4 = 0
+waiting time for p3 = 24 - 9 = 15
+waiting time for p4 = 7 - 5 = 2
+
+(9 + 0 + 15 + 2) / 4 = 6.5
+
 waiting time = total waiting time - no of milliseconds process executed - arrival time.
 
 waiting time for P1 = (10 - 1 - 0) = 9
@@ -373,7 +387,7 @@ the difficult with the SJF algorithm is knowing the length of the next CPU reque
 
 although the SJF algorithm is optimal, it cannot be implemented at the level of short-term CPU scheduling
 
-there is no way to knwo the length fo the next CPU burst
+there is no way to know the length fo the next CPU burst
 
 One approach is 
 	-to try to approximate the SJF scheduling
