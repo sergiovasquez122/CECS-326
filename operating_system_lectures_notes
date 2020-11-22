@@ -338,7 +338,7 @@ by comparison, if we were using the FCFS scheduling scheme, the average waiting 
 
 example of SJF scheduling (preemptive)
 
-Consider the follwing four processes, with the length of the CPU brust given in milliseconds and the processes arrive at the ready queue at the times shown
+Consider the follwing four processes, with the length of the CPU burst given in milliseconds and the processes arrive at the ready queue at the times shown
 
 process		arrival time		burst time
 p1		0			8
