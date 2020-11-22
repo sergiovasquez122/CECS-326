@@ -522,12 +522,17 @@ WA(p5) = 51 - 9 = 42
 (1) is the correct answer.
 
 ---------------------------Priority Scheduling solved problem-------------------------------
+Consider the set of processes with arrival time, CPU burst time, and priority(higher number higher priority) shown below:
+
 process		arrival		burst 		priority
 p1		0		4		2
 p2		1		3		3
 p3		2		1		4
 p4		3		5		5
 p5		4		2		5
+
+If the CPU scheduling is priority non-preemptive, calculate the
+average waiting time and average turn around time.
 
 turn around time = completion - arrival
 waiting time = turn around - burst
