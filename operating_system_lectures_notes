@@ -320,6 +320,16 @@ p2			8
 p3			7
 p4			3
 
+TAT(p4) = 3;
+TAT(p1) = 9;
+TAT(p3) = 16;
+TAT(p4) = 24;
+
+WAT(p4) = 3 - 3 = 0
+WAT(p1) = 9 - 6 = 3
+WAT(p3) = 16 - 7 = 9
+WAT(p2) = 24 - 8 = 16
+
 (0 + 3 + 9 + 16) / 4 = 7.0
 
 by comparison, if we were using the FCFS scheduling scheme, the average waiting time would be 10.25
