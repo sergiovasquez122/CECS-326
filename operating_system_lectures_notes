@@ -697,14 +697,14 @@ queues will use different scheduling algorithms, can also have different quantum
 -The method used to determine which queue a process willl enter when that process needs service
 
 ----------------------------scheduling algorithms---------
-Consider a set of n tasks with known runtimes r1, r2, ..., rn to be run on a uniprocessor machine. which of teh following processor scheduling algorithms will result in the maximum throughput?
+Consider a set of n tasks with known runtimes r1, r2, ..., rn to be run on a uniprocessor machine. which of the following processor scheduling algorithms will result in the maximum throughput?
 
 1. round-robin
 2. shortest-job-first
 3. highest-response-ratio-next
 4. first-come-first-served
 
-2. is the correct answer
+2. is the correct answer. 1 and 4 typically result in terrible throughput. 2 has been proven to optimal given the constraints given.
 
 Which of the following scheduling algorithms is non-preemptive
 
@@ -713,7 +713,10 @@ Which of the following scheduling algorithms is non-preemptive
 3. multilevel queue scheduling
 4. multilevel queue scheduling with feedback
 
-2. is the correct answer
+2. is the correct answer.
+1, 3, and 4 are all preemptive algorithms.
+2 is the only one that allows a job to be 
+done completely
 
 which of the following statement is true?
 	1. shortest remaining time first scheduling may cause starvation
