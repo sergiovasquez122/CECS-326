@@ -758,6 +758,118 @@ A scheduling algorithm assigns priority proportional to the waiting time of a pr
 (d) this algorithm is equivalent to the shortest-remaining-time-first algorithm.
 
 b. is the correct answer
+----------------------------Scheduling algorithms problems---------------------------------------
+question 1. Consider the following set of processes, the length of the CPU burst time given in milliseconds.
+
+p1 - 5
+p2 - 6
+p3 - 11
+p4 - 7
+
+Assuming the above process being schedule with the SJF scheduling(they all arrive at time 0) which of the following statements is correct?
+
+1. the waiting time for P2 is 7
+2. the waiting time for P3 is 13
+3. the waiting time for P4 is 11
+4. the waiting time for P1 is 5
+
+3 is the correct answer
+
+question 2. Consider the following set of processes
+
+process		burst time
+p1		8
+p2		6
+p3		1	
+p4		9
+p5		3
+
+Assuming the above being scheduling with the SJF scheduling algorithm, which of the following statements is correct?
+
+1. the waiting time for p1 is 8
+2. the average waiting time is 6.6
+3. the waiting time for p4 is 10
+4. the average waiting time is 12.2
+
+2. is the correct answer
+
+question 3.
+which of the following algorithms will use and implement with quantum time?
+
+1. round-robin scheduling algorithm
+2. priority scheduling algorithm
+3. shortest job scheduling algorithm
+4. mulitilevel scheduling algorithm
+
+1. is the correct answer
+
+question 4.
+consider the following set of processes,
+process, arrival time, burst time
+p1, 0, 9
+p2, 2, 6
+p3, 4, 6
+p4, 3, 8
+
+assuming the above process being scheduled with the SRTF scheduling algorithm, what the following statements is/ar correct?
+
+1. the waiting time for p1 is 12
+2. the waiting time for p4 is 14
+3. the waiting time for p2 is 2
+4. the waiting time for p3 is 4
+
+4 is the correct answer
+
+question 5. 
+which of the following statements are true?
+1. shortest remaining time first scheduling will not cause starvation
+2. preemptive scheduling may cause starvation
+3. round-robin is better than FCFS in terms of response time
+
+1. 1 and 2
+2. 2 and 3
+3. 1 and 3
+4. 1, 2, and 3
+
+2 is the correct answer
+
+question 6. what scheduling algorithm will classify the processes into different groups?
+
+1. round-robin scheduling algorithm
+2. multi-level scheduling algorithm
+3. shortest job scheduling algorithm
+4. priority scheduling algorithm
+
+2. is the correct answer
+
+question 7. which of the following time is the interval from the time of submission of a process to the time of completion?
+
+1. waiting time
+2. throughput
+3. response time
+4. turnaround time
+
+4. is the correct answer
+
+question 8.
+Main memory always maintains a data structures that uses to keep the processes that are waiting to execute, this data structure is called:
+
+1. process queue
+2. ready queue
+3. execution queue
+4. job queue
+
+2 is the right answer
+
+question 9.
+wha tis the following statement is correct for multilevel feedback scheduling algorithm?
+
+1. classification of ready queue is permanent
+2. processes are not classified into groups
+3. none of mentioned
+4. a process can move to a different classifed ready queue
+
+4 is the correct answer
 ----------------------------Memory Management-----------------------
 -The main purpose of a computer system is to execute programs
 
