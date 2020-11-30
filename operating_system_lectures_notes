@@ -1388,6 +1388,32 @@ pure code: code that is not self-modifying code. It never changes during executi
 
 -Each process has it own copy of registers and data storage to hold the dat for the proces''s executoin
 -the data for two different processes will of course be different
+
+Now, if the code is shared, we need:
+
+	150 + (50 * 40)
+=	150 + 2000
+=	2150 kb to support 40 users
+----------------------------hierarchial paging-----------
+-Most modern computer systems support a large logical address space 2**32 to 2**64
+-In such an environment, the page table itself becomes excessively large.
+
+example:
+32-bit logical address space
+if page size = 4kb
+then a page table may consiste up to 2**32 / 2**12
+
+consider each entry consists of 4 bytes
+so each processs may need up to 4MB of physical address space
+
+solution: divide the page table into smaller sizes
+
+		multilevel paging
+
+use a two-level paging algorithm, in which the page table itself is also paged
+
+page number divided into two parts and page offset stays the same
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
