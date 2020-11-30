@@ -1372,6 +1372,22 @@ dirty-optional
 -tells us whether the page has been modified or not
 -if the page has been modified, then this bit is set to 1 otherwise set to 0.
 -this bit is avoiding unnecessary writes to the secondary memory when a page is being replaced by another page.
+----------------------------Shared Pages----------------
+-An advantage of paging is the possibility of sharing common code among processes(text editors, compilers, window systems)
+-This is particulary important in a time-sharing environment
+-Consider a system that supports 40 users, each of whom executes a text editor
+-If the text editor consists of 150 KB of code and 50KB of data space, we need:
+	(150) * 40 + (50 * 40) 
+	= 6000 + 2000
+	= 8000 KB to support the users
+
+However, if the code is reentrant code (or pure code), it can be shared among different processes.
+pure code: code that is not self-modifying code. It never changes during execution.
+
+	Thus, two or more processes can execute the same code at the same time.
+
+-Each process has it own copy of registers and data storage to hold the dat for the proces''s executoin
+-the data for two different processes will of course be different
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
