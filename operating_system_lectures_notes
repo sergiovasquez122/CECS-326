@@ -1414,6 +1414,48 @@ use a two-level paging algorithm, in which the page table itself is also paged
 
 page number divided into two parts and page offset stays the same
 
+----------------------------Segmentation-----------------
+-Segmentation is antoher non-contigious memory allocation technique like paging.
+-Unlike paging, in segmentation, the processes are not divided into fixed size pages
+-Instead, the processes are divided into several modules called segments which imporves the visiulaztion for the users
+-So, here, both secondary memory and main memory anre divded into partitions
+
+
+User's view of a program
+
+						stack
+					subroutine	symbol table
+					sqrt		main program
+
+						logical address
+-A logical address space is a collection of segments
+-Each segment has a name and a length
+-The addresses specify both the segment name and the offset within the segment
+-The user therefore specifies each address by two quantities: A segment name and an offset.
+
+While in paging-the user specifies only a signle address, which is partitioned by the hardware into a page number
+and an offset, all invisible to the programmer
+
+	For simplicty ofimplementation, segments are numbered and are referred to by a segment number, rather
+	than by a segment name.
+
+	Thus a logicla address consists ofa two tuple:
+	
+----------------------------Segment table----------------
+-we must define an implementation to map two-dimensional user-defined addressses into one-dimensional physical addresses
+-this mapping is done by using a segment table.
+-each entry in the segment table has a segment base and a segment limit.
+-the segment base contains the starting physical adddress where the segment reside in memeroy, wheare the segment limit sepcifies the length of the segment
+
+			limit 		base
+			1000		1400
+			400		6300
+			400		4300
+			1100		3200
+			1000		4700
+
+able to map from logical address to physical memory space
+
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
