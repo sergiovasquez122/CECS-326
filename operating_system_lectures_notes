@@ -1455,6 +1455,54 @@ and an offset, all invisible to the programmer
 			1000		4700
 
 able to map from logical address to physical memory space
+----------------------------Segmentation hardware--------
+-Although in segmentation the user can now reer toobjects in the programby a two-dimensional address, the actual 
+physical memory is still, of course, a onedimensional sequence of bytes
+-the we define an implementationto map two-dimensional user-dfiend addressinto one-dimensional physical address
+-this is done with the help of a segment table
+
+-a logical address consists fo two parts
+a segment number ,'s', and an offset into that segment, 'd'.
+-the segment number is used as an index to the segment table.
+-the offset d of the logical address must be between and the segment limit.
+-If it is not, we trap to the operation system attmep beyond wend of segment we trap the operationing system
+-when an offset is legal, it is added to the segment base to produce the address in physical memory of the desired byte.
+
+example: reference to byte 53 of segment 2 - mapped to onto location 4300 + 53 = 4353
+----------------------------Virtual Memory---------------
+So far we have discuesses variaous memory-magnement strategies used in computer systems
+	purpose;
+keep many processes in memory simulatnlously toallow multi-porgramminning
+hthey tend to require that an process be in mmeory before it can executre. henc eth processse that can be loaded on to teh main meory is often limited by the size of the main memory.
+
+if size of main memor = 2gb
+if size of ofocesss = 3gb
+
+it becomes difficult to acommodate such processes in main memory. we can use methods such as dynamic loading, which we have discussed earlier but it generally require special precuations and extra work by the programmer.
+
+why virtual memory?
+virtual memroy is  astorage sscheme where secondary memory can be treated as though it is a part of main memory and large processes can be sorted in it. only the part of the process is actually needed for execution will be loaded on to the actual main memory.
+
+an examination of real programs show that 
+-programs often have code to handle unusal error conditions. sincethses errors seldom, if ever occur in practice, this code is almost never executed.
+
+-array, lists and table are often allocated more memory than they actually need. an array may be declard by 1000 by 100 element. even though it is seldom larget ahtn 10 by 10 element.
+
+-an assembler symbol table may have room for 3000 symbols, although the average program has less than 200 symbols.
+
+benefits of being able to execute a program that is only partially in memory
+
+-a program would no longer be constrained by teh amount of physical memory that is available. User would be able to
+write programs for an exremly large virtual address space, simplifying the programming task
+
+-because each user program could take lsess phyiscla memory, more programs
+could run at the same time, with a corresponding increase in CPU utilication and throughput but with no increase in response time or turnaround time.
+
+-Less I/O would e needed to load or swap each user program into memory, so each user program would run faster.
+
+running a program that is not entirely in memory would benefit both the system and the user.
+
+this sspeartion allows an extremely arge virtual memroy to be provided for programmers when only a smaller phyiscla memory is avaiaible.
 
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
