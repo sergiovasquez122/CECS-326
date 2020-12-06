@@ -1537,6 +1537,39 @@ we can make use of the present/absent bit or valid/invalid bit which was discues
 if the bit is set to 'valid' - the page is both legal and in memory.
 if the bit is set to 'invalid' - the page is either not in the lgocial address of the process or is valid but is currently on the disk
 ----------------------------Page Fault-------------------
+What would happen if a processtries to access a pages that is not present in memroy
+this scenario is known as a page fault
+
+acess to a page marked invlaid causes a page-fault trap
+
+the paging hardware, in translating the adddress through the page table, will notice that the invalid bit is set, causing a trap to the operating system.
+
+-A page fault may occur at any memory reference
+
+-If the page fault occurs on the instruction fetch, we can restart by fetching the instruciton again.
+-If a page fault occurs while we are fetching an operand, we must fetch and decode the instruction again and then fetch teh operand
+
+consider a three-adddress instruction for adding teh content of A to B and placing the result in C:
+
+1. Fetch and decode the instruciton (ADD).
+2. Fetch A.
+3. Fetch B.
+4. Add A and B.
+5. Store the sum in C.
+
+Assume that C is a page which is not yetpresent in memory. then a page fault will occur when trying to store the 
+sum in C.
+
+So, in this case, we have to get the desired page, bring into memory, correct the page table and restart the instruction.
+----------------------------Procesdure for handling Page Faults-----------------------------
+1. We check an internal table for this process to dermine whether the reference was a valid or an invalid memory access
+2. If the reference was invalid, we terminate the process.
+3. If it was valid, but we have not yet brought in that page, we not page it in.
+4. We find a free frame(by taking one from the free-frame list).
+5. We schedule a disk operationg to read the desired page into tehew newly allocated frame.
+6. When the disk read is complete, we modify the internal table kept with the process and the page table to indicate that the page is now in memory.
+7. We restart the instruction that was interrupted by the trap.
+		the process can now access the page as though it has always been in memory.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
