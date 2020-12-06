@@ -1570,6 +1570,54 @@ So, in this case, we have to get the desired page, bring into memory, correct th
 6. When the disk read is complete, we modify the internal table kept with the process and the page table to indicate that the page is now in memory.
 7. We restart the instruction that was interrupted by the trap.
 		the process can now access the page as though it has always been in memory.
+----------------------------Performance of Demand Paging------------------------------------
+A computer system's performacne can be significantly affectd by Demand Paging.
+	Let us see how, by taking a look at the Effective Access Time.
+The memory access time for most systems usually range from 10 to 200 nanoseconds
+If there are no page faults, the effective access time will be equal to the memory access time.
+but what if a page fault occurs
+
+let p be the probability of page faullt 0 <= p <= 1
+
+	effectiva access time = (1 - p) * ma + p * page fault time 
+
+the sequence that occurs when a page fault happens
+
+1. trap to the operating system.
+2. save the user registers and process state.
+3. Determine that the interrupt was a page fault
+4. Check that the page referne was legal and determien the location of the page on the disk.
+5. issue a read from the disk to a free frame:
+	1. wait in a queu for this device until the read requirest is serviced 
+	b. wait for the device seek
+	c. begin ght etransfre fo rth page to a ree frame
+6. while waiting, allocate dthe CPU to some other suer
+7. receive an interrupt fro mthe disk i/o
+8. save the registers and process state fo teh other user
+.
+.
+.
+
+not all the stpe shwon in teh previosu slides are necessary in everycase
+
+but in all cases we will facee there major components of the page fault servie time.
+
+1. service the page-fault interrupt
+2. read in the page.
+3. restart the process
+
+1 and 3 may take 1 to 100 microseconds each
+the second step can take close to 8 milliseconds
+
+
+so we can consider an average page fault handling time of 8 millisecond and a memory access time of 200 nanoseconds
+
+effective access time = (1 - p) * 200 + p * 8 millseconds
+
+(1 - p) * 200 + p * 8000000p
+= 200 + 7999800p
+
+the performance of the system reduces if we have a page-fault.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
