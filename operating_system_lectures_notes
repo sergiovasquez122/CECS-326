@@ -1504,6 +1504,39 @@ running a program that is not entirely in memory would benefit both the system a
 
 this sspeartion allows an extremely arge virtual memroy to be provided for programmers when only a smaller phyiscla memory is avaiaible.
 
+----------------------------Demand paging----------------
+How can an executalbe program be loaded from disk to memory?
+
+approach-1:
+lod the entire program in physical memory at program execution time.
+we may not initially need th entire program in memory. consider a program that starts with a list of available options from which the useris to select. loading the entire progam into memory results in loading the executalbe dhcode for all options, regardless of whether an option is ultimately selected by the user or not.
+
+approach-2:
+load pages only as they are needed. Pages are only loaded when they are demanded during program executoni. pages that are never accesses are thusnever loaded into physical memory. This is called deman paging.
+
+A demand-paging system is similar to a pagin system with swapping where processes reside in secondary memroy(usually a disk)
+
+when we want to exectue a process, we swap it into memory.
+
+rather than swapping the entire process into memory,we use a lazy swapper.
+
+a lazy swapper never swaps a page into memory unless that page will be needed.
+
+since we are now viewing a process as a sequence of pages, rather than as one large contigious address space, use of the term swapper is technically incorrect.
+
+	so, in connection with demand paging we sue the term page
+
+----------------------------Hardware implementation of demand paging---------------------
+-In deman paging,pages are onlyloaded when they are demanded during program execution, pages that are never accesses are thus never loaded into phyiscal memroy
+-the page takes care of swapping pages in and out of memory
+ow can the hardware implementatoin be done to distinguish between pages that are in memory
+and the pages that are on the disk?
+
+we can make use of the present/absent bit or valid/invalid bit which was discuessed in chapter-8 main memory
+
+if the bit is set to 'valid' - the page is both legal and in memory.
+if the bit is set to 'invalid' - the page is either not in the lgocial address of the process or is valid but is currently on the disk
+----------------------------Page Fault-------------------
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
