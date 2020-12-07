@@ -1475,8 +1475,12 @@ So far we have discuesses variaous memory-magnement strategies used in computer 
 keep many processes in memory simulatnlously toallow multi-porgramminning
 hthey tend to require that an process be in mmeory before it can executre. henc eth processse that can be loaded on to teh main meory is often limited by the size of the main memory.
 
-if size of main memor = 2gb
-if size of ofocesss = 3gb
+do we really need to load all blocks into memory before teh process starts executing?
+
+no, not all part of the program are accessed simultaneously. In fact, some code may not even be executed.
+
+if size of main memor = 2 gb
+if size of ofocesss = 3 gb
 
 it becomes difficult to acommodate such processes in main memory. we can use methods such as dynamic loading, which we have discussed earlier but it generally require special precuations and extra work by the programmer.
 
@@ -1505,7 +1509,33 @@ running a program that is not entirely in memory would benefit both the system a
 this sspeartion allows an extremely arge virtual memroy to be provided for programmers when only a smaller phyiscla memory is avaiaible.
 
 ----------------------------Demand paging----------------
-How can an executalbe program be loaded from disk to memory?
+How can an executable program be loaded from disk to memory?
+
+pages are loaded from disk to RAM, only when needed
+a 'present' bit is in the page table indicates if the block is in RAM or not.
+
+if (present bit = 1)(block in RAME)
+else (block not in RAM)
+
+If a page is accessed, that si not present in RAM, the processor issues a page fault interrupt, triggering teh OS to load the page into RAM and mark the present the bit to 1
+
+if there are no pages free for a new block to be loaded, teh OS makes a decision to ermove another block from RAM.
+
+This is based on a replacement polic, implemented in the OS.
+
+Some replacement policies are 
+-First in First out
+-Least recently used
+-Least frequently used
+
+The replaced block may need to written back to the swap
+(swap out)
+
+the dirty bit, in the page table indicates if a page needs to be written back to disk
+
+If the dirty bit is 1, indicates the page needs to be written back to disk.
+
+Protection bits, in the page table determine if the page is executable,readonly, and accessible by a user process.
 
 approach-1:
 lod the entire program in physical memory at program execution time.
@@ -1525,9 +1555,30 @@ a lazy swapper never swaps a page into memory unless that page will be needed.
 since we are now viewing a process as a sequence of pages, rather than as one large contigious address space, use of the term swapper is technically incorrect.
 
 	so, in connection with demand paging we sue the term page
+----------------------------Virtual address space of a process-------------------------------
+
+process represented by its virtual address space
+
+it is a contigious addressable space (from address 0 to MAX_Size)
+
+a.out contains information about how to create the virtual address space
+
+addressing the process
+
+to access process mrmory, the process generates the corresponding virtual address.
+
+0 <= v < max_size
+
+the memory managgement unit(MMU) maps the virtual 
+address v to a corresponding physical address p in RAM
+
+when a program begins to execute, teh OS creates a page table in RAM.
+
+virtual addres from processor has two parts
+tehe table index and the offset
 
 ----------------------------Hardware implementation of demand paging---------------------
--In deman paging,pages are onlyloaded when they are demanded during program execution, pages that are never accesses are thus never loaded into phyiscal memroy
+-In demand paging,pages are only loaded when they are demanded during program execution, pages that are never accesses are thus never loaded into phyiscal memroy
 -the page takes care of swapping pages in and out of memory
 ow can the hardware implementatoin be done to distinguish between pages that are in memory
 and the pages that are on the disk?
@@ -1608,7 +1659,6 @@ but in all cases we will facee there major components of the page fault servie t
 
 1 and 3 may take 1 to 100 microseconds each
 the second step can take close to 8 milliseconds
-
 
 so we can consider an average page fault handling time of 8 millisecond and a memory access time of 200 nanoseconds
 
