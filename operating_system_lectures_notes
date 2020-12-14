@@ -1470,7 +1470,7 @@ a segment number ,'s', and an offset into that segment, 'd'.
 
 example: reference to byte 53 of segment 2 - mapped to onto location 4300 + 53 = 4353
 ----------------------------Virtual Memory---------------
-So far we have discuesses variaous memory-magnement strategies used in computer systems
+So far we have discussed variaous memory-magnement strategies used in computer systems
 	purpose;
 keep many processes in memory simulatnlously toallow multi-porgramminning
 hthey tend to require that an process be in mmeory before it can executre. henc eth processse that can be loaded on to teh main meory is often limited by the size of the main memory.
@@ -1479,35 +1479,34 @@ do we really need to load all blocks into memory before teh process starts execu
 
 no, not all part of the program are accessed simultaneously. In fact, some code may not even be executed.
 
-if size of main memor = 2 gb
-if size of ofocesss = 3 gb
+if size of main memory = 2 gb
+if size of of processs = 3 gb
 
 it becomes difficult to acommodate such processes in main memory. we can use methods such as dynamic loading, which we have discussed earlier but it generally require special precuations and extra work by the programmer.
 
 why virtual memory?
-virtual memroy is  astorage sscheme where secondary memory can be treated as though it is a part of main memory and large processes can be sorted in it. only the part of the process is actually needed for execution will be loaded on to the actual main memory.
+virtual memory is a storage scheme where secondary memory can be treated as though it is a part of main memory and large processes can be sorted in it. only the part of the process that is actually needed for execution will be loaded on to the actual main memory.
 
 an examination of real programs show that 
--programs often have code to handle unusal error conditions. sincethses errors seldom, if ever occur in practice, this code is almost never executed.
+-programs often have code to handle unusual error conditions. sincethses errors seldom, if ever occur in practice, this code is almost never executed.
 
--array, lists and table are often allocated more memory than they actually need. an array may be declard by 1000 by 100 element. even though it is seldom larget ahtn 10 by 10 element.
+-array, lists and table are often allocated more memory than they actually need. an array may be declard by 1000 by 100 element. even though it is seldom larger than 10 by 10 element.
 
 -an assembler symbol table may have room for 3000 symbols, although the average program has less than 200 symbols.
 
 benefits of being able to execute a program that is only partially in memory
 
--a program would no longer be constrained by teh amount of physical memory that is available. User would be able to
-write programs for an exremly large virtual address space, simplifying the programming task
+-a program would no longer be constrained by the amount of physical memory that is available. User would be able to
+write programs for an extremely large virtual address space, simplifying the programming task
 
--because each user program could take lsess phyiscla memory, more programs
+-because each user program could take less physical memory, more programs
 could run at the same time, with a corresponding increase in CPU utilication and throughput but with no increase in response time or turnaround time.
 
--Less I/O would e needed to load or swap each user program into memory, so each user program would run faster.
+-Less I/O would be needed to load or swap each user program into memory, so each user program would run faster.
 
 running a program that is not entirely in memory would benefit both the system and the user.
 
-this sspeartion allows an extremely arge virtual memroy to be provided for programmers when only a smaller phyiscla memory is avaiaible.
-
+this separation allows an extremely large virtual memory to be provided for programmers when only a smaller physical memory is available.
 ----------------------------Demand paging----------------
 How can an executable program be loaded from disk to memory?
 
@@ -1538,13 +1537,15 @@ If the dirty bit is 1, indicates the page needs to be written back to disk.
 Protection bits, in the page table determine if the page is executable,readonly, and accessible by a user process.
 
 approach-1:
-lod the entire program in physical memory at program execution time.
+load the entire program in physical memory at program execution time.
+
+problem:
 we may not initially need th entire program in memory. consider a program that starts with a list of available options from which the useris to select. loading the entire progam into memory results in loading the executalbe dhcode for all options, regardless of whether an option is ultimately selected by the user or not.
 
 approach-2:
-load pages only as they are needed. Pages are only loaded when they are demanded during program executoni. pages that are never accesses are thusnever loaded into physical memory. This is called deman paging.
+load pages only as they are needed. Pages are only loaded when they are demanded during program execution. pages that are never accesses are thus never loaded into physical memory. This is called deman paging.
 
-A demand-paging system is similar to a pagin system with swapping where processes reside in secondary memroy(usually a disk)
+A demand-paging system is similar to a paging system with swapping where processes reside in secondary memroy(usually a disk)
 
 when we want to exectue a process, we swap it into memory.
 
@@ -1668,6 +1669,40 @@ effective access time = (1 - p) * 200 + p * 8 millseconds
 = 200 + 7999800p
 
 the performance of the system reduces if we have a page-fault.
+----------------------------Page Replacement------------------
+Page replacement is the technique of sawpping out pages from physical memory when there are no
+more free frames available, in order to make room for other pages which has to be loaded to the physical memory.
+
+If a process wants to use/access a page which is not present in physical memory, it will cause a page fault.
+
+		So, that page has to be now loaded into memory
+
+But if there are no free frames avaiable to load that page, what should we do then?
+
+-we look for an occupied frame that is not being used currently.
+-we free that frame by writing its content to the swap place.
+-we update the page tables to indicate that the page is now no more in memory.
+-we load the page of the process that caused the page fault to occur into the freed frame.
+steps:
+1. find the location of the page to be loaded on the disk.
+2. if there is a free frame, use that frame and load the page into that frame.
+3. if there are no free frames, use a page-replacement algorithm to select a victim frame.
+4. write the victim frame to the disk and change the page and frame tables accordingly.
+5. read the desired page into the newly freed frame and change the page and frame tables.
+6. restart the user process.
+
+page-fault service time when no frames are free
+1. if no frames are free, two page transfers are required.
+2. this doubles the page-fault service time and increases the effective access time accordingly.
+		
+			how can we reduce this?
+
+		we can make use of the modify bit.
+	this modify bit is set when a page has been modified.
+
+So, when page replacement has to be done a page which is present in memory:
+- If modify bit is set - that means the page has been modified and we need to write that to the disk.
+- If the modify bit is not set - that means the page has not been modified and it is the same as the copy which is already present in the disk. In this case, we don't have to overwrise this page on the disk, thus reducing the overhead and the effective access time accordingly.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
