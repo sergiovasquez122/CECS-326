@@ -1703,6 +1703,92 @@ page-fault service time when no frames are free
 So, when page replacement has to be done a page which is present in memory:
 - If modify bit is set - that means the page has been modified and we need to write that to the disk.
 - If the modify bit is not set - that means the page has not been modified and it is the same as the copy which is already present in the disk. In this case, we don't have to overwrise this page on the disk, thus reducing the overhead and the effective access time accordingly.
+----------------------------FIFO Page Replacement-----------------------
+The first-in, first out algorithm is the simplest page replacement algorithm.
+
+when page replacement has to be done, the oldest page in memory is chosen to e swapped out.
+
+how to maintain a record of the time that pages were brought into memory in order to figure out which 
+is the the oldest page?
+
+-we don't have to strictly record the times
+-instead we can use a FIFO queue that can hold all the pages that are in memory.
+-when replacement has to be done, we can choose the page at the head of the to be swapped out of memory.
+-when a new page is loaded into memor, we add it at the tail of the queue
+
+consider the reference string
+	7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 2, 1, 2, 0, 1, 7, 0, 1
+where each value represents a page.
+
+	let's say we have 3 frames in memory.
+
+also, let's consider a Queue that can hold all the pages that are loaded in memory.
+
+page 7 is not in memory, this is page fault we load into memory
+
+queue: 7
+
+page 0 is not in memory, this is page fault we load into memory
+
+queue: 7 0
+
+page 1 is not in memory, this is page fault we load into memory
+
+queue: 7 0 1
+
+
+page 2 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 0 1 2
+
+page 0 is in memory, this is not a page fault
+
+page 3 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 1 2 3
+
+page 0 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 2 3 0
+
+page 4 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 3 0 4
+
+page 2 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 0 4 2
+
+page 3 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 4 2 3
+
+page 2 is in the memory. not a page fault.
+
+page 1 is not in memory, this is page fault we load into memory. we evict the head of the queue
+
+queue: 2 3 1
+
+page 2 is in memory, this is not a page fault
+
+page 0 is not in memory, this is a page fault. we evict the head of the queue.
+
+queue: 3 1 0
+
+page 1 is in memory, this is not a page fault. 
+
+page 7 is not in memory, this is a page fault we evict the head of the queue.
+
+queue: 1 0 7
+
+page 0 is in memory, this is not a page fault.
+
+page 1 is in memory, this is not a page fault.
+
+advantages:
+easy to implement
+disadvantages:
+at some point most frequent page used will be replaced, it may be required to load into memory by the next step.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
