@@ -1789,6 +1789,72 @@ advantages:
 easy to implement
 disadvantages:
 at some point most frequent page used will be replaced, it may be required to load into memory by the next step.
+----------------------------Belady's Anomaly---------------------
+Generate expectation about the relation between number of frames in memory and number of page.
+
+	with more number of page frames there will be lesser page faults
+-As the number of frames increases, the number of pages faults drop to some minimimal level
+-Adding physical memory increases the number of frames
+
+example of FIFO queue with the string 1,2,3,4,1,2,5,1,2,3,4,5
+
+1 is not in the queue, this is a page fault. add it into the queue F
+
+queue:1
+
+2 is not in the queue, this is a page fault. add it into the queue F
+
+queue:1 2
+
+3 is not in the queue, this is a page fault. add it into the queue F
+
+queue:1 2 3
+
+4 is not in the queue, this is a page fault. add it into the queue F
+
+queue:2 3 4
+
+1 is not in the queue, this is a page fault. add it into the queue F
+
+queue:3 4 1
+
+2 is not in the queue, this is a page fault. add it into the queue F
+
+queue:4 1 2
+
+5 is not in the queue, this is a page fault. add it into the queue F
+
+queue:1 2 5
+
+1 is in the queue, this is not a page fault.
+
+2 is in the queue, this is not a page fault.
+
+3 is not in the queue, this is a page fault. F
+
+queue:2 5 3
+
+4 is not in the queue this is a page fault. F
+
+5 3 4
+
+5 is in the queue, this is not a page fault.
+
+9 page faults when there were 3 frames
+
+10 page faults when there are 4 frames
+
+we that teh as the number of frames increases, the number of pages faults also increased.
+
+this unexpected result is known s belady's anomaly
+
+for some page-replacement algorithms, the page-fault rate may increase as the number of allocted
+frames increase.
+----------------------------Optimal Page Replacement--------------
+An optimal page-replacment algorithm has the lowest page-fault rate of alll algorithms.
+
+-it will never suffer from Belady's algorithm.
+-it guarantees the lowest possible page fault rate for afixed number of frames.
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
