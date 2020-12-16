@@ -1851,10 +1851,168 @@ this unexpected result is known s belady's anomaly
 for some page-replacement algorithms, the page-fault rate may increase as the number of allocted
 frames increase.
 ----------------------------Optimal Page Replacement--------------
-An optimal page-replacment algorithm has the lowest page-fault rate of alll algorithms.
+An optimal page-replacement algorithm has the lowest page-fault rate of alll algorithms.
 
 -it will never suffer from Belady's algorithm.
--it guarantees the lowest possible page fault rate for afixed number of frames.
+-it guarantees the lowest possible page fault rate for a fixed number of frames.
+
+consider the reference string
+
+7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
+
+	let's say we have 3 frames in memory.
+
+7 is not in the queue so it's a page fault. F
+
+queue: 7
+
+0 is not in the queue so it's a page fault. F
+
+queue: 7 0 
+
+1 is not in the queue so it's a page fault. F
+
+queue: 7 0 1
+
+2 is not in the queue, we'll replace 7 since it is not called in subsequent until much later
+
+queue: 2 0 1
+
+0 is in the queue so its not a page fault.
+
+3 is not in the queue, this is a page fault. F
+
+we'll replace 1
+
+queue: 2 0 3
+
+0 is in the queue, so this is not a page fault.
+
+4 is not in the queue, this is a page fault. replace 0
+
+queue: 2 4 3
+
+2 is in the queue, not a page fault
+
+3 is in th queue, not a page fault
+
+0 is not in the queue, this page fault. replace 4
+
+queue:2 0 3
+
+3 is in the queue,not a page fault
+
+2 is in the queue, not a page fault
+
+1 is not in the queue, replace with 3
+
+queue: 2 0 1
+
+2 is in the queue, not a page fault
+
+0 is in the queue not a page fault
+
+1 is in the queue not a page fault
+
+7 is not in the queue, this is page fault. F
+
+queue: 7 0 1
+
+0 is in the queue, not a page fault
+
+1 is in the queue, not a page fault
+
+optimal page-replacement algorithm is difficult to implement, because it requires future knowledge of the reference string.
+----------------------------LRU page replacement-----------
+least recently used algorithm
+
+-It associates with each page the time of that page's last use.
+
+-When a page must be replaced, LRU choose the page that has not ben used for the longest period of time.
+
+-It is almost like the optimal page-replcement algorithm loooking backward in time, rather than forward.
+
+consider the reference string
+
+	7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
+
+	where each value represents a page.
+
+Let's say we have 3 frames in memory.
+
+let's apply LRU
+
+7 is not in the queue, page fault F
+
+queue: 7
+
+0 is not in the queue, page fault F
+
+queue: 7 0
+
+1 is not in the queue, page fault F
+
+queue: 7 0 1
+
+2 is not in the queue, page fault F
+
+queue: 0 1 2
+
+1 is in the queue, not a page fault
+
+queue: 0 2 1
+
+3 is not in the queue, page fault F
+
+queue: 2 1 3
+
+0 is not in the queue, page fault F
+
+queue: 1 3 0
+
+4 is not in the queue, page fault F
+
+queue: 3 0 4
+
+2 is not in the queue, page fault F
+
+queue: 0 4 2
+
+3 is not in teh queue, page fault F
+
+queue: 4 2 3
+
+2 is in the queue, not a page fault
+
+queue: 4 3 2
+
+1 is not in teh queue, page fault F
+
+queue: 3 2 1
+
+2 is in the queue, not a page fault
+
+queue: 3 1 2
+
+0 is not in the queue, page fault F
+
+queue: 1 2 0
+
+1 is in teh queue, not a page fault
+
+queue: 2 0 1
+
+7 not in the queue, page fault F
+
+queue: 0 1 7
+
+0 is in the queue, not a page fault
+
+queue: 1 7 0
+
+1 is in the queue, not a page fault
+
+queue: 7 0 1
 ----------------------------Context Switch---------------
 -Interrupts cause the operating system to change a CPU from its current task to run a kernel routine.
 
